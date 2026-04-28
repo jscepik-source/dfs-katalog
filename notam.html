@@ -3,63 +3,243 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOTAM Erklärung – DFS</title>
+    <title>NfL – Nachrichten für Luftfahrer</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; background: #f4f4f4; color: #333; }
 
-        body { font-family: Arial, sans-serif; background: #f4f4f4; color: #333; display: flex; flex-direction: column; height: 100vh; }
+        header { background: #003366; color: white; padding: 20px 30px; }
+        header h1 { font-size: 1.6rem; }
+        header p  { font-size: 0.9rem; opacity: 0.8; margin-top: 4px; }
 
-        header { background: #003366; color: white; padding: 16px 30px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
-        header h1 { font-size: 1.4rem; }
+        .container { max-width: 1000px; margin: 24px auto; padding: 0 20px; }
 
-        .meta { font-size: 0.82rem; opacity: 0.75; }
-
-        .toolbar { padding: 10px 20px; background: white; border-bottom: 1px solid #ddd; display: flex; gap: 12px; align-items: center; }
-
-        .btn {
-            padding: 8px 16px; background: #003366; color: white;
-            text-decoration: none; border-radius: 5px; font-size: 0.85rem;
-            border: none; cursor: pointer;
+        .filterbar {
+            background: white; border-radius: 8px; padding: 14px 16px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+            display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+            margin-bottom: 14px;
         }
-        .btn:hover { background: #0055aa; }
+        .filterbar input {
+            flex: 1; min-width: 200px; padding: 9px 14px;
+            border: 1px solid #ccc; border-radius: 6px; font-size: 0.9rem;
+        }
+        .filterbar select {
+            padding: 9px 12px; border: 1px solid #ccc; border-radius: 6px;
+            font-size: 0.9rem; background: white; cursor: pointer;
+        }
+        .teil-toggle { display: flex; }
+        .teil-toggle button {
+            padding: 8px 16px; border: 1px solid #ccc; background: white;
+            cursor: pointer; font-size: 0.85rem; transition: all 0.15s;
+        }
+        .teil-toggle button:first-child { border-radius: 6px 0 0 6px; }
+        .teil-toggle button:last-child  { border-radius: 0 6px 6px 0; }
+        .teil-toggle button:not(:first-child) { border-left: none; }
+        .teil-toggle button.aktiv { background: #003366; color: white; border-color: #003366; }
+        .teil-toggle button:hover:not(.aktiv) { background: #f0f4ff; }
 
-        #pdf-frame { flex: 1; width: 100%; border: none; }
+        #zaehler { font-size: 0.85rem; color: #666; margin-bottom: 10px; }
 
-        #laden { text-align: center; padding: 60px; color: #666; }
+        table {
+            width: 100%; border-collapse: collapse; background: white;
+            border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+            overflow: hidden; font-size: 0.9rem;
+        }
+        thead { background: #003366; color: white; }
+        thead th { padding: 12px 16px; text-align: left; font-weight: 600; }
+        tbody tr:nth-child(even) { background: #f8f9ff; }
+        tbody tr:hover { background: #e8f0ff; }
+        tbody td { padding: 10px 16px; border-bottom: 1px solid #eee; }
+        tbody tr:last-child td { border-bottom: none; }
+
+        .teil-badge {
+            display: inline-block; padding: 2px 9px; border-radius: 12px;
+            font-size: 0.78rem; font-weight: bold;
+        }
+        .teil-1 { background: #dbeafe; color: #1d4ed8; }
+        .teil-2 { background: #dcfce7; color: #166534; }
+
+        .nr-col { color: #aaa; font-size: 0.8rem; width: 60px; }
+
+        .pagination {
+            display: flex; gap: 5px; justify-content: center;
+            margin: 16px 0; flex-wrap: wrap;
+        }
+        .pagination button {
+            padding: 7px 12px; border: 1px solid #ccc; background: white;
+            border-radius: 5px; cursor: pointer; font-size: 0.85rem; min-width: 36px;
+        }
+        .pagination button.aktiv { background: #003366; color: white; border-color: #003366; }
+        .pagination button:hover:not(.aktiv):not(:disabled) { background: #f0f4ff; }
+        .pagination button:disabled { opacity: 0.35; cursor: default; }
+
+        .footer {
+            text-align: center; padding: 20px; color: #999;
+            font-size: 0.82rem; margin-top: 8px;
+        }
+        .footer a { color: #003366; text-decoration: none; }
+        .footer a:hover { text-decoration: underline; }
+
+        #laden { text-align: center; padding: 40px; color: #666; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>NOTAM – Erklärung von A bis Z</h1>
-    <span class="meta" id="stand">Wird geladen...</span>
+    <h1>NfL – Nachrichten für Luftfahrer</h1>
+    <p id="meta">Wird geladen…</p>
 </header>
 
-<div class="toolbar">
-    <a id="download-btn" class="btn" href="#" target="_blank" download>PDF herunterladen</a>
-    <a id="extern-btn" class="btn" href="#" target="_blank">Im neuen Tab öffnen ↗</a>
+<div class="container">
+
+    <div class="filterbar">
+        <input type="text" id="suche" placeholder="Nummer suchen (z.B. 2026-1-3894)…">
+        <select id="jahr-filter">
+            <option value="">Alle Jahre</option>
+        </select>
+        <div class="teil-toggle">
+            <button class="aktiv" data-teil="">Alle</button>
+            <button data-teil="1">Teil 1</button>
+            <button data-teil="2">Teil 2</button>
+        </div>
+    </div>
+
+    <div id="zaehler"></div>
+    <div id="tabelle-container"><div id="laden">Daten werden geladen…</div></div>
+    <div class="pagination" id="pagination"></div>
+
+    <div class="footer">
+        <a href="https://www.dfs.de/homepage/de/medien/ifr-vfr-informationen/vfr-informationen/" target="_blank">
+            NOTAM-Erklärung (PDF) auf dfs.de ↗
+        </a>
+        &nbsp;|&nbsp;
+        <a href="index.html">← Flughafen-Katalog</a>
+    </div>
 </div>
 
-<iframe id="pdf-frame" src="" title="NOTAM PDF">
-    <p id="laden">PDF wird geladen...</p>
-</iframe>
-
 <script>
-    const JSON_URL = 'https://raw.githubusercontent.com/jscepik-source/dfs-katalog/main/notam_info.json';
+    const JSON_URL = './nfl_katalog.json?v=' + Date.now();
+    const PAGE_SIZE = 100;
+
+    let alleEintraege = [];
+    let gefiltert     = [];
+    let seite         = 0;
+    let aktivTeil     = '';
+
+    function extractJahr(nummer) {
+        let m;
+        m = nummer.match(/^(\d{4})-\d+-\d+/);
+        if (m) return parseInt(m[1]);
+        m = nummer.match(/^\d+-\d+-(\d{2})$/);
+        if (m) { let yy = parseInt(m[1]); return yy >= 60 ? 1900+yy : 2000+yy; }
+        m = nummer.match(/\/(\d{2})$/);
+        if (m) { let yy = parseInt(m[1]); return yy >= 60 ? 1900+yy : 2000+yy; }
+        return null;
+    }
+
+    function filtern() {
+        const q = document.getElementById('suche').value.toLowerCase().trim();
+        const j = document.getElementById('jahr-filter').value;
+
+        gefiltert = alleEintraege.filter(e => {
+            if (q && !e.nummer.toLowerCase().includes(q)) return false;
+            if (aktivTeil && e.teil !== aktivTeil) return false;
+            if (j && String(e.jahr) !== j) return false;
+            return true;
+        });
+
+        seite = 0;
+        rendern();
+    }
+
+    function rendern() {
+        const gesamt      = gefiltert.length;
+        const start       = seite * PAGE_SIZE;
+        const aktSeite    = gefiltert.slice(start, start + PAGE_SIZE);
+        const totalSeiten = Math.ceil(gesamt / PAGE_SIZE);
+
+        document.getElementById('zaehler').textContent =
+            gesamt === alleEintraege.length
+                ? `${gesamt.toLocaleString('de-DE')} Einträge`
+                : `${gesamt.toLocaleString('de-DE')} von ${alleEintraege.length.toLocaleString('de-DE')} Einträgen`;
+
+        if (gesamt === 0) {
+            document.getElementById('tabelle-container').innerHTML =
+                '<p style="padding:20px;color:#999;background:white;border-radius:8px">Keine Ergebnisse.</p>';
+            document.getElementById('pagination').innerHTML = '';
+            return;
+        }
+
+        document.getElementById('tabelle-container').innerHTML =
+            '<table><thead><tr>' +
+            '<th class="nr-col">#</th><th>Nummer</th><th>Teil</th><th>Jahr</th>' +
+            '</tr></thead><tbody>' +
+            aktSeite.map((e, i) =>
+                `<tr>
+                    <td class="nr-col">${start + i + 1}</td>
+                    <td><strong>${e.nummer}</strong></td>
+                    <td><span class="teil-badge teil-${e.teil}">Teil ${e.teil || '?'}</span></td>
+                    <td>${e.jahr || '–'}</td>
+                </tr>`
+            ).join('') +
+            '</tbody></table>';
+
+        if (totalSeiten <= 1) { document.getElementById('pagination').innerHTML = ''; return; }
+
+        const MAX_BTN = 7;
+        let btns = [];
+        btns.push(`<button ${seite===0?'disabled':''} onclick="wechsel(${seite-1})">&#8249;</button>`);
+
+        let lo = Math.max(0, seite - Math.floor(MAX_BTN / 2));
+        let hi = Math.min(totalSeiten, lo + MAX_BTN);
+        lo = Math.max(0, hi - MAX_BTN);
+
+        if (lo > 0) btns.push(`<button onclick="wechsel(0)">1</button><button disabled>…</button>`);
+        for (let p = lo; p < hi; p++)
+            btns.push(`<button class="${p===seite?'aktiv':''}" onclick="wechsel(${p})">${p+1}</button>`);
+        if (hi < totalSeiten) btns.push(`<button disabled>…</button><button onclick="wechsel(${totalSeiten-1})">${totalSeiten}</button>`);
+        btns.push(`<button ${seite===totalSeiten-1?'disabled':''} onclick="wechsel(${seite+1})">&#8250;</button>`);
+
+        document.getElementById('pagination').innerHTML = btns.join('');
+    }
+
+    function wechsel(p) { seite = p; rendern(); window.scrollTo(0, 0); }
+
+    document.getElementById('suche').addEventListener('input', filtern);
+    document.getElementById('jahr-filter').addEventListener('change', filtern);
+    document.querySelectorAll('.teil-toggle button').forEach(btn =>
+        btn.addEventListener('click', function () {
+            document.querySelectorAll('.teil-toggle button').forEach(b => b.classList.remove('aktiv'));
+            this.classList.add('aktiv');
+            aktivTeil = this.dataset.teil;
+            filtern();
+        })
+    );
 
     fetch(JSON_URL)
         .then(r => r.json())
         .then(data => {
-            const url = data.pdf_url;
-            document.getElementById('pdf-frame').src = url;
-            document.getElementById('download-btn').href = url;
-            document.getElementById('extern-btn').href = url;
-            document.getElementById('stand').textContent = `Zuletzt aktualisiert: ${data.aktualisiert}`;
+            document.getElementById('meta').textContent =
+                `${(data.gesamt || data.eintraege.length).toLocaleString('de-DE')} Einträge · ` +
+                `Zuletzt aktualisiert: ${data.aktualisiert || '–'} · täglich automatisch aktualisiert`;
+
+            alleEintraege = data.eintraege.map(e => ({ ...e, jahr: extractJahr(e.nummer) }));
+
+            const jahre = [...new Set(alleEintraege.map(e => e.jahr).filter(Boolean))].sort((a,b) => b-a);
+            const sel = document.getElementById('jahr-filter');
+            jahre.forEach(j => {
+                const o = document.createElement('option');
+                o.value = j; o.textContent = j;
+                sel.appendChild(o);
+            });
+
+            gefiltert = [...alleEintraege];
+            rendern();
         })
         .catch(() => {
-            document.getElementById('laden').textContent = 'Fehler beim Laden des PDFs.';
+            document.getElementById('laden').textContent = 'Fehler beim Laden der Daten.';
         });
 </script>
-
 </body>
 </html>

@@ -2,8 +2,8 @@ name: DFS Katalog aktualisieren
 
 on:
   schedule:
-    - cron: '0 3 * * 4/4'  # Alle 28 Tage donnerstags um 3 Uhr
-  workflow_dispatch:         # Auch manuell startbar
+    - cron: '0 3 * * *'   # Täglich um 3 Uhr UTC
+  workflow_dispatch:        # Auch manuell startbar
 
 jobs:
   update:
@@ -26,13 +26,16 @@ jobs:
       - name: Flughafen-Bot ausführen
         run: python dfs_bot.py
 
-      - name: NOTAM-Bot ausführen
+      - name: NOTAM-PDF-Bot ausführen
         run: python notam_bot.py
 
-      - name: JSONs committen und pushen
+      - name: NfL-Liste-Bot ausführen
+        run: python nfl_bot.py
+
+      - name: Dateien committen und pushen
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add dfs_katalog_export.json notam_info.json
-          git diff --staged --quiet || git commit -m "Katalog und NOTAM automatisch aktualisiert (AIRAC)"
+          git add dfs_katalog_export.json notam_info.json nfl_katalog.json
+          git diff --staged --quiet || git commit -m "Katalog, NOTAM und NfL automatisch aktualisiert"
           git push
