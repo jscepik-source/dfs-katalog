@@ -18,18 +18,21 @@ jobs:
           python-version: '3.11'
 
       - name: Abhängigkeiten installieren
-        run: pip install selenium
+        run: pip install selenium requests beautifulsoup4
 
       - name: Chrome installieren
         uses: browser-actions/setup-chrome@v1
 
-      - name: Bot ausführen
+      - name: Flughafen-Bot ausführen
         run: python dfs_bot.py
 
-      - name: JSON committen und pushen
+      - name: NOTAM-Bot ausführen
+        run: python notam_bot.py
+
+      - name: JSONs committen und pushen
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add dfs_katalog_export.json
-          git diff --staged --quiet || git commit -m "Katalog automatisch aktualisiert (AIRAC)"
+          git add dfs_katalog_export.json notam_info.json
+          git diff --staged --quiet || git commit -m "Katalog und NOTAM automatisch aktualisiert (AIRAC)"
           git push

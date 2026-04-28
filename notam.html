@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOTAM Erklärung – DFS</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body { font-family: Arial, sans-serif; background: #f4f4f4; color: #333; display: flex; flex-direction: column; height: 100vh; }
+
+        header { background: #003366; color: white; padding: 16px 30px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+        header h1 { font-size: 1.4rem; }
+
+        .meta { font-size: 0.82rem; opacity: 0.75; }
+
+        .toolbar { padding: 10px 20px; background: white; border-bottom: 1px solid #ddd; display: flex; gap: 12px; align-items: center; }
+
+        .btn {
+            padding: 8px 16px; background: #003366; color: white;
+            text-decoration: none; border-radius: 5px; font-size: 0.85rem;
+            border: none; cursor: pointer;
+        }
+        .btn:hover { background: #0055aa; }
+
+        #pdf-frame { flex: 1; width: 100%; border: none; }
+
+        #laden { text-align: center; padding: 60px; color: #666; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>NOTAM – Erklärung von A bis Z</h1>
+    <span class="meta" id="stand">Wird geladen...</span>
+</header>
+
+<div class="toolbar">
+    <a id="download-btn" class="btn" href="#" target="_blank" download>PDF herunterladen</a>
+    <a id="extern-btn" class="btn" href="#" target="_blank">Im neuen Tab öffnen ↗</a>
+</div>
+
+<iframe id="pdf-frame" src="" title="NOTAM PDF">
+    <p id="laden">PDF wird geladen...</p>
+</iframe>
+
+<script>
+    const JSON_URL = 'https://raw.githubusercontent.com/jscepik-source/dfs-katalog/main/notam_info.json';
+
+    fetch(JSON_URL)
+        .then(r => r.json())
+        .then(data => {
+            const url = data.pdf_url;
+            document.getElementById('pdf-frame').src = url;
+            document.getElementById('download-btn').href = url;
+            document.getElementById('extern-btn').href = url;
+            document.getElementById('stand').textContent = `Zuletzt aktualisiert: ${data.aktualisiert}`;
+        })
+        .catch(() => {
+            document.getElementById('laden').textContent = 'Fehler beim Laden des PDFs.';
+        });
+</script>
+
+</body>
+</html>
