@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DFS Flughafen-Katalog</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background: #003366;
+            color: white;
+            padding: 20px 30px;
+        }
+
+        header h1 { font-size: 1.6rem; }
+        header p  { font-size: 0.9rem; opacity: 0.8; margin-top: 4px; }
+
+        .container { max-width: 960px; margin: 30px auto; padding: 0 20px; }
+
+        #suche {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        #zaehler {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 16px;
+        }
+
+        .flughafen {
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .fh-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 18px;
+            cursor: pointer;
+            background: white;
+            border: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .fh-header:hover { background: #f0f4ff; }
+
+        .fh-name { font-weight: bold; font-size: 1rem; }
+
+        .fh-anzahl {
+            font-size: 0.8rem;
+            background: #003366;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        .fh-karten {
+            display: none;
+            border-top: 1px solid #eee;
+            padding: 10px 18px;
+        }
+
+        .fh-karten.offen { display: block; }
+
+        .fh-karten a {
+            display: block;
+            padding: 7px 0;
+            color: #003366;
+            text-decoration: none;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .fh-karten a:last-child { border-bottom: none; }
+        .fh-karten a:hover { text-decoration: underline; }
+
+        .keine-karten {
+            font-size: 0.85rem;
+            color: #999;
+            padding: 6px 0;
+        }
+
+        #laden {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>DFS Flughafen-Katalog</h1>
+    <p>Quelle: AIP DFS BasicVFR — alle Flughäfen mit Karten und Dokumenten</p>
+</header>
+
+<div class="container">
+    <input type="text" id="suche" placeholder="Flughafen suchen (z.B. EDDF, Frankfurt)...">
+    <div id="zaehler"></div>
+    <div id="liste"><div id="laden">Daten werden geladen...</div></div>
+</div>
+
+<script>
+    const JSON_URL = 'https://raw.githubusercontent.com/jscepik-source/dfs-katalog/main/dfs_katalog_export.json';
+    let katalogDaten = {};
+
+    fetch(JSON_URL)
+        .then(r => r.json())
+        .then(data => {
+            katalogDaten = data;
+            zeige(data);
+        })
+        .catch(() => {
+            document.getElementById('laden').textContent = 'Fehler beim Laden der Daten.';
+        });
+
+    function zeige(data) {
+        const liste = document.getElementById('liste');
+        const eintraege = Object.entries(data);
+        document.getElementById('zaehler').textContent = `${eintraege.length} Flughäfen`;
+
+        if (eintraege.length === 0) {
+            liste.innerHTML = '<p style="color:#999">Keine Ergebnisse gefunden.</p>';
+            return;
+        }
+
+        liste.innerHTML = eintraege.map(([name, karten]) => {
+            const kartenEintraege = Object.entries(karten);
+            const kartenHTML = kartenEintraege.length > 0
+                ? kartenEintraege.map(([k, url]) => `<a href="${url}" target="_blank">${k}</a>`).join('')
+                : '<span class="keine-karten">Keine Karten verfügbar</span>';
+
+            return `
+                <div class="flughafen">
+                    <button class="fh-header" onclick="toggle(this)">
+                        <span class="fh-name">${name}</span>
+                        <span class="fh-anzahl">${kartenEintraege.length} Karten</span>
+                    </button>
+                    <div class="fh-karten">${kartenHTML}</div>
+                </div>`;
+        }).join('');
+    }
+
+    function toggle(btn) {
+        btn.nextElementSibling.classList.toggle('offen');
+    }
+
+    document.getElementById('suche').addEventListener('input', function () {
+        const q = this.value.toLowerCase();
+        const gefiltert = Object.fromEntries(
+            Object.entries(katalogDaten).filter(([name]) => name.toLowerCase().includes(q))
+        );
+        zeige(gefiltert);
+    });
+</script>
+
+</body>
+</html>
