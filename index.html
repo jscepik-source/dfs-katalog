@@ -57,11 +57,12 @@
             border: none;
             width: 100%;
             text-align: left;
+            gap: 10px;
         }
 
         .fh-header:hover { background: #f0f4ff; }
 
-        .fh-name { font-weight: bold; font-size: 1rem; }
+        .fh-name { font-weight: bold; font-size: 1rem; flex: 1; }
 
         .fh-anzahl {
             font-size: 0.8rem;
@@ -69,17 +70,31 @@
             color: white;
             padding: 3px 10px;
             border-radius: 20px;
+            white-space: nowrap;
         }
 
         .fh-karten {
             display: none;
             border-top: 1px solid #eee;
-            padding: 10px 18px;
+            padding: 12px 18px;
         }
 
         .fh-karten.offen { display: block; }
 
-        .fh-karten a {
+        .dfs-link {
+            display: inline-block;
+            margin-bottom: 12px;
+            padding: 7px 14px;
+            background: #003366;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.85rem;
+        }
+
+        .dfs-link:hover { background: #0055aa; }
+
+        .karten-liste a {
             display: block;
             padding: 7px 0;
             color: #003366;
@@ -88,8 +103,8 @@
             border-bottom: 1px solid #f0f0f0;
         }
 
-        .fh-karten a:last-child { border-bottom: none; }
-        .fh-karten a:hover { text-decoration: underline; }
+        .karten-liste a:last-child { border-bottom: none; }
+        .karten-liste a:hover { text-decoration: underline; }
 
         .keine-karten {
             font-size: 0.85rem;
@@ -108,7 +123,7 @@
 
 <header>
     <h1>DFS Flughafen-Katalog</h1>
-    <p>Quelle: AIP DFS BasicVFR — alle Flughäfen mit Karten und Dokumenten</p>
+    <p>Quelle: AIP DFS BasicVFR — alle Flughäfen mit direktem Link zur aktuellen DFS-Seite</p>
 </header>
 
 <div class="container">
@@ -137,15 +152,22 @@
         document.getElementById('zaehler').textContent = `${eintraege.length} Flughäfen`;
 
         if (eintraege.length === 0) {
-            liste.innerHTML = '<p style="color:#999">Keine Ergebnisse gefunden.</p>';
+            liste.innerHTML = '<p style="color:#999;padding:20px">Keine Ergebnisse gefunden.</p>';
             return;
         }
 
-        liste.innerHTML = eintraege.map(([name, karten]) => {
-            const kartenEintraege = Object.entries(karten);
+        liste.innerHTML = eintraege.map(([name, inhalt]) => {
+            const url = inhalt._url || null;
+            const karten = inhalt.karten || inhalt;
+            const kartenEintraege = Object.entries(karten).filter(([k]) => k !== '_url');
+
+            const dfsBtn = url
+                ? `<a class="dfs-link" href="${url}" target="_blank">Aktuelle Karten auf DFS öffnen ↗</a>`
+                : '';
+
             const kartenHTML = kartenEintraege.length > 0
-                ? kartenEintraege.map(([k, url]) => `<a href="${url}" target="_blank">${k}</a>`).join('')
-                : '<span class="keine-karten">Keine Karten verfügbar</span>';
+                ? `<div class="karten-liste">${kartenEintraege.map(([k, u]) => `<a href="${u}" target="_blank">${k}</a>`).join('')}</div>`
+                : '<span class="keine-karten">Keine Karten gefunden</span>';
 
             return `
                 <div class="flughafen">
@@ -153,7 +175,10 @@
                         <span class="fh-name">${name}</span>
                         <span class="fh-anzahl">${kartenEintraege.length} Karten</span>
                     </button>
-                    <div class="fh-karten">${kartenHTML}</div>
+                    <div class="fh-karten">
+                        ${dfsBtn}
+                        ${kartenHTML}
+                    </div>
                 </div>`;
         }).join('');
     }
