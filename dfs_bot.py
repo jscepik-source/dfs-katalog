@@ -114,11 +114,15 @@ def durchlauf():
 
 
 def main():
-    while True:
-        print("Starte Durchlauf...")
+    import sys
+    if '--loop' in sys.argv:
+        while True:
+            print("Starte Durchlauf...")
+            durchlauf()
+            print("Nächster Durchlauf in 6 Stunden.\n")
+            time.sleep(6 * 60 * 60)
+    else:
         durchlauf()
-        print("Nächster Durchlauf in 6 Stunden.\n")
-        time.sleep(6 * 60 * 60)
 
 
 if __name__ == '__main__':
