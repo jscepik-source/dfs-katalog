@@ -1,0 +1,78 @@
+{
+    "EUROCONTROL regional upper airspace charts (ERC) - 16 April 2026": {
+        "_url": "https://www.eurocontrol.int/publication/eurocontrol-regional-upper-airspace-charts-erc-16-april-2026",
+        "karten": {
+            "Download": "https://www.eurocontrol.int/archive_download/all/node/15930"
+        }
+    },
+    "EUROCONTROL regional lower airspace charts (ERC) - 16 April 2026": {
+        "_url": "https://www.eurocontrol.int/publication/eurocontrol-regional-lower-airspace-charts-erc-16-april-2026",
+        "karten": {
+            "Download all": "https://www.eurocontrol.int/archive_download/all/node/15929",
+            "Download": "https://www.eurocontrol.int/archive_download/all/node/15929"
+        }
+    },
+    "EUROCONTROL route network chart (ERN) - 16 April 2026": {
+        "_url": "https://www.eurocontrol.int/publication/eurocontrol-route-network-chart-ern-16-april-2026",
+        "karten": {
+            "Download all": "https://www.eurocontrol.int/archive_download/all/node/15927",
+            "Download": "https://www.eurocontrol.int/archive_download/all/node/15927"
+        }
+    },
+    "Direct routing (DCT) chart - Route availability document (RAD) AIRAC 2106": {
+        "_url": "https://www.eurocontrol.int/publication/direct-routing-dct-chart-route-availability-document-rad-airac-2106",
+        "karten": {
+            "Download": "https://www.eurocontrol.int/archive_download/all/node/12916"
+        }
+    },
+    "Flight information region (FIR/UIR) charts - 2024": {
+        "_url": "https://www.eurocontrol.int/publication/flight-information-region-firuir-charts-2024",
+        "karten": {
+            "Download all": "https://www.eurocontrol.int/archive_download/all/node/10993",
+            "Download": "https://www.eurocontrol.int/archive_download/all/node/10993"
+        }
+    },
+    "Free route airspace (FRA) implementation projection charts": {
+        "_url": "https://www.eurocontrol.int/publication/free-route-airspace-fra-implementation-projection-charts",
+        "karten": {
+            "Download all": "https://www.eurocontrol.int/archive_download/all/node/10610",
+            "Download": "https://www.eurocontrol.int/archive_download/all/node/10610"
+        }
+    },
+    "Maastricht Upper Area Control Centre (MUAC) upper air route structure chart": {
+        "_url": "https://www.eurocontrol.int/publication/maastricht-upper-area-control-centre-muac-upper-air-route-structure-chart",
+        "karten": {
+            "Download": "https://www.eurocontrol.int/archive_download/all/node/10995"
+        }
+    },
+    "Maastricht Upper Area Control Centre (MUAC) sectorisation chart": {
+        "_url": "https://www.eurocontrol.int/publication/maastricht-upper-area-control-centre-muac-sectorisation-chart",
+        "karten": {
+            "Download": "https://www.eurocontrol.int/archive_download/all/node/10996"
+        }
+    },
+    "Free route airspace (FRA) at MUAC - index charts (AIC)": {
+        "_url": "https://www.eurocontrol.int/publication/free-route-airspace-fra-muac-index-charts-aic",
+        "karten": {
+            "Download": "https://www.eurocontrol.int/archive_download/all/node/11687"
+        }
+    },
+    "Maastricht Upper Area Control Centre (MUAC) sector boundary structure chart": {
+        "_url": "https://www.eurocontrol.int/publication/maastricht-upper-area-control-centre-muac-sector-boundary-structure-chart",
+        "karten": {
+            "Download": "https://www.eurocontrol.int/archive_download/all/node/10997"
+        }
+    },
+    "European helicopter routes chart - August 2020": {
+        "_url": "https://www.eurocontrol.int/publication/european-helicopter-routes-chart-august-2020",
+        "karten": {
+            "Download": "https://www.eurocontrol.int/archive_download/all/node/12412"
+        }
+    },
+    "Flight level orientation scheme - EUROCONTROL NM area - May 2021": {
+        "_url": "https://www.eurocontrol.int/publication/flight-level-orientation-scheme-eurocontrol-nm-area-may-2021",
+        "karten": {
+            "Download": "https://www.eurocontrol.int/archive_download/all/node/12874"
+        }
+    }
+}
