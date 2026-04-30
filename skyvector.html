@@ -6,110 +6,46 @@
     <title>SkyVector Flughafen-Katalog</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-
         body { font-family: 'Segoe UI', Arial, sans-serif; background: #1a1d23; color: #d0d8e8; }
 
-        header {
-            background: #111318;
-            border-bottom: 2px solid #f5a623;
-            padding: 20px 32px;
-            display: flex; align-items: center; gap: 18px;
-        }
-        .nav-link {
-            margin-left: auto; padding: 7px 16px;
-            background: #2a2d35; color: #aaa;
-            text-decoration: none; border-radius: 6px; font-size: 0.83rem;
-            white-space: nowrap; transition: background 0.15s;
-        }
-        .nav-link:hover { background: #333647; color: #ddd; }
-        .logo {
-            width: 44px; height: 44px; border-radius: 8px;
-            background: #f5a623;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; flex-shrink: 0;
-        }
+        header { background: #111318; border-bottom: 2px solid #f5a623; padding: 20px 32px; display: flex; align-items: center; gap: 18px; }
+        .logo { width: 44px; height: 44px; border-radius: 8px; background: #f5a623; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
         header h1 { font-size: 1.4rem; font-weight: 700; color: #fff; }
         header p  { font-size: 0.82rem; color: #888; margin-top: 3px; }
+        .nav-link { margin-left: auto; padding: 7px 16px; background: #2a2d35; color: #aaa; text-decoration: none; border-radius: 6px; font-size: 0.83rem; white-space: nowrap; transition: background 0.15s; }
+        .nav-link:hover { background: #333647; color: #ddd; }
 
-        .toolbar {
-            background: #111318; border-bottom: 1px solid #2a2d35;
-            padding: 12px 28px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
-        }
-
-        #suche {
-            flex: 1; min-width: 200px; max-width: 440px;
-            padding: 9px 14px; font-size: 0.95rem;
-            border: 1px solid #2e3240; border-radius: 6px; outline: none;
-            background: #1e2130; color: #d0d8e8;
-            transition: border-color 0.2s;
-        }
+        .toolbar { background: #111318; border-bottom: 1px solid #2a2d35; padding: 12px 28px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        #suche { flex: 1; min-width: 200px; max-width: 380px; padding: 9px 14px; font-size: 0.95rem; border: 1px solid #2e3240; border-radius: 6px; outline: none; background: #1e2130; color: #d0d8e8; transition: border-color 0.2s; }
         #suche:focus { border-color: #f5a623; }
         #suche::placeholder { color: #555; }
-
-        .filter-gruppe { display: flex; gap: 6px; flex-wrap: wrap; }
-
-        .filter-btn {
-            padding: 5px 12px; font-size: 0.78rem; border-radius: 20px;
-            border: 1px solid #2e3240; background: #1e2130; cursor: pointer;
-            color: #888; transition: all 0.15s;
-        }
+        .filter-gruppe { display: flex; gap: 5px; flex-wrap: wrap; }
+        .filter-btn { padding: 5px 11px; font-size: 0.76rem; border-radius: 20px; border: 1px solid #2e3240; background: #1e2130; cursor: pointer; color: #666; transition: all 0.15s; }
         .filter-btn.aktiv { background: #f5a623; color: #111; border-color: #f5a623; font-weight: 600; }
-
         #zaehler { font-size: 0.82rem; color: #555; margin-left: auto; white-space: nowrap; }
 
-        .container { max-width: 1000px; margin: 24px auto; padding: 0 20px; }
-
-        #hinweis {
-            text-align: center; padding: 60px 20px; color: #444; font-size: 1rem;
-        }
+        .container { max-width: 1040px; margin: 22px auto; padding: 0 18px; }
+        #hinweis { text-align: center; padding: 60px 20px; color: #444; }
         #hinweis span { font-size: 2.5rem; display: block; margin-bottom: 12px; }
-
         #laden { text-align: center; padding: 50px; color: #555; }
-        .lade-balken {
-            width: 200px; height: 3px; background: #2a2d35; border-radius: 2px;
-            margin: 12px auto 0; overflow: hidden;
-        }
-        .lade-balken::after {
-            content: '';
-            display: block; width: 50%; height: 100%; background: #f5a623;
-            animation: laden 1.2s infinite ease-in-out;
-        }
+        .lade-balken { width: 200px; height: 3px; background: #2a2d35; border-radius: 2px; margin: 12px auto 0; overflow: hidden; }
+        .lade-balken::after { content: ''; display: block; width: 50%; height: 100%; background: #f5a623; animation: laden 1.2s infinite ease-in-out; }
         @keyframes laden { 0% { margin-left: -50%; } 100% { margin-left: 150%; } }
 
-        .flughafen {
-            background: #1e2130; border-radius: 10px; margin-bottom: 8px;
-            border: 1px solid #2a2d35; overflow: hidden;
-        }
-
-        .fh-header {
-            display: flex; align-items: center; gap: 12px;
-            padding: 13px 18px; cursor: pointer; background: #1e2130;
-            border: none; width: 100%; text-align: left;
-            transition: background 0.15s;
-        }
+        .flughafen { background: #1e2130; border-radius: 10px; margin-bottom: 8px; border: 1px solid #2a2d35; overflow: hidden; }
+        .fh-header { display: flex; align-items: center; gap: 12px; padding: 12px 18px; cursor: pointer; background: #1e2130; border: none; width: 100%; text-align: left; transition: background 0.15s; }
         .fh-header:hover { background: #252840; }
 
-        .icao-badge {
-            font-family: monospace; font-weight: 700; font-size: 0.95rem;
-            background: #f5a623; color: #111;
-            padding: 4px 10px; border-radius: 6px; flex-shrink: 0;
-            min-width: 54px; text-align: center;
-        }
-        .iata-badge {
-            font-family: monospace; font-size: 0.8rem;
-            background: #2a2d35; color: #f5a623;
-            padding: 3px 8px; border-radius: 5px; flex-shrink: 0;
-        }
+        .icao-badge { font-family: monospace; font-weight: 700; font-size: 0.95rem; background: #f5a623; color: #111; padding: 4px 10px; border-radius: 6px; flex-shrink: 0; min-width: 54px; text-align: center; }
+        .iata-badge { font-family: monospace; font-size: 0.8rem; background: #2a2d35; color: #f5a623; padding: 3px 8px; border-radius: 5px; flex-shrink: 0; }
+        .sched-badge { font-size: 0.72rem; background: #1a3a2a; color: #4ade80; padding: 2px 8px; border-radius: 12px; flex-shrink: 0; }
 
         .fh-info { flex: 1; min-width: 0; }
         .fh-name { font-weight: 600; font-size: 0.93rem; color: #eee; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .fh-meta { font-size: 0.78rem; color: #666; margin-top: 2px; }
 
-        .typ-badge {
-            font-size: 0.72rem; padding: 2px 8px; border-radius: 12px;
-            white-space: nowrap; flex-shrink: 0;
-        }
-        .typ-large_airport  { background: #2a3a1a; color: #7ec850; }
+        .typ-badge { font-size: 0.72rem; padding: 2px 8px; border-radius: 12px; white-space: nowrap; flex-shrink: 0; }
+        .typ-large_airport  { background: #1a3a1a; color: #7ec850; }
         .typ-medium_airport { background: #1a2a3a; color: #50a8ec; }
         .typ-small_airport  { background: #2a2a1a; color: #ecca50; }
         .typ-heliport       { background: #2a1a2a; color: #c850ec; }
@@ -119,66 +55,65 @@
         .fh-chevron { color: #444; font-size: 0.75rem; flex-shrink: 0; transition: transform 0.2s; }
         .fh-header.offen .fh-chevron { transform: rotate(90deg); }
 
-        .fh-inhalt {
-            display: none; border-top: 1px solid #2a2d35;
-            padding: 16px 18px; background: #181b26;
-        }
+        .fh-inhalt { display: none; border-top: 1px solid #2a2d35; padding: 16px 18px; background: #181b26; }
         .fh-inhalt.offen { display: block; }
 
-        .detail-zeile { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 16px; }
+        .detail-zeile { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 14px; }
         .detail-item label { color: #555; display: block; font-size: 0.72rem; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.04em; }
         .detail-item span  { font-weight: 600; color: #ccc; font-size: 0.85rem; }
 
-        .ext-links { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
-
-        .sv-btn {
-            display: inline-flex; align-items: center; gap: 6px;
-            padding: 7px 16px; background: #f5a623; color: #111;
-            text-decoration: none; border-radius: 6px; font-size: 0.85rem; font-weight: 700;
-            transition: background 0.15s;
-        }
+        .ext-links { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+        .sv-btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 16px; background: #f5a623; color: #111; text-decoration: none; border-radius: 6px; font-size: 0.85rem; font-weight: 700; transition: background 0.15s; }
         .sv-btn:hover { background: #ffc04a; }
-
-        .ext-link {
-            display: inline-flex; align-items: center; gap: 5px;
-            padding: 7px 14px; background: #2a2d35; color: #aaa;
-            text-decoration: none; border-radius: 6px; font-size: 0.82rem;
-            transition: background 0.15s;
-        }
+        .ext-link { display: inline-flex; align-items: center; gap: 5px; padding: 7px 13px; background: #2a2d35; color: #aaa; text-decoration: none; border-radius: 6px; font-size: 0.82rem; transition: background 0.15s; }
         .ext-link:hover { background: #333647; color: #ddd; }
 
-        .sektion-titel {
-            font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 0.06em; color: #f5a623; margin: 14px 0 8px;
-        }
+        .sektion { margin-top: 14px; }
+        .sektion-titel { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #f5a623; margin-bottom: 8px; }
 
         table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
         th { text-align: left; padding: 6px 10px; background: #1a1d26; color: #666; font-weight: 600; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; }
         td { padding: 6px 10px; border-bottom: 1px solid #22252f; color: #bbb; }
         tr:last-child td { border-bottom: none; }
+        .rwy-closed td { color: #444; text-decoration: line-through; }
 
-        #mehr-btn {
-            display: block; width: 100%; padding: 10px; text-align: center;
-            background: #1e2130; border: 1px solid #2a2d35; border-radius: 8px;
-            color: #666; cursor: pointer; font-size: 0.88rem; margin-top: 4px;
-            transition: background 0.15s;
-        }
+        .wetter-block { background: #1a1d26; border-radius: 8px; padding: 12px 14px; margin-top: 4px; border: 1px solid #2a2d35; }
+        .metar-raw { font-family: monospace; font-size: 0.82rem; color: #bbb; word-break: break-all; margin-bottom: 10px; }
+        .wx-grid { display: flex; gap: 16px; flex-wrap: wrap; }
+        .wx-item label { font-size: 0.7rem; color: #555; text-transform: uppercase; letter-spacing: 0.04em; display: block; }
+        .wx-item span  { font-weight: 700; font-size: 0.9rem; color: #d0d8e8; }
+        .fltcat { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 0.78rem; font-weight: 700; margin-left: 8px; }
+        .cat-VFR  { background: #1a3a2a; color: #4ade80; }
+        .cat-MVFR { background: #1a2a3a; color: #60a5fa; }
+        .cat-IFR  { background: #3a1a1a; color: #f87171; }
+        .cat-LIFR { background: #2a1a3a; color: #c084fc; }
+        .taf-raw { font-family: monospace; font-size: 0.8rem; color: #888; white-space: pre-wrap; word-break: break-all; }
+
+        .notam-liste { display: flex; flex-direction: column; gap: 6px; }
+        .notam-item { background: #1e1a0a; border: 1px solid #4a3a0a; border-radius: 6px; padding: 8px 12px; font-size: 0.8rem; font-family: monospace; white-space: pre-wrap; word-break: break-all; color: #c0a050; }
+
+        .lade-klein { font-size: 0.8rem; color: #444; }
+        .fehler-klein { font-size: 0.8rem; color: #c05050; }
+        .sonnen-zeile { display: flex; gap: 20px; flex-wrap: wrap; }
+        .sonnen-item label { font-size: 0.7rem; color: #555; text-transform: uppercase; letter-spacing: 0.04em; display: block; }
+        .sonnen-item span  { font-weight: 700; font-size: 0.9rem; color: #f5a623; }
+
+        #mehr-btn { display: block; width: 100%; padding: 10px; text-align: center; background: #1e2130; border: 1px solid #2a2d35; border-radius: 8px; color: #555; cursor: pointer; font-size: 0.88rem; margin-top: 4px; transition: background 0.15s; }
         #mehr-btn:hover { background: #252840; color: #aaa; }
     </style>
 </head>
 <body>
-
 <header>
     <div class="logo">✈</div>
     <div>
         <h1>SkyVector Flughafen-Katalog</h1>
-        <p>72.000+ Flughäfen weltweit mit Runways, Frequenzen & Nav-Aids — direkt auf SkyVector öffnen</p>
+        <p>~72.000 Flughäfen · Runways · Frequenzen · Nav-Aids · METAR/TAF · NOTAMs · direkt auf SkyVector</p>
     </div>
     <a class="nav-link" href="ourairports.html">🌍 OurAirports-Ansicht →</a>
 </header>
 
 <div class="toolbar">
-    <input type="text" id="suche" placeholder="ICAO, IATA, Name, Stadt, Land suchen…" autocomplete="off">
+    <input type="text" id="suche" placeholder="ICAO, IATA, Name, Stadt, Land…" autocomplete="off">
     <div class="filter-gruppe" id="filter">
         <button class="filter-btn aktiv" data-typ="">Alle</button>
         <button class="filter-btn" data-typ="large_airport">Groß</button>
@@ -186,80 +121,60 @@
         <button class="filter-btn" data-typ="small_airport">Klein</button>
         <button class="filter-btn" data-typ="heliport">Heliport</button>
         <button class="filter-btn" data-typ="seaplane_base">Wasserflugzeug</button>
+        <button class="filter-btn" data-sched="yes">Linienflug</button>
     </div>
     <span id="zaehler"></span>
 </div>
 
 <div class="container">
-    <div id="liste">
-        <div id="laden">
-            Daten werden geladen…
-            <div class="lade-balken"></div>
-        </div>
-    </div>
+    <div id="liste"><div id="laden">Daten werden geladen…<div class="lade-balken"></div></div></div>
 </div>
 
 <script>
 const JSON_URL = 'https://raw.githubusercontent.com/jscepik-source/dfs-katalog/main/ourairports_export.json';
 let katalog = {};
 let aktiverTyp = '';
+let aktivSched = false;
 let sucheTimeout = null;
 const SEITE = 50;
 let aktuelleEintraege = [];
 let angezeigtBis = 0;
+const wettercache = {};
+const notamcache = {};
 
 const TYP_LABEL = {
-    large_airport:  'Großflughafen',
-    medium_airport: 'Regionalflughafen',
-    small_airport:  'Kleinflughafen',
-    heliport:       'Heliport',
-    seaplane_base:  'Wasserflugzeugbasis',
-    balloonport:    'Ballonplatz'
+    large_airport:'Großflughafen', medium_airport:'Regionalflughafen',
+    small_airport:'Kleinflughafen', heliport:'Heliport',
+    seaplane_base:'Wasserflugzeugbasis', balloonport:'Ballonplatz'
 };
+const KONTINENT = { EU:'Europa', NA:'Nordamerika', SA:'Südamerika', AS:'Asien', AF:'Afrika', OC:'Ozeanien', AN:'Antarktis' };
 
 fetch(JSON_URL)
     .then(r => r.json())
-    .then(data => {
-        katalog = data;
-        document.getElementById('laden').style.display = 'none';
-        zeigeHinweis();
-    })
-    .catch(() => {
-        document.getElementById('laden').innerHTML = 'Fehler beim Laden der Daten.';
-    });
+    .then(data => { katalog = data; document.getElementById('laden').style.display = 'none'; zeigeHinweis(); })
+    .catch(() => { document.getElementById('laden').innerHTML = 'Fehler beim Laden.'; });
 
 function zeigeHinweis() {
-    document.getElementById('liste').innerHTML =
-        '<div id="hinweis"><span>✈</span>ICAO, IATA, Name, Stadt oder Land eingeben</div>';
-    document.getElementById('zaehler').textContent =
-        `${Object.keys(katalog).length.toLocaleString()} Flughäfen geladen`;
+    document.getElementById('liste').innerHTML = '<div id="hinweis"><span>✈</span>ICAO, IATA, Name, Stadt oder Land eingeben</div>';
+    document.getElementById('zaehler').textContent = `${Object.keys(katalog).length.toLocaleString()} Flughäfen geladen`;
 }
 
 function suche() {
     const q = document.getElementById('suche').value.trim().toLowerCase();
-    if (!q && !aktiverTyp) { zeigeHinweis(); return; }
-
+    if (!q && !aktiverTyp && !aktivSched) { zeigeHinweis(); return; }
     aktuelleEintraege = Object.entries(katalog).filter(([icao, ap]) => {
-        const typOk = !aktiverTyp || ap.type === aktiverTyp;
-        if (!typOk) return false;
+        if (aktiverTyp && ap.type !== aktiverTyp) return false;
+        if (aktivSched && !ap.scheduled) return false;
         if (!q) return true;
-        return icao.toLowerCase().includes(q)
-            || (ap.iata    || '').toLowerCase().includes(q)
-            || (ap.name    || '').toLowerCase().includes(q)
-            || (ap.city    || '').toLowerCase().includes(q)
-            || (ap.country || '').toLowerCase().includes(q);
+        return icao.toLowerCase().includes(q) || (ap.iata||'').toLowerCase().includes(q)
+            || (ap.name||'').toLowerCase().includes(q) || (ap.city||'').toLowerCase().includes(q)
+            || (ap.country||'').toLowerCase().includes(q) || (ap.country_name||'').toLowerCase().includes(q);
     });
-
     angezeigtBis = 0;
     const liste = document.getElementById('liste');
     liste.innerHTML = '';
-    document.getElementById('zaehler').textContent =
-        `${aktuelleEintraege.length.toLocaleString()} Ergebnisse`;
-
-    if (aktuelleEintraege.length === 0) {
-        liste.innerHTML = '<p style="color:#444;padding:20px">Keine Ergebnisse.</p>';
-        return;
-    }
+    document.getElementById('zaehler').textContent = `${aktuelleEintraege.length.toLocaleString()} Ergebnisse`;
+    if (aktuelleEintraege.length === 0) { liste.innerHTML = '<p style="color:#444;padding:20px">Keine Ergebnisse.</p>'; return; }
     ladeNaechste(liste);
 }
 
@@ -267,10 +182,8 @@ function ladeNaechste(liste) {
     const batch = aktuelleEintraege.slice(angezeigtBis, angezeigtBis + SEITE);
     angezeigtBis += batch.length;
     batch.forEach(([icao, ap]) => liste.appendChild(baueKarte(icao, ap)));
-
     const altBtn = document.getElementById('mehr-btn');
     if (altBtn) altBtn.remove();
-
     if (angezeigtBis < aktuelleEintraege.length) {
         const btn = document.createElement('button');
         btn.id = 'mehr-btn';
@@ -280,59 +193,87 @@ function ladeNaechste(liste) {
     }
 }
 
+function calcSonne(lat, lon) {
+    const rad = Math.PI / 180;
+    const now = new Date();
+    const JD = now.getTime() / 86400000 + 2440587.5;
+    const n = JD - 2451545.0;
+    const L = (280.460 + 0.9856474 * n) % 360;
+    const g = (357.528 + 0.9856003 * n) % 360;
+    const lambda = L + 1.915 * Math.sin(g * rad) + 0.020 * Math.sin(2 * g * rad);
+    const eps = 23.439 - 0.0000004 * n;
+    const sinDec = Math.sin(eps * rad) * Math.sin(lambda * rad);
+    const dec = Math.asin(sinDec);
+    const cosH = (Math.cos(90.833 * rad) - sinDec * Math.sin(lat * rad)) / (Math.cos(dec) * Math.cos(lat * rad));
+    if (Math.abs(cosH) > 1) return null;
+    const H = Math.acos(cosH) / rad;
+    const RA = Math.atan2(Math.cos(eps * rad) * Math.sin(lambda * rad), Math.cos(lambda * rad)) / rad / 15;
+    const noon = 12 - lon / 15 - (RA - L / 15);
+    const fmt = h => { const hh = Math.floor(((h % 24) + 24) % 24), mm = Math.round((h - Math.floor(h)) * 60); return `${String(hh).padStart(2,'0')}:${String(mm < 60 ? mm : 59).padStart(2,'0')} UTC`; };
+    return { auf: fmt(noon - H / 15), unter: fmt(noon + H / 15) };
+}
+
+function fltcatClass(cat) {
+    return { VFR:'cat-VFR', MVFR:'cat-MVFR', IFR:'cat-IFR', LIFR:'cat-LIFR' }[cat] || '';
+}
+
 function baueKarte(icao, ap) {
     const div = document.createElement('div');
     div.className = 'flughafen';
-
     const typLabel = TYP_LABEL[ap.type] || ap.type || '';
     const typClass = 'typ-' + (ap.type || '');
-    const elev = ap.elev !== undefined ? ap.elev + ' ft' : '–';
-    const coords = (ap.lat !== undefined && ap.lon !== undefined) ? `${ap.lat}, ${ap.lon}` : '–';
+    const elev = ap.elev !== undefined ? `${ap.elev} ft` : '–';
+    const coords = (ap.lat !== undefined && ap.lon !== undefined) ? `${ap.lat}, ${ap.lon}` : null;
+    const kontinent = KONTINENT[ap.continent] || ap.continent || '';
     const svUrl = `https://skyvector.com/airport/${icao}`;
     const mapsUrl = (ap.lat && ap.lon) ? `https://maps.google.com/?q=${ap.lat},${ap.lon}` : null;
 
-    const rwyHTML = ap.runways && ap.runways.length > 0
-        ? `<p class="sektion-titel">Runways</p>
-           <table>
-             <tr><th>Kennung</th><th>Länge (ft)</th><th>Kurs</th><th>Belag</th></tr>
-             ${ap.runways.map(r => `<tr>
-               <td>${r.id || '–'}</td>
-               <td>${r.length !== undefined ? r.length.toLocaleString() : '–'}</td>
-               <td>${r.heading !== undefined ? r.heading + '°' : '–'}</td>
-               <td>${r.surface || '–'}</td>
-             </tr>`).join('')}
-           </table>` : '';
+    const rwyHTML = ap.runways && ap.runways.length
+        ? `<div class="sektion"><p class="sektion-titel">🛬 Runways</p><table>
+           <tr><th>Kennung</th><th>Länge (ft)</th><th>Breite (ft)</th><th>Kurs LE/HE</th><th>Belag</th><th>Bel.</th></tr>
+           ${ap.runways.map(r => `<tr class="${r.closed ? 'rwy-closed' : ''}">
+             <td>${r.le||''}${r.he ? ' / '+r.he : ''}</td>
+             <td>${r.length !== undefined ? r.length.toLocaleString() : '–'}</td>
+             <td>${r.width !== undefined ? r.width : '–'}</td>
+             <td>${r.le_hdg !== undefined ? r.le_hdg+'°' : '–'} / ${r.he_hdg !== undefined ? r.he_hdg+'°' : '–'}</td>
+             <td>${r.surface || '–'}</td>
+             <td>${r.lighted ? '💡' : '–'}</td>
+           </tr>`).join('')}
+           </table></div>` : '';
 
-    const frqHTML = ap.freqs && ap.freqs.length > 0
-        ? `<p class="sektion-titel">Frequenzen</p>
-           <table>
-             <tr><th>Typ</th><th>Frequenz (MHz)</th><th>Bezeichnung</th></tr>
-             ${ap.freqs.map(f => `<tr>
-               <td>${f.type || '–'}</td>
-               <td>${f.freq || '–'}</td>
-               <td>${f.desc || '–'}</td>
-             </tr>`).join('')}
-           </table>` : '';
+    const frqHTML = ap.freqs && ap.freqs.length
+        ? `<div class="sektion"><p class="sektion-titel">📻 Frequenzen</p><table>
+           <tr><th>Typ</th><th>MHz</th><th>Bezeichnung</th></tr>
+           ${ap.freqs.map(f => `<tr><td>${f.type||'–'}</td><td>${f.freq||'–'}</td><td>${f.desc||'–'}</td></tr>`).join('')}
+           </table></div>` : '';
 
-    const navHTML = ap.navaids && ap.navaids.length > 0
-        ? `<p class="sektion-titel">Nav-Aids (VOR / NDB)</p>
-           <table>
-             <tr><th>Kennung</th><th>Name</th><th>Typ</th><th>Frequenz (kHz)</th></tr>
-             ${ap.navaids.map(n => `<tr>
-               <td>${n.ident || '–'}</td>
-               <td>${n.name  || '–'}</td>
-               <td>${n.type  || '–'}</td>
-               <td>${n.freq  || '–'}</td>
-             </tr>`).join('')}
-           </table>` : '';
+    const navHTML = ap.navaids && ap.navaids.length
+        ? `<div class="sektion"><p class="sektion-titel">📡 Nav-Aids</p><table>
+           <tr><th>Kennung</th><th>Name</th><th>Typ</th><th>Freq (kHz)</th><th>DME</th><th>Leistung</th><th>Nutzung</th></tr>
+           ${ap.navaids.map(n => `<tr>
+             <td>${n.ident||'–'}</td><td>${n.name||'–'}</td><td>${n.type||'–'}</td><td>${n.freq||'–'}</td>
+             <td>${n.dme_ch||'–'}</td><td>${n.power||'–'}</td><td>${n.usage||'–'}</td>
+           </tr>`).join('')}
+           </table></div>` : '';
+
+    const sonneHTML = coords
+        ? `<div class="sektion"><p class="sektion-titel">🌅 Sonnenauf-/-untergang (UTC, heute)</p>
+           <div class="sonnen-zeile" id="sonne-${icao}"><span class="lade-klein">wird berechnet…</span></div></div>` : '';
+
+    const wetterHTML = `<div class="sektion"><p class="sektion-titel">🌤 Wetter (METAR / TAF)</p>
+        <div id="wetter-${icao}"><span class="lade-klein">wird geladen…</span></div></div>`;
+
+    const notamHTML = `<div class="sektion"><p class="sektion-titel">⚠️ NOTAMs</p>
+        <div id="notam-${icao}"><span class="lade-klein">wird geladen…</span></div></div>`;
 
     div.innerHTML = `
-        <button class="fh-header" onclick="toggle(this)">
+        <button class="fh-header" onclick="toggle(this,'${icao}',${ap.lat||'null'},${ap.lon||'null'})">
             <span class="icao-badge">${icao}</span>
             ${ap.iata ? `<span class="iata-badge">${ap.iata}</span>` : ''}
+            ${ap.scheduled ? `<span class="sched-badge">✈ Linienflug</span>` : ''}
             <div class="fh-info">
-                <div class="fh-name">${ap.name || '–'}</div>
-                <div class="fh-meta">${ap.city || ''}${ap.city && ap.country ? ' · ' : ''}${ap.country || ''}</div>
+                <div class="fh-name">${ap.name||'–'}</div>
+                <div class="fh-meta">${[ap.city, ap.country_name||ap.country, kontinent].filter(Boolean).join(' · ')}</div>
             </div>
             <span class="typ-badge ${typClass}">${typLabel}</span>
             <span class="fh-chevron">▶</span>
@@ -340,11 +281,14 @@ function baueKarte(icao, ap) {
         <div class="fh-inhalt">
             <div class="detail-zeile">
                 <div class="detail-item"><label>ICAO</label><span>${icao}</span></div>
-                ${ap.iata ? `<div class="detail-item"><label>IATA</label><span>${ap.iata}</span></div>` : ''}
-                <div class="detail-item"><label>Land</label><span>${ap.country || '–'}</span></div>
-                <div class="detail-item"><label>Stadt</label><span>${ap.city || '–'}</span></div>
+                ${ap.iata  ? `<div class="detail-item"><label>IATA</label><span>${ap.iata}</span></div>` : ''}
+                ${ap.local ? `<div class="detail-item"><label>Lokal</label><span>${ap.local}</span></div>` : ''}
+                <div class="detail-item"><label>Land</label><span>${ap.country_name||ap.country||'–'}</span></div>
+                <div class="detail-item"><label>Region</label><span>${ap.region||'–'}</span></div>
+                <div class="detail-item"><label>Stadt</label><span>${ap.city||'–'}</span></div>
+                <div class="detail-item"><label>Kontinent</label><span>${kontinent||'–'}</span></div>
                 <div class="detail-item"><label>Höhe</label><span>${elev}</span></div>
-                <div class="detail-item"><label>Koordinaten</label><span>${coords}</span></div>
+                ${coords ? `<div class="detail-item"><label>Koordinaten</label><span>${coords}</span></div>` : ''}
             </div>
             <div class="ext-links">
                 <a class="sv-btn" href="${svUrl}" target="_blank">✈ Auf SkyVector öffnen</a>
@@ -352,16 +296,97 @@ function baueKarte(icao, ap) {
                 ${ap.web  ? `<a class="ext-link" href="${ap.web}"  target="_blank">🌐 Website</a>` : ''}
                 ${ap.wiki ? `<a class="ext-link" href="${ap.wiki}" target="_blank">📖 Wikipedia</a>` : ''}
             </div>
-            ${rwyHTML}
-            ${frqHTML}
-            ${navHTML}
+            ${rwyHTML}${frqHTML}${navHTML}${sonneHTML}${wetterHTML}${notamHTML}
         </div>`;
     return div;
 }
 
-function toggle(btn) {
-    btn.classList.toggle('offen');
+function toggle(btn, icao, lat, lon) {
+    const offen = btn.classList.toggle('offen');
     btn.nextElementSibling.classList.toggle('offen');
+    if (offen) {
+        if (lat && lon) ladeErst(icao, lat, lon);
+        ladeWetter(icao);
+        ladeNotams(icao);
+    }
+}
+
+function ladeErst(icao, lat, lon) {
+    const el = document.getElementById(`sonne-${icao}`);
+    if (!el || el.dataset.geladen) return;
+    el.dataset.geladen = '1';
+    const s = calcSonne(lat, lon);
+    if (!s) { el.innerHTML = '<span class="lade-klein">Polartag/-nacht</span>'; return; }
+    el.innerHTML = `
+        <div class="sonnen-item"><label>Sonnenaufgang</label><span>${s.auf}</span></div>
+        <div class="sonnen-item"><label>Sonnenuntergang</label><span>${s.unter}</span></div>`;
+}
+
+async function ladeWetter(icao) {
+    const el = document.getElementById(`wetter-${icao}`);
+    if (!el || el.dataset.geladen) return;
+    el.dataset.geladen = '1';
+    if (wettercache[icao]) { el.innerHTML = wettercache[icao]; return; }
+    try {
+        const [mRes, tRes] = await Promise.all([
+            fetch(`https://aviationweather.gov/api/data/metar?ids=${icao}&format=json&hours=2`).then(r => r.json()),
+            fetch(`https://aviationweather.gov/api/data/taf?ids=${icao}&format=json`).then(r => r.json())
+        ]);
+        let html = '';
+        if (mRes && mRes.length > 0) {
+            const m = mRes[0];
+            const cat = m.fltcat || '';
+            const wind = m.wdir !== undefined ? `${m.wdir}° / ${m.wspd} kt${m.wgst ? ' (Böen '+m.wgst+' kt)' : ''}` : '–';
+            const vis  = m.visib !== undefined ? `${m.visib} SM` : '–';
+            const temp = m.temp  !== undefined ? `${m.temp} °C` : '–';
+            const dew  = m.dewp  !== undefined ? `${m.dewp} °C` : '–';
+            const qnh  = m.altim !== undefined ? `${m.altim} hPa` : '–';
+            const clouds = Array.isArray(m.clouds) ? m.clouds.map(c => `${c.cover} ${c.base}ft`).join(', ') : '–';
+            html += `<div class="wetter-block">
+                <div class="metar-raw">${m.rawOb||''} ${cat ? `<span class="fltcat ${fltcatClass(cat)}">${cat}</span>` : ''}</div>
+                <div class="wx-grid">
+                    <div class="wx-item"><label>Wind</label><span>${wind}</span></div>
+                    <div class="wx-item"><label>Sicht</label><span>${vis}</span></div>
+                    <div class="wx-item"><label>Temp / TP</label><span>${temp} / ${dew}</span></div>
+                    <div class="wx-item"><label>QNH</label><span>${qnh}</span></div>
+                    <div class="wx-item"><label>Wolken</label><span>${clouds}</span></div>
+                    ${m.wxString ? `<div class="wx-item"><label>Phänomene</label><span>${m.wxString}</span></div>` : ''}
+                </div></div>`;
+        } else {
+            html += '<span class="fehler-klein">Kein METAR verfügbar</span>';
+        }
+        if (tRes && tRes.length > 0) {
+            html += `<div class="sektion"><p class="sektion-titel" style="margin-top:12px">TAF</p>
+                <div class="taf-raw">${(tRes[0].rawTAF||'').replace(/\n/g,'<br>')}</div></div>`;
+        }
+        wettercache[icao] = html;
+        el.innerHTML = html;
+    } catch (e) {
+        el.innerHTML = '<span class="fehler-klein">Wetterdaten nicht verfügbar</span>';
+    }
+}
+
+async function ladeNotams(icao) {
+    const el = document.getElementById(`notam-${icao}`);
+    if (!el || el.dataset.geladen) return;
+    el.dataset.geladen = '1';
+    if (notamcache[icao]) { el.innerHTML = notamcache[icao]; return; }
+    try {
+        const res = await fetch(`https://aviationweather.gov/api/data/notam?format=json&location=${icao}`);
+        const data = await res.json();
+        if (!data || data.length === 0) {
+            el.innerHTML = '<span class="lade-klein">Keine NOTAMs gefunden</span>';
+            notamcache[icao] = el.innerHTML;
+            return;
+        }
+        const html = `<div class="notam-liste">${data.slice(0, 10).map(n =>
+            `<div class="notam-item">${n.notamText || n.text || JSON.stringify(n)}</div>`
+        ).join('')}${data.length > 10 ? `<div class="lade-klein">… und ${data.length - 10} weitere</div>` : ''}</div>`;
+        notamcache[icao] = html;
+        el.innerHTML = html;
+    } catch (e) {
+        el.innerHTML = '<span class="fehler-klein">NOTAMs nicht verfügbar</span>';
+    }
 }
 
 document.getElementById('suche').addEventListener('input', () => {
@@ -372,9 +397,14 @@ document.getElementById('suche').addEventListener('input', () => {
 document.getElementById('filter').addEventListener('click', e => {
     const btn = e.target.closest('.filter-btn');
     if (!btn) return;
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('aktiv'));
-    btn.classList.add('aktiv');
-    aktiverTyp = btn.dataset.typ;
+    if (btn.dataset.sched) {
+        btn.classList.toggle('aktiv');
+        aktivSched = btn.classList.contains('aktiv');
+    } else {
+        document.querySelectorAll('.filter-btn:not([data-sched])').forEach(b => b.classList.remove('aktiv'));
+        btn.classList.add('aktiv');
+        aktiverTyp = btn.dataset.typ;
+    }
     suche();
 });
 </script>

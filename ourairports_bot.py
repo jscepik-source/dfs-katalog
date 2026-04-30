@@ -9,6 +9,7 @@ AIRPORTS_CSV  = "https://davidmegginson.github.io/ourairports-data/airports.csv"
 RUNWAYS_CSV   = "https://davidmegginson.github.io/ourairports-data/runways.csv"
 FREQS_CSV     = "https://davidmegginson.github.io/ourairports-data/airport-frequencies.csv"
 NAVAIDS_CSV   = "https://davidmegginson.github.io/ourairports-data/navaids.csv"
+COUNTRIES_CSV = "https://davidmegginson.github.io/ourairports-data/countries.csv"
 
 
 def lade_csv(url, bezeichnung):
@@ -20,33 +21,53 @@ def lade_csv(url, bezeichnung):
 
 
 def durchlauf():
-    airports = lade_csv(AIRPORTS_CSV, "Flughäfen")
-    runways  = lade_csv(RUNWAYS_CSV,  "Runways")
-    freqs    = lade_csv(FREQS_CSV,    "Frequenzen")
-    navaids  = lade_csv(NAVAIDS_CSV,  "Nav-Aids")
+    airports  = lade_csv(AIRPORTS_CSV,  "Flughäfen")
+    runways   = lade_csv(RUNWAYS_CSV,   "Runways")
+    freqs     = lade_csv(FREQS_CSV,     "Frequenzen")
+    navaids   = lade_csv(NAVAIDS_CSV,   "Nav-Aids")
+    countries = lade_csv(COUNTRIES_CSV, "Länder")
 
-    # Runways nach ICAO-Ident gruppieren
+    # Ländername + Kontinent
+    country_map = {}
+    for c in countries:
+        code = c.get('code', '').strip()
+        if code:
+            country_map[code] = {
+                'name':      c.get('name', ''),
+                'continent': c.get('continent', '')
+            }
+
+    # Runways nach ICAO gruppieren (beide Enden)
     runway_map = {}
     for r in runways:
         ident = r.get('airport_ident', '')
         if not ident:
             continue
         entry = {}
-        if r.get('surface'):
-            entry['surface'] = r['surface']
-        try:
-            entry['length'] = int(r['length_ft'])
-        except (ValueError, KeyError):
-            pass
-        try:
-            entry['heading'] = round(float(r['le_heading_degT']), 1)
-        except (ValueError, KeyError):
-            pass
-        if r.get('le_ident'):
-            entry['id'] = r['le_ident']
+        if r.get('le_ident'):   entry['le'] = r['le_ident']
+        if r.get('he_ident'):   entry['he'] = r['he_ident']
+        try: entry['length']   = int(r['length_ft'])
+        except (ValueError, KeyError): pass
+        try: entry['width']    = int(r['width_ft'])
+        except (ValueError, KeyError): pass
+        try: entry['le_hdg']   = round(float(r['le_heading_degT']), 1)
+        except (ValueError, KeyError): pass
+        try: entry['he_hdg']   = round(float(r['he_heading_degT']), 1)
+        except (ValueError, KeyError): pass
+        try: entry['le_elev']  = int(float(r['le_elevation_ft']))
+        except (ValueError, KeyError): pass
+        try: entry['he_elev']  = int(float(r['he_elevation_ft']))
+        except (ValueError, KeyError): pass
+        try: entry['le_thr']   = int(r['le_displaced_threshold_ft']) if r.get('le_displaced_threshold_ft') else 0
+        except (ValueError, KeyError): pass
+        try: entry['he_thr']   = int(r['he_displaced_threshold_ft']) if r.get('he_displaced_threshold_ft') else 0
+        except (ValueError, KeyError): pass
+        if r.get('surface'):    entry['surface']  = r['surface']
+        if r.get('lighted') == '1': entry['lighted'] = True
+        if r.get('closed')  == '1': entry['closed']  = True
         runway_map.setdefault(ident, []).append(entry)
 
-    # Frequenzen nach ICAO-Ident gruppieren
+    # Frequenzen nach ICAO gruppieren
     freq_map = {}
     for f in freqs:
         ident = f.get('airport_ident', '')
@@ -58,19 +79,28 @@ def durchlauf():
             'desc': f.get('description', '')
         })
 
-    # Nav-Aids nach zugehörigem Flughafen gruppieren
+    # Nav-Aids nach Flughafen gruppieren
     navaid_map = {}
     for n in navaids:
         airport = n.get('associated_airport', '').strip()
         if not airport:
             continue
-        freq_khz = n.get('frequency_khz', '')
-        navaid_map.setdefault(airport, []).append({
+        entry = {
             'ident': n.get('ident', ''),
             'name':  n.get('name', ''),
             'type':  n.get('type', ''),
-            'freq':  freq_khz
-        })
+            'freq':  n.get('frequency_khz', '')
+        }
+        if n.get('dme_channel'):            entry['dme_ch']  = n['dme_channel']
+        if n.get('dme_frequency_khz'):      entry['dme_freq'] = n['dme_frequency_khz']
+        if n.get('power'):                  entry['power']   = n['power']
+        if n.get('usageType'):              entry['usage']   = n['usageType']
+        try:
+            mv = round(float(n['magnetic_variation_deg']), 1)
+            if mv != 0: entry['mag_var'] = mv
+        except (ValueError, KeyError):
+            pass
+        navaid_map.setdefault(airport, []).append(entry)
 
     katalog = {}
     for ap in airports:
@@ -80,44 +110,41 @@ def durchlauf():
         if not ident:
             continue
 
+        iso = ap.get('iso_country', '')
+        cinfo = country_map.get(iso, {})
+
         entry = {
-            'name':    ap.get('name', ''),
-            'type':    ap.get('type', ''),
-            'country': ap.get('iso_country', ''),
-            'city':    ap.get('municipality', ''),
+            'name':       ap.get('name', ''),
+            'type':       ap.get('type', ''),
+            'country':    iso,
+            'country_name': cinfo.get('name', ''),
+            'continent':  cinfo.get('continent', ap.get('continent', '')),
+            'region':     ap.get('iso_region', ''),
+            'city':       ap.get('municipality', ''),
+            'scheduled':  ap.get('scheduled_service', '') == 'yes'
         }
 
-        try:
-            entry['lat'] = round(float(ap['latitude_deg']), 4)
-        except (ValueError, KeyError):
-            pass
-        try:
-            entry['lon'] = round(float(ap['longitude_deg']), 4)
-        except (ValueError, KeyError):
-            pass
-        try:
-            entry['elev'] = int(float(ap['elevation_ft']))
-        except (ValueError, KeyError):
-            pass
+        try: entry['lat'] = round(float(ap['latitude_deg']), 4)
+        except (ValueError, KeyError): pass
+        try: entry['lon'] = round(float(ap['longitude_deg']), 4)
+        except (ValueError, KeyError): pass
+        try: entry['elev'] = int(float(ap['elevation_ft']))
+        except (ValueError, KeyError): pass
 
-        if ap.get('iata_code'):
-            entry['iata'] = ap['iata_code']
-        if ap.get('home_link'):
-            entry['web'] = ap['home_link']
-        if ap.get('wikipedia_link'):
-            entry['wiki'] = ap['wikipedia_link']
+        if ap.get('iata_code'):      entry['iata'] = ap['iata_code']
+        if ap.get('gps_code') and ap['gps_code'] != ident: entry['gps'] = ap['gps_code']
+        if ap.get('local_code'):     entry['local'] = ap['local_code']
+        if ap.get('home_link'):      entry['web']   = ap['home_link']
+        if ap.get('wikipedia_link'): entry['wiki']  = ap['wikipedia_link']
 
         rwy = runway_map.get(ident, [])
-        if rwy:
-            entry['runways'] = rwy
+        if rwy: entry['runways'] = rwy
 
         frq = freq_map.get(ident, [])
-        if frq:
-            entry['freqs'] = frq
+        if frq: entry['freqs'] = frq
 
         nav = navaid_map.get(ident, [])
-        if nav:
-            entry['navaids'] = nav
+        if nav: entry['navaids'] = nav
 
         katalog[ident] = entry
 
