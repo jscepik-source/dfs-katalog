@@ -8,6 +8,7 @@ import time
 AIRPORTS_CSV  = "https://davidmegginson.github.io/ourairports-data/airports.csv"
 RUNWAYS_CSV   = "https://davidmegginson.github.io/ourairports-data/runways.csv"
 FREQS_CSV     = "https://davidmegginson.github.io/ourairports-data/airport-frequencies.csv"
+NAVAIDS_CSV   = "https://davidmegginson.github.io/ourairports-data/navaids.csv"
 
 
 def lade_csv(url, bezeichnung):
@@ -22,6 +23,7 @@ def durchlauf():
     airports = lade_csv(AIRPORTS_CSV, "Flughäfen")
     runways  = lade_csv(RUNWAYS_CSV,  "Runways")
     freqs    = lade_csv(FREQS_CSV,    "Frequenzen")
+    navaids  = lade_csv(NAVAIDS_CSV,  "Nav-Aids")
 
     # Runways nach ICAO-Ident gruppieren
     runway_map = {}
@@ -54,6 +56,20 @@ def durchlauf():
             'type': f.get('type', ''),
             'freq': f.get('frequency_mhz', ''),
             'desc': f.get('description', '')
+        })
+
+    # Nav-Aids nach zugehörigem Flughafen gruppieren
+    navaid_map = {}
+    for n in navaids:
+        airport = n.get('associated_airport', '').strip()
+        if not airport:
+            continue
+        freq_khz = n.get('frequency_khz', '')
+        navaid_map.setdefault(airport, []).append({
+            'ident': n.get('ident', ''),
+            'name':  n.get('name', ''),
+            'type':  n.get('type', ''),
+            'freq':  freq_khz
         })
 
     katalog = {}
@@ -98,6 +114,10 @@ def durchlauf():
         frq = freq_map.get(ident, [])
         if frq:
             entry['freqs'] = frq
+
+        nav = navaid_map.get(ident, [])
+        if nav:
+            entry['navaids'] = nav
 
         katalog[ident] = entry
 
