@@ -16,10 +16,10 @@ IGNORIEREN = {
 
 
 def warte(browser):
-    WebDriverWait(browser, 10).until(
+    WebDriverWait(browser, 5).until(
         EC.presence_of_element_located((By.TAG_NAME, 'a'))
     )
-    time.sleep(1.5)
+    time.sleep(0.5)
 
 
 def alle_links(browser):
@@ -45,7 +45,7 @@ def ist_karte(text, href, fh_url):
     return True
 
 
-def main():
+def durchlauf():
     options = Options()
     options.add_argument("--headless")
     options.add_argument("--no-sandbox")
@@ -58,7 +58,6 @@ def main():
         browser.get(BASIS_URL)
         warte(browser)
 
-        # AD Flugplätze klicken
         for text, href in alle_links(browser):
             if "AD Flugplätze" in text:
                 browser.execute_script(
@@ -66,19 +65,15 @@ def main():
                     browser.find_element(By.LINK_TEXT, text)
                 )
                 break
-        time.sleep(2)
+        time.sleep(1)
 
-        # Alphabet-Ordner URLs sammeln
         alphabet_urls = {}
         for text, href in alle_links(browser):
             t = text.replace('»', '').strip()
             if href and t in ['A','B','C-D','E-F','G-H','I-J','K-L','M','N','O-P','Q-R','S','T-U','V-Z']:
                 alphabet_urls[t] = href
 
-        print(f"{len(alphabet_urls)} Ordner: {list(alphabet_urls.keys())}")
-
-        for ordner, ordner_url in alphabet_urls.items():
-            print(f"\n=== {ordner} ===")
+        for _, ordner_url in alphabet_urls.items():
             browser.get(ordner_url)
             warte(browser)
 
@@ -87,8 +82,6 @@ def main():
                 if href and "ED" in text and "»" in text and len(text) > 6:
                     name = text.replace('»', '').strip()
                     flughafen_urls[name] = href
-
-            print(f"  {len(flughafen_urls)} Flughäfen")
 
             for fh_name, fh_url in flughafen_urls.items():
                 print(f"  {fh_name} ...", end=" ", flush=True)
@@ -118,6 +111,14 @@ def main():
 
     finally:
         browser.quit()
+
+
+def main():
+    while True:
+        print("Starte Durchlauf...")
+        durchlauf()
+        print("Nächster Durchlauf in 6 Stunden.\n")
+        time.sleep(6 * 60 * 60)
 
 
 if __name__ == '__main__':
