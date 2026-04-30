@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EUROCONTROL Karten-Katalog</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body { font-family: Arial, sans-serif; background: #f4f4f4; color: #333; }
+
+        header { background: #004990; color: white; padding: 20px 30px; }
+        header h1 { font-size: 1.6rem; }
+        header p  { font-size: 0.9rem; opacity: 0.8; margin-top: 4px; }
+
+        .container { max-width: 960px; margin: 30px auto; padding: 0 20px; }
+
+        #suche {
+            width: 100%; padding: 12px 16px; font-size: 1rem;
+            border: 1px solid #ccc; border-radius: 6px; margin-bottom: 16px;
+        }
+
+        #zaehler { font-size: 0.85rem; color: #666; margin-bottom: 16px; }
+
+        .karte {
+            background: white; border-radius: 8px; margin-bottom: 10px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1); overflow: hidden;
+        }
+
+        .k-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 14px 18px; cursor: pointer; background: white;
+            border: none; width: 100%; text-align: left; gap: 10px;
+        }
+        .k-header:hover { background: #f0f4ff; }
+
+        .k-name { font-weight: bold; font-size: 1rem; flex: 1; }
+
+        .k-badge {
+            font-size: 0.78rem; background: #004990; color: white;
+            padding: 3px 10px; border-radius: 20px; white-space: nowrap;
+        }
+
+        .k-inhalt { display: none; border-top: 1px solid #eee; padding: 14px 18px; }
+        .k-inhalt.offen { display: block; }
+
+        .ec-btn {
+            display: inline-block; margin-bottom: 12px; padding: 8px 14px;
+            background: #004990; color: white; text-decoration: none;
+            border-radius: 5px; font-size: 0.85rem;
+        }
+        .ec-btn:hover { background: #003370; }
+
+        .karten-liste a {
+            display: block; padding: 7px 0; color: #004990;
+            text-decoration: none; font-size: 0.9rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .karten-liste a:last-child { border-bottom: none; }
+        .karten-liste a:hover { text-decoration: underline; }
+
+        .keine-karten { font-size: 0.85rem; color: #999; }
+
+        #laden { text-align: center; padding: 40px; color: #666; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>EUROCONTROL Karten-Katalog</h1>
+    <p>Aktuelle Karten von EUROCONTROL Cartography — wird automatisch alle 6 Stunden aktualisiert</p>
+</header>
+
+<div class="container">
+    <input type="text" id="suche" placeholder="Karte suchen (z.B. ERC, Upper, Maastricht)...">
+    <div id="zaehler"></div>
+    <div id="liste"><div id="laden">Daten werden geladen...</div></div>
+</div>
+
+<script>
+    const JSON_URL = 'https://raw.githubusercontent.com/jscepik-source/dfs-katalog/main/eurocontrol_katalog_export.json';
+    let katalogDaten = {};
+
+    fetch(JSON_URL)
+        .then(r => r.json())
+        .then(data => { katalogDaten = data; zeige(data); })
+        .catch(() => {
+            document.getElementById('laden').textContent = 'Fehler beim Laden der Daten.';
+        });
+
+    function zeige(data) {
+        const liste = document.getElementById('liste');
+        const eintraege = Object.entries(data);
+        document.getElementById('zaehler').textContent = `${eintraege.length} Publikationen`;
+
+        if (eintraege.length === 0) {
+            liste.innerHTML = '<p style="color:#999;padding:20px">Keine Ergebnisse.</p>';
+            return;
+        }
+
+        liste.innerHTML = eintraege.map(([name, inhalt]) => {
+            const url     = inhalt._url   || inhalt;
+            const karten  = inhalt.karten || {};
+            const liste_k = Object.entries(karten);
+
+            const kartenHTML = liste_k.length > 0
+                ? `<div class="karten-liste">${liste_k.map(([k, u]) =>
+                    `<a href="${u}" target="_blank">${k}</a>`).join('')}</div>`
+                : '<span class="keine-karten">Keine Downloads gefunden</span>';
+
+            return `
+            <div class="karte">
+                <button class="k-header" onclick="toggle(this)">
+                    <span class="k-name">${name}</span>
+                    <span class="k-badge">${liste_k.length} Downloads</span>
+                </button>
+                <div class="k-inhalt">
+                    <a class="ec-btn" href="${url}" target="_blank">Auf EUROCONTROL öffnen ↗</a>
+                    ${kartenHTML}
+                </div>
+            </div>`;
+        }).join('');
+    }
+
+    function toggle(btn) {
+        btn.nextElementSibling.classList.toggle('offen');
+    }
+
+    document.getElementById('suche').addEventListener('input', function () {
+        const q = this.value.toLowerCase();
+        zeige(Object.fromEntries(
+            Object.entries(katalogDaten).filter(([n]) => n.toLowerCase().includes(q))
+        ));
+    });
+</script>
+</body>
+</html>
