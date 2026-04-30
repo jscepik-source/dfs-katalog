@@ -2,55 +2,167 @@
     "LOWG": {
         "_url": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/PRI/AD_2_LOWG/LO_AD_2_LOWG_en.pdf",
         "karten": {
-            "LOWG": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/PRI/AD_2_LOWG/LO_AD_2_LOWG_en.pdf"
+            "LOWG AD 2 MAP 1-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWG/LO_AD_2_LOWG_1-1_en.pdf",
+            "LOWG AD 2 MAP 4-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWG/LO_AD_2_LOWG_4-1_en.pdf",
+            "LOWG AD 2 MAP 5-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWG/LO_AD_2_LOWG_5-1_en.pdf",
+            "LOWG AD 2 MAP 7-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWG/LO_AD_2_LOWG_7-2_en.pdf",
+            "LOWG AD 2 MAP 9-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWG/LO_AD_2_LOWG_9-1_en.pdf",
+            "LOWG AD 2 MAP 9-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWG/LO_AD_2_LOWG_9-2_en.pdf",
+            "LOWG AD 2 MAP 11-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWG/LO_AD_2_LOWG_11-1_en.pdf",
+            "LOWG AD 2 MAP 11-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWG/LO_AD_2_LOWG_11-2_en.pdf",
+            "LOWG AD 2 MAP 12-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWG/LO_AD_2_LOWG_12-1_en.pdf",
+            "LOWG AD 2 MAP 13-1-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWG/LO_AD_2_LOWG_13-1-2_en.pdf",
+            "LOWG AD 2 MAP 13-2-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWG/LO_AD_2_LOWG_13-2-1_en.pdf",
+            "LOWG AD 2 MAP 13-2-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWG/LO_AD_2_LOWG_13-2-2_en.pdf",
+            "LOWG AD 2 MAP 13-4-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWG/LO_AD_2_LOWG_13-4-1_en.pdf",
+            "LOWG AD 2 MAP 13-4-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWG/LO_AD_2_LOWG_13-4-2_en.pdf",
+            "LOWG AD 2 MAP 14-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWG/LO_AD_2_LOWG_14-2_en.pdf"
         }
     },
     "LOWI": {
         "_url": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/PRI/AD_2_LOWI/LO_AD_2_LOWI_en.pdf",
         "karten": {
-            "LOWI": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/PRI/AD_2_LOWI/LO_AD_2_LOWI_en.pdf"
+            "LOWI AD 2 MAP 1-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWI/LO_AD_2_LOWI_1-1_en.pdf",
+            "LOWI AD 2 MAP 4-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWI/LO_AD_2_LOWI_4-1_en.pdf",
+            "LOWI AD 2 MAP 9-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWI/LO_AD_2_LOWI_9-1_en.pdf",
+            "LOWI AD 2 MAP 9-2-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWI/LO_AD_2_LOWI_9-2-1_en.pdf",
+            "LOWI AD 2 MAP 9-2-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWI/LO_AD_2_LOWI_9-2-2_en.pdf",
+            "LOWI AD 2 MAP 11-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWI/LO_AD_2_LOWI_11-1_en.pdf",
+            "LOWI AD 2 MAP 12-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWI/LO_AD_2_LOWI_12-1_en.pdf",
+            "LOWI AD 2 MAP 13-1-2-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWI/LO_AD_2_LOWI_13-1-2-1_en.pdf",
+            "LOWI AD 2 MAP 13-1-2-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWI/LO_AD_2_LOWI_13-1-2-2_en.pdf",
+            "LOWI AD 2 MAP 13-1-2-3": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWI/LO_AD_2_LOWI_13-1-2-3_en.pdf",
+            "LOWI AD 2 MAP 13-2-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWI/LO_AD_2_LOWI_13-2-1_en.pdf",
+            "LOWI AD 2 MAP 13-2-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWI/LO_AD_2_LOWI_13-2-2_en.pdf",
+            "LOWI AD 2 MAP 13-3-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWI/LO_AD_2_LOWI_13-3-1_en.pdf",
+            "LOWI AD 2 MAP 13-3-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWI/LO_AD_2_LOWI_13-3-2_en.pdf",
+            "LOWI AD 2 MAP 14-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWI/LO_AD_2_LOWI_14-1_en.pdf",
+            "LOWI AD 2 MAP 14-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWI/LO_AD_2_LOWI_14-2_en.pdf"
         }
     },
     "LOWK": {
         "_url": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/PRI/AD_2_LOWK/LO_AD_2_LOWK_en.pdf",
         "karten": {
-            "LOWK": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/PRI/AD_2_LOWK/LO_AD_2_LOWK_en.pdf"
+            "LOWK AD 2 MAP 1-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWK/LO_AD_2_LOWK_1-1_en.pdf",
+            "LOWK AD 2 MAP 4-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWK/LO_AD_2_LOWK_4-1_en.pdf",
+            "LOWK AD 2 MAP 5-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWK/LO_AD_2_LOWK_5-1_en.pdf",
+            "LOWK AD 2 MAP 7-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWK/LO_AD_2_LOWK_7-2_en.pdf",
+            "LOWK AD 2 MAP 9-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWK/LO_AD_2_LOWK_9-1_en.pdf",
+            "LOWK AD 2 MAP 9-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWK/LO_AD_2_LOWK_9-2_en.pdf",
+            "LOWK AD 2 MAP 11-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWK/LO_AD_2_LOWK_11-1_en.pdf",
+            "LOWK AD 2 MAP 11-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWK/LO_AD_2_LOWK_11-2_en.pdf",
+            "LOWK AD 2 MAP 12-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWK/LO_AD_2_LOWK_12-1_en.pdf",
+            "LOWK AD 2 MAP 13-1-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWK/LO_AD_2_LOWK_13-1-2_en.pdf",
+            "LOWK AD 2 MAP 13-2-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWK/LO_AD_2_LOWK_13-2-1_en.pdf",
+            "LOWK AD 2 MAP 13-2-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWK/LO_AD_2_LOWK_13-2-2_en.pdf",
+            "LOWK AD 2 MAP 13-5-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWK/LO_AD_2_LOWK_13-5-2_en.pdf",
+            "LOWK AD 2 MAP 14-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWK/LO_AD_2_LOWK_14-1_en.pdf",
+            "LOWK AD 2 MAP 14-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWK/LO_AD_2_LOWK_14-2_en.pdf"
         }
     },
     "LOWL": {
         "_url": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/PRI/AD_2_LOWL/LO_AD_2_LOWL_en.pdf",
         "karten": {
-            "LOWL": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/PRI/AD_2_LOWL/LO_AD_2_LOWL_en.pdf"
+            "LOWL AD 2 MAP 1-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWL/LO_AD_2_LOWL_1-1_en.pdf",
+            "LOWL AD 2 MAP 4-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWL/LO_AD_2_LOWL_4-1_en.pdf",
+            "LOWL AD 2 MAP 5-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWL/LO_AD_2_LOWL_5-1_en.pdf",
+            "LOWL AD 2 MAP 7-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWL/LO_AD_2_LOWL_7-1_en.pdf",
+            "LOWL AD 2 MAP 7-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWL/LO_AD_2_LOWL_7-2_en.pdf",
+            "LOWL AD 2 MAP 9-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWL/LO_AD_2_LOWL_9-1_en.pdf",
+            "LOWL AD 2 MAP 9-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWL/LO_AD_2_LOWL_9-2_en.pdf",
+            "LOWL AD 2 MAP 11-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWL/LO_AD_2_LOWL_11-1_en.pdf",
+            "LOWL AD 2 MAP 11-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWL/LO_AD_2_LOWL_11-2_en.pdf",
+            "LOWL AD 2 MAP 12-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWL/LO_AD_2_LOWL_12-1_en.pdf",
+            "LOWL AD 2 MAP 13-1-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWL/LO_AD_2_LOWL_13-1-2_en.pdf",
+            "LOWL AD 2 MAP 13-2-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWL/LO_AD_2_LOWL_13-2-1_en.pdf",
+            "LOWL AD 2 MAP 13-2-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWL/LO_AD_2_LOWL_13-2-2_en.pdf",
+            "LOWL AD 2 MAP 13-4-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWL/LO_AD_2_LOWL_13-4-1_en.pdf",
+            "LOWL AD 2 MAP 13-4-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWL/LO_AD_2_LOWL_13-4-2_en.pdf",
+            "LOWL AD 2 MAP 14-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWL/LO_AD_2_LOWL_14-2_en.pdf"
         }
     },
     "LOWS": {
         "_url": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/PRI/AD_2_LOWS/LO_AD_2_LOWS_en.pdf",
         "karten": {
-            "LOWS": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/PRI/AD_2_LOWS/LO_AD_2_LOWS_en.pdf"
+            "LOWS AD 2 MAP 1-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWS/LO_AD_2_LOWS_1-1_en.pdf",
+            "LOWS AD 2 MAP 2-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWS/LO_AD_2_LOWS_2-1_en.pdf",
+            "LOWS AD 2 MAP 3-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWS/LO_AD_2_LOWS_3-2_en.pdf",
+            "LOWS AD 2 MAP 4-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWS/LO_AD_2_LOWS_4-1_en.pdf",
+            "LOWS AD 2 MAP 5-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWS/LO_AD_2_LOWS_5-1_en.pdf",
+            "LOWS AD 2 MAP 7-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWS/LO_AD_2_LOWS_7-1_en.pdf",
+            "LOWS AD 2 MAP 9-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWS/LO_AD_2_LOWS_9-1_en.pdf",
+            "LOWS AD 2 MAP 9-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWS/LO_AD_2_LOWS_9-2_en.pdf",
+            "LOWS AD 2 MAP 11-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWS/LO_AD_2_LOWS_11-1_en.pdf",
+            "LOWS AD 2 MAP 12-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWS/LO_AD_2_LOWS_12-1_en.pdf",
+            "LOWS AD 2 MAP 13-1-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWS/LO_AD_2_LOWS_13-1-1_en.pdf",
+            "LOWS AD 2 MAP 13-1-3": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWS/LO_AD_2_LOWS_13-1-3_en.pdf",
+            "LOWS AD 2 MAP 13-2-1-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWS/LO_AD_2_LOWS_13-2-1-1_en.pdf",
+            "LOWS AD 2 MAP 13-2-1-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWS/LO_AD_2_LOWS_13-2-1-2_en.pdf",
+            "LOWS AD 2 MAP 13-2-2-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWS/LO_AD_2_LOWS_13-2-2-1_en.pdf",
+            "LOWS AD 2 MAP 13-3-2-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWS/LO_AD_2_LOWS_13-3-2-1_en.pdf",
+            "LOWS AD 2 MAP 13-3-2-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWS/LO_AD_2_LOWS_13-3-2-2_en.pdf",
+            "LOWS AD 2 MAP 14-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWS/LO_AD_2_LOWS_14-1_en.pdf",
+            "LOWS AD 2 MAP 14-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWS/LO_AD_2_LOWS_14-2_en.pdf"
         }
     },
     "LOWW": {
         "_url": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/PRI/AD_2_LOWW/LO_AD_2_LOWW_en.pdf",
         "karten": {
-            "LOWW": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/PRI/AD_2_LOWW/LO_AD_2_LOWW_en.pdf"
+            "LOWW AD 2 MAP 1-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_1-1_en.pdf",
+            "LOWW AD 2 MAP 2-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_2-1_en.pdf",
+            "LOWW AD 2 MAP 3-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_3-2_en.pdf",
+            "LOWW AD 2 MAP 4-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_4-1_en.pdf",
+            "LOWW AD 2 MAP 4-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_4-2_en.pdf",
+            "LOWW AD 2 MAP 5-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_5-1_en.pdf",
+            "LOWW AD 2 MAP 6-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_6-1_en.pdf",
+            "LOWW AD 2 MAP 7-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_7-2_en.pdf",
+            "LOWW AD 2 MAP 7-3": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_7-3_en.pdf",
+            "LOWW AD 2 MAP 9-1-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_9-1-1_en.pdf",
+            "LOWW AD 2 MAP 9-1-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_9-1-2_en.pdf",
+            "LOWW AD 2 MAP 9-2-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_9-2-1_en.pdf",
+            "LOWW AD 2 MAP 9-2-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_9-2-2_en.pdf",
+            "LOWW AD 2 MAP 9-3": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_9-3_en.pdf",
+            "LOWW AD 2 MAP 9-4-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_9-4-1_en.pdf",
+            "LOWW AD 2 MAP 9-4-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_9-4-2_en.pdf",
+            "LOWW AD 2 MAP 9-5": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_9-5_en.pdf",
+            "LOWW AD 2 MAP 11-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_11-1_en.pdf",
+            "LOWW AD 2 MAP 11-2-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_11-2-1_en.pdf",
+            "LOWW AD 2 MAP 11-2-2-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_11-2-2-1_en.pdf",
+            "LOWW AD 2 MAP 11-2-2-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_11-2-2-2_en.pdf",
+            "LOWW AD 2 MAP 11-2-3": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_11-2-3_en.pdf",
+            "LOWW AD 2 MAP 11-2-4": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_11-2-4_en.pdf",
+            "LOWW AD 2 MAP 12-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_12-1_en.pdf",
+            "LOWW AD 2 MAP 13-1-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_13-1-1_en.pdf",
+            "LOWW AD 2 MAP 13-1-2-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_13-1-2-1_en.pdf",
+            "LOWW AD 2 MAP 13-1-2-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_13-1-2-2_en.pdf",
+            "LOWW AD 2 MAP 13-1-3": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_13-1-3_en.pdf",
+            "LOWW AD 2 MAP 13-1-4": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_13-1-4_en.pdf",
+            "LOWW AD 2 MAP 13-2-1": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_13-2-1_en.pdf",
+            "LOWW AD 2 MAP 13-2-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_13-2-2_en.pdf",
+            "LOWW AD 2 MAP 13-2-3": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_13-2-3_en.pdf",
+            "LOWW AD 2 MAP 13-2-4": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_13-2-4_en.pdf",
+            "LOWW AD 2 MAP 13-4-3": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_13-4-3_en.pdf",
+            "LOWW AD 2 MAP 13-4-4": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_13-4-4_en.pdf",
+            "LOWW AD 2 MAP 14-2": "https://eaip.austrocontrol.at/lo/260417/Charts/LOWW/LO_AD_2_LOWW_14-2_en.pdf"
         }
     },
     "LOAA": {
         "_url": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/SRY/AD_2_LOAA/LO_AD_2_LOAA_en.pdf",
         "karten": {
-            "LOAA": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/SRY/AD_2_LOAA/LO_AD_2_LOAA_en.pdf"
+            "LOAA AD 2 MAP 1-1": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOAA/LO_AD_2_LOAA_1-1_en.pdf"
         }
     },
     "LOAB": {
         "_url": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/SRY/AD_2_LOAB/LO_AD_2_LOAB_en.pdf",
         "karten": {
-            "LOAB": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/SRY/AD_2_LOAB/LO_AD_2_LOAB_en.pdf"
+            "LOAB AD 2 MAP 1-1": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOAB/LO_AD_2_LOAB_1-1_en.pdf",
+            "LOAB AD 2 MAP 14-2": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOAB/LO_AD_2_LOAB_14-2_en.pdf"
         }
     },
     "LOAD": {
         "_url": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/SRY/AD_2_LOAD/LO_AD_2_LOAD_en.pdf",
         "karten": {
-            "LOAD": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/SRY/AD_2_LOAD/LO_AD_2_LOAD_en.pdf"
+            "LOAD AD 2 MAP 1-1": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOAD/LO_AD_2_LOAD_1-1_en.pdf"
         }
     },
     "LOAG": {
@@ -62,13 +174,17 @@
     "LOAN": {
         "_url": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/SRY/AD_2_LOAN/LO_AD_2_LOAN_en.pdf",
         "karten": {
-            "LOAN": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/SRY/AD_2_LOAN/LO_AD_2_LOAN_en.pdf"
+            "LOAN AD 2 MAP 1-1": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOAN/LO_AD_2_LOAN_1-1_en.pdf",
+            "LOAN AD 2 MAP 9-1": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOAN/LO_AD_2_LOAN_9-1_en.pdf",
+            "LOAN AD 2 MAP 13-2-1": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOAN/LO_AD_2_LOAN_13-2-1_en.pdf",
+            "LOAN AD 2 MAP 14-2": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOAN/LO_AD_2_LOAN_14-2_en.pdf"
         }
     },
     "LOAR": {
         "_url": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/SRY/AD_2_LOAR/LO_AD_2_LOAR_en.pdf",
         "karten": {
-            "LOAR": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/SRY/AD_2_LOAR/LO_AD_2_LOAR_en.pdf"
+            "LOAR AD 2 MAP 1-1": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOAR/LO_AD_2_LOAR_1-1_en.pdf",
+            "LOAR AD 2 MAP 14-2": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOAR/LO_AD_2_LOAR_14-2_en.pdf"
         }
     },
     "LOAS": {
@@ -86,7 +202,12 @@
     "LOAV": {
         "_url": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/SRY/AD_2_LOAV/LO_AD_2_LOAV_en.pdf",
         "karten": {
-            "LOAV": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/SRY/AD_2_LOAV/LO_AD_2_LOAV_en.pdf"
+            "LOAV AD 2 MAP 1-1": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOAV/LO_AD_2_LOAV_1-1_en.pdf",
+            "LOAV AD 2 MAP 9-1": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOAV/LO_AD_2_LOAV_9-1_en.pdf",
+            "LOAV AD 2 MAP 9-2": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOAV/LO_AD_2_LOAV_9-2_en.pdf",
+            "LOAV AD 2 MAP 13-2-1": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOAV/LO_AD_2_LOAV_13-2-1_en.pdf",
+            "LOAV AD 2 MAP 13-2-2": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOAV/LO_AD_2_LOAV_13-2-2_en.pdf",
+            "LOAV AD 2 MAP 14-2": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOAV/LO_AD_2_LOAV_14-2_en.pdf"
         }
     },
     "LOGF": {
@@ -98,7 +219,7 @@
     "LOGG": {
         "_url": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/SRY/AD_2_LOGG/LO_AD_2_LOGG_en.pdf",
         "karten": {
-            "LOGG": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/SRY/AD_2_LOGG/LO_AD_2_LOGG_en.pdf"
+            "LOGG AD 2 MAP 1-1": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOGG/LO_AD_2_LOGG_1-1_en.pdf"
         }
     },
     "LOGI": {
@@ -128,13 +249,13 @@
     "LOGO": {
         "_url": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/SRY/AD_2_LOGO/LO_AD_2_LOGO_en.pdf",
         "karten": {
-            "LOGO": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/SRY/AD_2_LOGO/LO_AD_2_LOGO_en.pdf"
+            "LOGO AD 2 MAP 1-1": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOGO/LO_AD_2_LOGO_1-1_en.pdf"
         }
     },
     "LOGP": {
         "_url": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/SRY/AD_2_LOGP/LO_AD_2_LOGP_en.pdf",
         "karten": {
-            "LOGP": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/SRY/AD_2_LOGP/LO_AD_2_LOGP_en.pdf"
+            "LOGP AD 2 MAP 1-1": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOGP/LO_AD_2_LOGP_1-1_en.pdf"
         }
     },
     "LOGT": {
@@ -152,13 +273,17 @@
     "LOIH": {
         "_url": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/SRY/AD_2_LOIH/LO_AD_2_LOIH_en.pdf",
         "karten": {
-            "LOIH": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/SRY/AD_2_LOIH/LO_AD_2_LOIH_en.pdf"
+            "LOIH AD 2 MAP 1-1": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOIH/LO_AD_2_LOIH_1-1_en.pdf",
+            "LOIH AD 2 MAP 14-2": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOIH/LO_AD_2_LOIH_14-2_en.pdf"
         }
     },
     "LOIJ": {
         "_url": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/SRY/AD_2_LOIJ/LO_AD_2_LOIJ_en.pdf",
         "karten": {
-            "LOIJ": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/SRY/AD_2_LOIJ/LO_AD_2_LOIJ_en.pdf"
+            "LOIJ AD 2 MAP 1-1": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOIJ/LO_AD_2_LOIJ_1-1_en.pdf",
+            "LOIJ AD 2 MAP 9-1": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOIJ/LO_AD_2_LOIJ_9-1_en.pdf",
+            "LOIJ AD 2 MAP 13-2-1": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOIJ/LO_AD_2_LOIJ_13-2-1_en.pdf",
+            "LOIJ AD 2 MAP 14-2": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOIJ/LO_AD_2_LOIJ_14-2_en.pdf"
         }
     },
     "LOIK": {
@@ -290,7 +415,8 @@
     "LOLW": {
         "_url": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/SRY/AD_2_LOLW/LO_AD_2_LOLW_en.pdf",
         "karten": {
-            "LOLW": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/SRY/AD_2_LOLW/LO_AD_2_LOLW_en.pdf"
+            "LOLW AD 2 MAP 1-1": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOLW/LO_AD_2_LOLW_1-1_en.pdf",
+            "LOLW AD 2 MAP 14-2": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOLW/LO_AD_2_LOLW_14-2_en.pdf"
         }
     },
     "LOSM": {
@@ -302,7 +428,10 @@
     "LOWZ": {
         "_url": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/SRY/AD_2_LOWZ/LO_AD_2_LOWZ_en.pdf",
         "karten": {
-            "LOWZ": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/SRY/AD_2_LOWZ/LO_AD_2_LOWZ_en.pdf"
+            "LOWZ AD 2 MAP 1-1": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOWZ/LO_AD_2_LOWZ_1-1_en.pdf",
+            "LOWZ AD 2 MAP 9-1": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOWZ/LO_AD_2_LOWZ_9-1_en.pdf",
+            "LOWZ AD 2 MAP 13-2-1": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOWZ/LO_AD_2_LOWZ_13-2-1_en.pdf",
+            "LOWZ AD 2 MAP 14-2": "https://eaip.austrocontrol.at/lo/260417/Charts/SECONDARY_%20LOWZ/LO_AD_2_LOWZ_14-2_en.pdf"
         }
     },
     "LOXA": {
@@ -314,19 +443,34 @@
     "LOXN": {
         "_url": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/MIL/AD_2_LOXN/LO_AD_2_LOXN_en.pdf",
         "karten": {
-            "LOXN": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/MIL/AD_2_LOXN/LO_AD_2_LOXN_en.pdf"
+            "LOXN AD 2 MAP 14-2": "https://eaip.austrocontrol.at/lo/260417/Charts/MILITARY_LOXN/LO_AD_2_LOXN_14-2_en.pdf"
         }
     },
     "LOXT": {
         "_url": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/MIL/AD_2_LOXT/LO_AD_2_LOXT_en.pdf",
         "karten": {
-            "LOXT": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/MIL/AD_2_LOXT/LO_AD_2_LOXT_en.pdf"
+            "LOXT AD 2 MAP 1-1": "https://eaip.austrocontrol.at/lo/260417/Charts/MILITARY_LOXT/LO_AD_2_LOXT_1-1_en.pdf",
+            "LOXT AD 2 MAP 4-1": "https://eaip.austrocontrol.at/lo/260417/Charts/MILITARY_LOXT/LO_AD_2_LOXT_4-1_en.pdf",
+            "LOXT AD 2 MAP 9-3": "https://eaip.austrocontrol.at/lo/260417/Charts/MILITARY_LOXT/LO_AD_2_LOXT_9-3_en.pdf",
+            "LOXT AD 2 MAP 12-1": "https://eaip.austrocontrol.at/lo/260417/Charts/MILITARY_LOXT/LO_AD_2_LOXT_12-1_en.pdf",
+            "LOXT AD 2 MAP 13-2-1": "https://eaip.austrocontrol.at/lo/260417/Charts/MILITARY_LOXT/LO_AD_2_LOXT_13-2-1_en.pdf",
+            "LOXT AD 2 MAP 14-1": "https://eaip.austrocontrol.at/lo/260417/Charts/MILITARY_LOXT/LO_AD_2_LOXT_14-1_en.pdf"
         }
     },
     "LOXZ": {
         "_url": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/MIL/AD_2_LOXZ/LO_AD_2_LOXZ_en.pdf",
         "karten": {
-            "LOXZ": "https://eaip.austrocontrol.at/lo/260417/PART_3/AD_2/MIL/AD_2_LOXZ/LO_AD_2_LOXZ_en.pdf"
+            "LOXZ AD 2 MAP 1-1": "https://eaip.austrocontrol.at/lo/260417/Charts/MILITARY_LOXZ/LO_AD_2_LOXZ_1-1_en.pdf",
+            "LOXZ AD 2 MAP 4-1": "https://eaip.austrocontrol.at/lo/260417/Charts/MILITARY_LOXZ/LO_AD_2_LOXZ_4-1_en.pdf",
+            "LOXZ AD 2 MAP 4-2": "https://eaip.austrocontrol.at/lo/260417/Charts/MILITARY_LOXZ/LO_AD_2_LOXZ_4-2_en.pdf",
+            "LOXZ AD 2 MAP 5-1": "https://eaip.austrocontrol.at/lo/260417/Charts/MILITARY_LOXZ/LO_AD_2_LOXZ_5-1_en.pdf",
+            "LOXZ AD 2 MAP 9-1": "https://eaip.austrocontrol.at/lo/260417/Charts/MILITARY_LOXZ/LO_AD_2_LOXZ_9-1_en.pdf",
+            "LOXZ AD 2 MAP 9-2": "https://eaip.austrocontrol.at/lo/260417/Charts/MILITARY_LOXZ/LO_AD_2_LOXZ_9-2_en.pdf",
+            "LOXZ AD 2 MAP 12-1": "https://eaip.austrocontrol.at/lo/260417/Charts/MILITARY_LOXZ/LO_AD_2_LOXZ_12-1_en.pdf",
+            "LOXZ AD 2 MAP 13-2-2": "https://eaip.austrocontrol.at/lo/260417/Charts/MILITARY_LOXZ/LO_AD_2_LOXZ_13-2-2_en.pdf",
+            "LOXZ AD 2 MAP 13-6-2": "https://eaip.austrocontrol.at/lo/260417/Charts/MILITARY_LOXZ/LO_AD_2_LOXZ_13-6-2_en.pdf",
+            "LOXZ AD 2 MAP 14-1": "https://eaip.austrocontrol.at/lo/260417/Charts/MILITARY_LOXZ/LO_AD_2_LOXZ_14-1_en.pdf",
+            "LOXZ AD 2 MAP 14-2": "https://eaip.austrocontrol.at/lo/260417/Charts/MILITARY_LOXZ/LO_AD_2_LOXZ_14-2_en.pdf"
         }
     }
 }
