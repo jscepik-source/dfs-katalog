@@ -328,14 +328,15 @@ async function ladeWetter(icao) {
     el.dataset.geladen = '1';
     if (wettercache[icao]) { el.innerHTML = wettercache[icao]; return; }
     try {
+        const proxy = 'https://corsproxy.io/?';
         const [mRes, tRes] = await Promise.all([
-            fetch(`https://aviationweather.gov/api/data/metar?ids=${icao}&format=json&hours=2`).then(r => r.json()),
-            fetch(`https://aviationweather.gov/api/data/taf?ids=${icao}&format=json`).then(r => r.json())
+            fetch(proxy + `https://aviationweather.gov/api/data/metar?ids=${icao}&format=json&hours=2`).then(r => r.json()),
+            fetch(proxy + `https://aviationweather.gov/api/data/taf?ids=${icao}&format=json`).then(r => r.json())
         ]);
         let html = '';
         if (mRes && mRes.length > 0) {
             const m = mRes[0];
-            const cat = m.fltcat || '';
+            const cat = m.fltCat || '';
             const wind = m.wdir !== undefined ? `${m.wdir}° / ${m.wspd} kt${m.wgst ? ' (Böen '+m.wgst+' kt)' : ''}` : '–';
             const vis  = m.visib !== undefined ? `${m.visib} SM` : '–';
             const temp = m.temp  !== undefined ? `${m.temp} °C` : '–';
@@ -372,7 +373,7 @@ async function ladeNotams(icao) {
     el.dataset.geladen = '1';
     if (notamcache[icao]) { el.innerHTML = notamcache[icao]; return; }
     try {
-        const res = await fetch(`https://aviationweather.gov/api/data/notam?format=json&location=${icao}`);
+        const res = await fetch('https://corsproxy.io/?' + `https://aviationweather.gov/api/data/notam?format=json&location=${icao}`);
         const data = await res.json();
         if (!data || data.length === 0) {
             el.innerHTML = '<span class="lade-klein">Keine NOTAMs gefunden</span>';
