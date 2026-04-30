@@ -68,6 +68,7 @@
         .teil-2 { background: #dcfce7; color: #166534; }
 
         .nr-col { color: #aaa; font-size: 0.8rem; width: 60px; }
+        .betreff-col { max-width: 340px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
         .pagination {
             display: flex; gap: 5px; justify-content: center;
@@ -118,7 +119,7 @@
     </div>
 
     <div class="filterbar">
-        <input type="text" id="suche" placeholder="Nummer suchen (z.B. 2026-1-3894)…">
+        <input type="text" id="suche" placeholder="Nummer oder Schlagwort suchen (z.B. Berlin, Flugbeschränkung)…">
         <select id="jahr-filter">
             <option value="">Alle Jahre</option>
         </select>
@@ -151,13 +152,14 @@
     let seite         = 0;
     let aktivTeil     = '';
 
-    function extractJahr(nummer) {
+    function extractJahr(e) {
+        if (e.jahr) return parseInt(e.jahr);
         let m;
-        m = nummer.match(/^(\d{4})-\d+-\d+/);
+        m = e.nummer.match(/^(\d{4})-\d+-\d+/);
         if (m) return parseInt(m[1]);
-        m = nummer.match(/^\d+-\d+-(\d{2})$/);
+        m = e.nummer.match(/^\d+-\d+-(\d{2})$/);
         if (m) { let yy = parseInt(m[1]); return yy >= 60 ? 1900+yy : 2000+yy; }
-        m = nummer.match(/\/(\d{2})$/);
+        m = e.nummer.match(/\/(\d{2})$/);
         if (m) { let yy = parseInt(m[1]); return yy >= 60 ? 1900+yy : 2000+yy; }
         return null;
     }
@@ -167,7 +169,7 @@
         const j = document.getElementById('jahr-filter').value;
 
         gefiltert = alleEintraege.filter(e => {
-            if (q && !e.nummer.toLowerCase().includes(q)) return false;
+            if (q && !e.nummer.toLowerCase().includes(q) && !(e.betreff||'').toLowerCase().includes(q)) return false;
             if (aktivTeil && e.teil !== aktivTeil) return false;
             if (j && String(e.jahr) !== j) return false;
             return true;
@@ -175,6 +177,10 @@
 
         seite = 0;
         rendern();
+    }
+
+    function esc(s) {
+        return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
 
     function rendern() {
@@ -197,7 +203,7 @@
 
         document.getElementById('tabelle-container').innerHTML =
             '<table><thead><tr>' +
-            '<th class="nr-col">#</th><th>Nummer</th><th>Teil</th><th>Jahr</th><th>PDF</th>' +
+            '<th class="nr-col">#</th><th>Nummer</th><th>Teil</th><th>Datum</th><th>Betreff</th><th>PDF</th>' +
             '</tr></thead><tbody>' +
             aktSeite.map((e, i) => {
                 const pdf = e.pdf_url
@@ -205,9 +211,10 @@
                     : `<span class="kein-pdf">–</span>`;
                 return `<tr>
                     <td class="nr-col">${start + i + 1}</td>
-                    <td><strong>${e.nummer}</strong></td>
+                    <td><strong>${esc(e.nummer)}</strong></td>
                     <td><span class="teil-badge teil-${e.teil}">Teil ${e.teil || '?'}</span></td>
-                    <td>${e.jahr || '–'}</td>
+                    <td style="white-space:nowrap">${esc(e.datum) || e.jahr || '–'}</td>
+                    <td class="betreff-col" title="${esc(e.betreff)}">${esc(e.betreff) || '–'}</td>
                     <td>${pdf}</td>
                 </tr>`;
             }).join('') +
@@ -252,7 +259,7 @@
                 `${(data.gesamt || data.eintraege.length).toLocaleString('de-DE')} Einträge · ` +
                 `Zuletzt aktualisiert: ${data.aktualisiert || '–'} · täglich automatisch aktualisiert`;
 
-            alleEintraege = data.eintraege.map(e => ({ ...e, jahr: extractJahr(e.nummer) }));
+            alleEintraege = data.eintraege.map(e => ({ ...e, jahr: extractJahr(e) }));
 
             const jahre = [...new Set(alleEintraege.map(e => e.jahr).filter(Boolean))].sort((a,b) => b-a);
             const sel = document.getElementById('jahr-filter');
