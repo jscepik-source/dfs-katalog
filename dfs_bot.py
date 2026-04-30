@@ -5,6 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 import json
+import subprocess
 
 BASIS_URL = "https://aip.dfs.de/BasicVFR/"
 
@@ -103,6 +104,12 @@ def durchlauf():
             json.dump(katalog, f, indent=4, ensure_ascii=False)
 
         print(f"\nFertig! {len(katalog)} Flughäfen gespeichert.")
+
+        git = r"C:\Program Files\Git\cmd\git.exe"
+        subprocess.run([git, "add", "dfs_katalog_export.json"], check=True)
+        subprocess.run([git, "commit", "-m", "Automatische Aktualisierung"], check=True)
+        subprocess.run([git, "push"], check=True)
+        print("GitHub aktualisiert.")
 
     except Exception as e:
         import traceback
