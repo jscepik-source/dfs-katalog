@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weltweiter Flughafen-Katalog</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #222; }
+
+        header {
+            background: linear-gradient(135deg, #0a2540, #1a4a7a);
+            color: white; padding: 22px 32px;
+            display: flex; align-items: center; gap: 18px;
+        }
+        .logo {
+            width: 46px; height: 46px; border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.6rem; flex-shrink: 0;
+        }
+        header h1 { font-size: 1.45rem; font-weight: 700; }
+        header p  { font-size: 0.83rem; opacity: 0.7; margin-top: 3px; }
+
+        .toolbar {
+            background: white; border-bottom: 1px solid #dde2ea;
+            padding: 12px 28px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+        }
+
+        #suche {
+            flex: 1; min-width: 200px; max-width: 440px;
+            padding: 9px 14px; font-size: 0.95rem;
+            border: 1px solid #c4ccd8; border-radius: 6px; outline: none;
+            transition: border-color 0.2s;
+        }
+        #suche:focus { border-color: #1a4a7a; }
+
+        .filter-gruppe { display: flex; gap: 6px; flex-wrap: wrap; }
+
+        .filter-btn {
+            padding: 5px 12px; font-size: 0.78rem; border-radius: 20px;
+            border: 1px solid #c4ccd8; background: white; cursor: pointer;
+            color: #555; transition: all 0.15s;
+        }
+        .filter-btn.aktiv { background: #1a4a7a; color: white; border-color: #1a4a7a; }
+
+        #zaehler { font-size: 0.82rem; color: #888; margin-left: auto; white-space: nowrap; }
+
+        .container { max-width: 1000px; margin: 24px auto; padding: 0 20px; }
+
+        #hinweis {
+            text-align: center; padding: 60px 20px; color: #aaa; font-size: 1rem;
+        }
+        #hinweis span { font-size: 2.5rem; display: block; margin-bottom: 12px; }
+
+        #laden {
+            text-align: center; padding: 50px; color: #888;
+        }
+        .lade-balken {
+            width: 200px; height: 4px; background: #dde; border-radius: 2px;
+            margin: 12px auto 0;
+            position: relative; overflow: hidden;
+        }
+        .lade-balken::after {
+            content: '';
+            position: absolute; top: 0; left: -50%;
+            width: 50%; height: 100%; background: #1a4a7a;
+            animation: laden 1.2s infinite ease-in-out;
+        }
+        @keyframes laden { to { left: 150%; } }
+
+        .flughafen {
+            background: white; border-radius: 10px; margin-bottom: 8px;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.07); overflow: hidden;
+            border: 1px solid #e4e9f0;
+        }
+
+        .fh-header {
+            display: flex; align-items: center; gap: 12px;
+            padding: 13px 18px; cursor: pointer; background: white;
+            border: none; width: 100%; text-align: left;
+            transition: background 0.15s;
+        }
+        .fh-header:hover { background: #f4f7fc; }
+
+        .icao-badge {
+            font-family: monospace; font-weight: 700; font-size: 0.95rem;
+            background: #0a2540; color: white;
+            padding: 4px 10px; border-radius: 6px; flex-shrink: 0;
+            min-width: 54px; text-align: center;
+        }
+        .iata-badge {
+            font-family: monospace; font-size: 0.8rem;
+            background: #e8f0fb; color: #1a4a7a;
+            padding: 3px 8px; border-radius: 5px; flex-shrink: 0;
+        }
+
+        .fh-info { flex: 1; min-width: 0; }
+        .fh-name { font-weight: 600; font-size: 0.93rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .fh-meta { font-size: 0.78rem; color: #888; margin-top: 2px; }
+
+        .typ-badge {
+            font-size: 0.72rem; padding: 2px 8px; border-radius: 12px;
+            white-space: nowrap; flex-shrink: 0;
+        }
+        .typ-large_airport    { background: #dbeafe; color: #1e40af; }
+        .typ-medium_airport   { background: #d1fae5; color: #065f46; }
+        .typ-small_airport    { background: #fef9c3; color: #92400e; }
+        .typ-heliport         { background: #fce7f3; color: #9d174d; }
+        .typ-seaplane_base    { background: #e0f2fe; color: #0c4a6e; }
+        .typ-balloonport      { background: #f3e8ff; color: #6b21a8; }
+
+        .fh-chevron { color: #bbb; font-size: 0.75rem; flex-shrink: 0; transition: transform 0.2s; }
+        .fh-header.offen .fh-chevron { transform: rotate(90deg); }
+
+        .fh-inhalt {
+            display: none; border-top: 1px solid #edf0f6;
+            padding: 16px 18px; background: #fafbfd;
+        }
+        .fh-inhalt.offen { display: block; }
+
+        .detail-zeile { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 14px; }
+        .detail-item { font-size: 0.83rem; }
+        .detail-item label { color: #888; display: block; font-size: 0.73rem; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.04em; }
+        .detail-item span  { font-weight: 600; color: #222; }
+
+        .ext-links { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+        .ext-link {
+            display: inline-flex; align-items: center; gap: 5px;
+            padding: 5px 12px; background: #1a4a7a; color: white;
+            text-decoration: none; border-radius: 5px; font-size: 0.8rem;
+            transition: background 0.15s;
+        }
+        .ext-link:hover { background: #0a2540; }
+        .ext-link.wiki { background: #555; }
+        .ext-link.wiki:hover { background: #333; }
+
+        .sektion-titel {
+            font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.05em; color: #888; margin-bottom: 8px;
+        }
+
+        table { width: 100%; border-collapse: collapse; font-size: 0.83rem; margin-bottom: 14px; }
+        th { text-align: left; padding: 6px 10px; background: #f0f2f5; color: #555; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; }
+        td { padding: 6px 10px; border-bottom: 1px solid #eee; }
+        tr:last-child td { border-bottom: none; }
+
+        #mehr-btn {
+            display: block; width: 100%; padding: 10px; text-align: center;
+            background: white; border: 1px solid #d0d5de; border-radius: 8px;
+            color: #555; cursor: pointer; font-size: 0.88rem; margin-top: 4px;
+            transition: background 0.15s;
+        }
+        #mehr-btn:hover { background: #f4f7fc; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">🌍</div>
+    <div>
+        <h1>Weltweiter Flughafen-Katalog</h1>
+        <p>~70.000 Flughäfen weltweit — Daten von OurAirports, täglich aktualisiert</p>
+    </div>
+</header>
+
+<div class="toolbar">
+    <input type="text" id="suche" placeholder="ICAO, IATA, Name, Stadt, Land suchen…" autocomplete="off">
+    <div class="filter-gruppe" id="filter">
+        <button class="filter-btn aktiv" data-typ="">Alle</button>
+        <button class="filter-btn" data-typ="large_airport">Groß</button>
+        <button class="filter-btn" data-typ="medium_airport">Regional</button>
+        <button class="filter-btn" data-typ="small_airport">Klein</button>
+        <button class="filter-btn" data-typ="heliport">Heliport</button>
+        <button class="filter-btn" data-typ="seaplane_base">Wasserflugzeug</button>
+    </div>
+    <span id="zaehler"></span>
+</div>
+
+<div class="container">
+    <div id="liste">
+        <div id="laden">
+            Daten werden geladen…
+            <div class="lade-balken"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+const JSON_URL = 'https://raw.githubusercontent.com/jscepik-source/dfs-katalog/main/ourairports_export.json';
+let katalog = {};
+let aktiverTyp = '';
+let sucheTimeout = null;
+const SEITE = 50;
+let aktuelleEintraege = [];
+let angezeigtBis = 0;
+
+const TYP_LABEL = {
+    large_airport:  'Großflughafen',
+    medium_airport: 'Regionalflughafen',
+    small_airport:  'Kleinflughafen',
+    heliport:       'Heliport',
+    seaplane_base:  'Wasserflugzeugbasis',
+    balloonport:    'Ballonplatz'
+};
+
+fetch(JSON_URL)
+    .then(r => r.json())
+    .then(data => {
+        katalog = data;
+        document.getElementById('laden').style.display = 'none';
+        zeigeHinweis();
+    })
+    .catch(() => {
+        document.getElementById('laden').innerHTML = 'Fehler beim Laden der Daten.';
+    });
+
+function zeigeHinweis() {
+    document.getElementById('liste').innerHTML =
+        '<div id="hinweis"><span>🔍</span>Suchbegriff eingeben um Flughäfen zu finden</div>';
+    document.getElementById('zaehler').textContent = `${Object.keys(katalog).length.toLocaleString()} Flughäfen geladen`;
+}
+
+function suche() {
+    const q = document.getElementById('suche').value.trim().toLowerCase();
+    if (!q && !aktiverTyp) { zeigeHinweis(); return; }
+
+    aktuelleEintraege = Object.entries(katalog).filter(([icao, ap]) => {
+        const typOk = !aktiverTyp || ap.type === aktiverTyp;
+        if (!typOk) return false;
+        if (!q) return true;
+        return icao.toLowerCase().includes(q)
+            || (ap.iata  || '').toLowerCase().includes(q)
+            || (ap.name  || '').toLowerCase().includes(q)
+            || (ap.city  || '').toLowerCase().includes(q)
+            || (ap.country || '').toLowerCase().includes(q);
+    });
+
+    angezeigtBis = 0;
+    const liste = document.getElementById('liste');
+    liste.innerHTML = '';
+    document.getElementById('zaehler').textContent =
+        `${aktuelleEintraege.length.toLocaleString()} Ergebnisse`;
+
+    if (aktuelleEintraege.length === 0) {
+        liste.innerHTML = '<p style="color:#aaa;padding:20px">Keine Ergebnisse.</p>';
+        return;
+    }
+    ladeNaechste(liste);
+}
+
+function ladeNaechste(liste) {
+    const batch = aktuelleEintraege.slice(angezeigtBis, angezeigtBis + SEITE);
+    angezeigtBis += batch.length;
+
+    batch.forEach(([icao, ap]) => {
+        liste.appendChild(baueKarte(icao, ap));
+    });
+
+    const altBtn = document.getElementById('mehr-btn');
+    if (altBtn) altBtn.remove();
+
+    if (angezeigtBis < aktuelleEintraege.length) {
+        const btn = document.createElement('button');
+        btn.id = 'mehr-btn';
+        btn.textContent = `Weitere ${Math.min(SEITE, aktuelleEintraege.length - angezeigtBis)} von ${(aktuelleEintraege.length - angezeigtBis).toLocaleString()} laden`;
+        btn.onclick = () => ladeNaechste(liste);
+        liste.appendChild(btn);
+    }
+}
+
+function baueKarte(icao, ap) {
+    const div = document.createElement('div');
+    div.className = 'flughafen';
+
+    const typLabel = TYP_LABEL[ap.type] || ap.type || '';
+    const typClass = 'typ-' + (ap.type || '');
+    const elev = ap.elev !== undefined ? ap.elev + ' ft' : '–';
+    const coords = (ap.lat !== undefined && ap.lon !== undefined)
+        ? `${ap.lat}, ${ap.lon}` : '–';
+
+    const rwyHTML = ap.runways && ap.runways.length > 0
+        ? `<p class="sektion-titel">Runways</p>
+           <table>
+             <tr><th>Kennung</th><th>Länge (ft)</th><th>Kurs</th><th>Belag</th></tr>
+             ${ap.runways.map(r => `<tr>
+               <td>${r.id || '–'}</td>
+               <td>${r.length !== undefined ? r.length.toLocaleString() : '–'}</td>
+               <td>${r.heading !== undefined ? r.heading + '°' : '–'}</td>
+               <td>${r.surface || '–'}</td>
+             </tr>`).join('')}
+           </table>` : '';
+
+    const frqHTML = ap.freqs && ap.freqs.length > 0
+        ? `<p class="sektion-titel">Frequenzen</p>
+           <table>
+             <tr><th>Typ</th><th>Frequenz (MHz)</th><th>Bezeichnung</th></tr>
+             ${ap.freqs.map(f => `<tr>
+               <td>${f.type || '–'}</td>
+               <td>${f.freq || '–'}</td>
+               <td>${f.desc || '–'}</td>
+             </tr>`).join('')}
+           </table>` : '';
+
+    const extLinks = [
+        ap.web  ? `<a class="ext-link" href="${ap.web}"  target="_blank">🌐 Website</a>` : '',
+        ap.wiki ? `<a class="ext-link wiki" href="${ap.wiki}" target="_blank">📖 Wikipedia</a>` : ''
+    ].filter(Boolean).join('');
+
+    div.innerHTML = `
+        <button class="fh-header" onclick="toggle(this)">
+            <span class="icao-badge">${icao}</span>
+            ${ap.iata ? `<span class="iata-badge">${ap.iata}</span>` : ''}
+            <div class="fh-info">
+                <div class="fh-name">${ap.name || '–'}</div>
+                <div class="fh-meta">${ap.city || ''}${ap.city && ap.country ? ' · ' : ''}${ap.country || ''}</div>
+            </div>
+            <span class="typ-badge ${typClass}">${typLabel}</span>
+            <span class="fh-chevron">▶</span>
+        </button>
+        <div class="fh-inhalt">
+            <div class="detail-zeile">
+                <div class="detail-item"><label>ICAO</label><span>${icao}</span></div>
+                ${ap.iata ? `<div class="detail-item"><label>IATA</label><span>${ap.iata}</span></div>` : ''}
+                <div class="detail-item"><label>Land</label><span>${ap.country || '–'}</span></div>
+                <div class="detail-item"><label>Stadt</label><span>${ap.city || '–'}</span></div>
+                <div class="detail-item"><label>Höhe</label><span>${elev}</span></div>
+                <div class="detail-item"><label>Koordinaten</label><span>${coords}</span></div>
+            </div>
+            ${extLinks ? `<div class="ext-links">${extLinks}</div>` : ''}
+            ${rwyHTML}
+            ${frqHTML}
+        </div>`;
+    return div;
+}
+
+function toggle(btn) {
+    btn.classList.toggle('offen');
+    btn.nextElementSibling.classList.toggle('offen');
+}
+
+document.getElementById('suche').addEventListener('input', () => {
+    clearTimeout(sucheTimeout);
+    sucheTimeout = setTimeout(suche, 200);
+});
+
+document.getElementById('filter').addEventListener('click', e => {
+    const btn = e.target.closest('.filter-btn');
+    if (!btn) return;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('aktiv'));
+    btn.classList.add('aktiv');
+    aktiverTyp = btn.dataset.typ;
+    suche();
+});
+</script>
+</body>
+</html>
