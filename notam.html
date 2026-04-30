@@ -88,6 +88,17 @@
         .footer a { color: #003366; text-decoration: none; }
         .footer a:hover { text-decoration: underline; }
 
+        .hinweis {
+            background: #fff8e1; border: 1px solid #f0c040; border-radius: 8px;
+            padding: 10px 16px; margin-bottom: 14px; font-size: 0.85rem; color: #555;
+            display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+        }
+        .hinweis a {
+            background: #003366; color: white; padding: 5px 14px;
+            border-radius: 5px; text-decoration: none; font-size: 0.83rem; white-space: nowrap;
+        }
+        .hinweis a:hover { background: #0055aa; }
+
         #laden { text-align: center; padding: 40px; color: #666; }
     </style>
 </head>
@@ -99,6 +110,12 @@
 </header>
 
 <div class="container">
+
+    <div class="hinweis">
+        &#9432; PDF-Links erfordern eine aktive Session auf dem DFS-Portal.
+        <a href="https://nfl.dfs.de/basic" target="_blank">Portal öffnen ↗</a>
+        Danach funktionieren alle PDF-Links in dieser Liste.
+    </div>
 
     <div class="filterbar">
         <input type="text" id="suche" placeholder="Nummer suchen (z.B. 2026-1-3894)…">
