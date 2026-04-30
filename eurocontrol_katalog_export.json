@@ -2,73 +2,84 @@
     "EUROCONTROL regional upper airspace charts (ERC) - 16 April 2026": {
         "_url": "https://www.eurocontrol.int/publication/eurocontrol-regional-upper-airspace-charts-erc-16-april-2026",
         "karten": {
-            "Publikationsseite öffnen": "https://www.eurocontrol.int/publication/eurocontrol-regional-upper-airspace-charts-erc-16-april-2026"
+            "eurocontrol-general-contact-form-privacy-statement.pdf": "https://www.eurocontrol.int/sites/default/files/2025-04/eurocontrol-general-contact-form-privacy-statement.pdf"
         }
     },
     "EUROCONTROL regional lower airspace charts (ERC) - 16 April 2026": {
         "_url": "https://www.eurocontrol.int/publication/eurocontrol-regional-lower-airspace-charts-erc-16-april-2026",
         "karten": {
-            "Publikationsseite öffnen": "https://www.eurocontrol.int/publication/eurocontrol-regional-lower-airspace-charts-erc-16-april-2026"
+            "Download": "https://www.eurocontrol.int/sites/default/files/2026-04/erc13l-16apr2026.pdf",
+            "eurocontrol-general-contact-form-privacy-statement.pdf": "https://www.eurocontrol.int/sites/default/files/2025-04/eurocontrol-general-contact-form-privacy-statement.pdf"
         }
     },
     "EUROCONTROL route network chart (ERN) - 16 April 2026": {
         "_url": "https://www.eurocontrol.int/publication/eurocontrol-route-network-chart-ern-16-april-2026",
         "karten": {
-            "Publikationsseite öffnen": "https://www.eurocontrol.int/publication/eurocontrol-route-network-chart-ern-16-april-2026"
+            "Download": "https://www.eurocontrol.int/sites/default/files/2026-04/eurocontrol-ern-high-16april2026-layered.pdf",
+            "eurocontrol-general-contact-form-privacy-statement.pdf": "https://www.eurocontrol.int/sites/default/files/2025-04/eurocontrol-general-contact-form-privacy-statement.pdf"
         }
     },
     "Direct routing (DCT) chart - Route availability document (RAD) AIRAC 2106": {
         "_url": "https://www.eurocontrol.int/publication/direct-routing-dct-chart-route-availability-document-rad-airac-2106",
         "karten": {
-            "Publikationsseite öffnen": "https://www.eurocontrol.int/publication/direct-routing-dct-chart-route-availability-document-rad-airac-2106"
+            "Download": "https://www.eurocontrol.int/sites/default/files/2021-05/eurocontrol-dcts-europe-map-rad-2106.pdf",
+            "eurocontrol-general-contact-form-privacy-statement.pdf": "https://www.eurocontrol.int/sites/default/files/2025-04/eurocontrol-general-contact-form-privacy-statement.pdf"
         }
     },
     "Flight information region (FIR/UIR) charts - 2024": {
         "_url": "https://www.eurocontrol.int/publication/flight-information-region-firuir-charts-2024",
         "karten": {
-            "Publikationsseite öffnen": "https://www.eurocontrol.int/publication/flight-information-region-firuir-charts-2024"
+            "Download": "https://www.eurocontrol.int/sites/default/files/2024-05/eurocontrol-firuir-lower-airspace-europe-2024.pdf",
+            "eurocontrol-general-contact-form-privacy-statement.pdf": "https://www.eurocontrol.int/sites/default/files/2025-04/eurocontrol-general-contact-form-privacy-statement.pdf"
         }
     },
     "Free route airspace (FRA) implementation projection charts": {
         "_url": "https://www.eurocontrol.int/publication/free-route-airspace-fra-implementation-projection-charts",
         "karten": {
-            "Publikationsseite öffnen": "https://www.eurocontrol.int/publication/free-route-airspace-fra-implementation-projection-charts"
+            "Download": "https://www.eurocontrol.int/sites/default/files/2026-02/eurocontrol-fra-implementation-end-2032-v9-12022026.pdf.pdf",
+            "eurocontrol-general-contact-form-privacy-statement.pdf": "https://www.eurocontrol.int/sites/default/files/2025-04/eurocontrol-general-contact-form-privacy-statement.pdf"
         }
     },
     "Maastricht Upper Area Control Centre (MUAC) upper air route structure chart": {
         "_url": "https://www.eurocontrol.int/publication/maastricht-upper-area-control-centre-muac-upper-air-route-structure-chart",
         "karten": {
-            "Publikationsseite öffnen": "https://www.eurocontrol.int/publication/maastricht-upper-area-control-centre-muac-upper-air-route-structure-chart"
+            "Download": "https://www.eurocontrol.int/sites/default/files/2026-04/eurocontrol-102-0200.pdf",
+            "eurocontrol-general-contact-form-privacy-statement.pdf": "https://www.eurocontrol.int/sites/default/files/2025-04/eurocontrol-general-contact-form-privacy-statement.pdf"
         }
     },
     "Maastricht Upper Area Control Centre (MUAC) sectorisation chart": {
         "_url": "https://www.eurocontrol.int/publication/maastricht-upper-area-control-centre-muac-sectorisation-chart",
         "karten": {
-            "Publikationsseite öffnen": "https://www.eurocontrol.int/publication/maastricht-upper-area-control-centre-muac-sectorisation-chart"
+            "Download": "https://www.eurocontrol.int/sites/default/files/2026-04/eurocontrol-102-0271.pdf",
+            "eurocontrol-general-contact-form-privacy-statement.pdf": "https://www.eurocontrol.int/sites/default/files/2025-04/eurocontrol-general-contact-form-privacy-statement.pdf"
         }
     },
     "Free route airspace (FRA) at MUAC - index charts (AIC)": {
         "_url": "https://www.eurocontrol.int/publication/free-route-airspace-fra-muac-index-charts-aic",
         "karten": {
-            "Publikationsseite öffnen": "https://www.eurocontrol.int/publication/free-route-airspace-fra-muac-index-charts-aic"
+            "Download": "https://www.eurocontrol.int/sites/default/files/2026-04/eurocontrol-102-0420.pdf",
+            "eurocontrol-general-contact-form-privacy-statement.pdf": "https://www.eurocontrol.int/sites/default/files/2025-04/eurocontrol-general-contact-form-privacy-statement.pdf"
         }
     },
     "Maastricht Upper Area Control Centre (MUAC) sector boundary structure chart": {
         "_url": "https://www.eurocontrol.int/publication/maastricht-upper-area-control-centre-muac-sector-boundary-structure-chart",
         "karten": {
-            "Publikationsseite öffnen": "https://www.eurocontrol.int/publication/maastricht-upper-area-control-centre-muac-sector-boundary-structure-chart"
+            "Download": "https://www.eurocontrol.int/sites/default/files/2026-04/eurocontrol-102-0317.pdf",
+            "eurocontrol-general-contact-form-privacy-statement.pdf": "https://www.eurocontrol.int/sites/default/files/2025-04/eurocontrol-general-contact-form-privacy-statement.pdf"
         }
     },
     "European helicopter routes chart - August 2020": {
         "_url": "https://www.eurocontrol.int/publication/european-helicopter-routes-chart-august-2020",
         "karten": {
-            "Publikationsseite öffnen": "https://www.eurocontrol.int/publication/european-helicopter-routes-chart-august-2020"
+            "Download": "https://www.eurocontrol.int/sites/default/files/2020-09/helicopter-routes-13aug2020.pdf",
+            "eurocontrol-general-contact-form-privacy-statement.pdf": "https://www.eurocontrol.int/sites/default/files/2025-04/eurocontrol-general-contact-form-privacy-statement.pdf"
         }
     },
     "Flight level orientation scheme - EUROCONTROL NM area - May 2021": {
         "_url": "https://www.eurocontrol.int/publication/flight-level-orientation-scheme-eurocontrol-nm-area-may-2021",
         "karten": {
-            "Publikationsseite öffnen": "https://www.eurocontrol.int/publication/flight-level-orientation-scheme-eurocontrol-nm-area-may-2021"
+            "Download": "https://www.eurocontrol.int/sites/default/files/2021-05/eurocontrol-nm-flos-may-2021.pdf",
+            "eurocontrol-general-contact-form-privacy-statement.pdf": "https://www.eurocontrol.int/sites/default/files/2025-04/eurocontrol-general-contact-form-privacy-statement.pdf"
         }
     }
 }
