@@ -553,6 +553,23 @@
             line-height: 1.6;
         }
 
+        /* ── NOTAM external links ── */
+        .notam-extern {
+            display: flex;
+            gap: var(--space-xs);
+            flex-wrap: wrap;
+            align-items: center;
+            margin-top: var(--space-sm);
+            padding-top: var(--space-sm);
+            border-top: 1px solid var(--color-border);
+        }
+        .notam-extern-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--color-text-dim);
+            white-space: nowrap;
+        }
+
         /* ── Sunrise ── */
         .sun-grid { display: flex; gap: var(--space-md); flex-wrap: wrap; }
         .sun-item dt { font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-dim); margin-bottom: 2px; }
@@ -661,6 +678,13 @@
         <span class="sep">|</span>
         Charts &amp; Flugplanung:
         <a href="https://skyvector.com" target="_blank" rel="noopener">SkyVector</a>
+        <span class="sep">|</span>
+        NOTAMs offiziell:
+        <a href="https://www.icao.int/safety/iStars/Pages/NOTAM-Search.aspx" target="_blank" rel="noopener">ICAO iStars</a>
+        <span class="sep">·</span>
+        <a href="https://notams.aim.faa.gov/notamSearch" target="_blank" rel="noopener">FAA NOTAM System</a>
+        <span class="sep">·</span>
+        <a href="https://www.ead.eurocontrol.int" target="_blank" rel="noopener">EAD Basic (EUROCONTROL)</a>
     </p>
 </footer>
 
@@ -881,8 +905,14 @@ function baueKarte(icao, ap) {
             </section>
 
             <section class="card-section">
-                <h3 class="section-title">⚠️ NOTAMs</h3>
+                <h3 class="section-title">⚠️ NOTAMs <small style="font-weight:400;text-transform:none;letter-spacing:0;font-size:0.65rem;color:var(--color-text-dim)">(Aviation Weather Center)</small></h3>
                 <div id="notam-${icao}"><span class="status-loading">wird geladen…</span></div>
+                <div class="notam-extern">
+                    <span class="notam-extern-label">Weitere Quellen:</span>
+                    <a class="btn-ext" href="https://www.icao.int/safety/iStars/Pages/NOTAM-Search.aspx" target="_blank" rel="noopener">🌐 ICAO NOTAMSearch</a>
+                    <a class="btn-ext" href="https://notams.aim.faa.gov/notamSearch" target="_blank" rel="noopener">✈ FAA NOTAM</a>
+                    <a class="btn-ext" href="https://www.ead.eurocontrol.int" target="_blank" rel="noopener">🇪🇺 EAD Basic</a>
+                </div>
             </section>
 
         </div>`;
