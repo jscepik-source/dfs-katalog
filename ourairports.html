@@ -1,52 +1,176 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weltweiter Flughafen-Katalog</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #222; }
-
-        header {
-            background: linear-gradient(135deg, #0a2540, #1a4a7a);
-            color: white; padding: 22px 32px;
-            display: flex; align-items: center; gap: 18px;
+        :root {
+            --bg:        #f0f2f5;
+            --header-bg: linear-gradient(135deg, #0a2540, #1a4a7a);
+            --header-bd: transparent;
+            --card-bg:   #ffffff;
+            --card-bd:   #e4e9f0;
+            --card-hov:  #f4f7fc;
+            --inner-bg:  #fafbfd;
+            --tb-bg:     #ffffff;
+            --tb-bd:     #dde2ea;
+            --input-bg:  #ffffff;
+            --input-bd:  #c4ccd8;
+            --input-fo:  #1a4a7a;
+            --input-col: #222;
+            --input-ph:  #aaa;
+            --text:      #222;
+            --text-sub:  #888;
+            --text-dim:  #aaa;
+            --accent:    #1a4a7a;
+            --accent2:   #0a2540;
+            --fil-bg:    #ffffff;
+            --fil-bd:    #c4ccd8;
+            --fil-col:   #555;
+            --fil-act-bg:#1a4a7a;
+            --fil-act-c: #ffffff;
+            --icao-bg:   #0a2540;
+            --icao-col:  #ffffff;
+            --iata-bg:   #e8f0fb;
+            --iata-col:  #1a4a7a;
+            --nav-bg:    rgba(255,255,255,0.15);
+            --nav-hov:   rgba(255,255,255,0.25);
+            --nav-col:   #ffffff;
+            --ext-bg:    #1a4a7a;
+            --ext-col:   #ffffff;
+            --ext-hov:   #0a2540;
+            --ext2-bg:   #e8edf5;
+            --ext2-col:  #555;
+            --ext2-hov:  #d0d8ea;
+            --sv-bg:     #1a4a7a;
+            --sv-col:    #ffffff;
+            --sv-hov:    #0a2540;
+            --tbl-hd:    #f0f2f5;
+            --tbl-hd-c:  #666;
+            --tbl-bd:    #eeeeee;
+            --tbl-col:   #333;
+            --wx-bg:     #f4f7fc;
+            --wx-bd:     transparent;
+            --wx-raw:    #333;
+            --taf-col:   #444;
+            --notam-bg:  #fffbeb;
+            --notam-bd:  #fde68a;
+            --notam-col: #555;
+            --sonne-col: #f59e0b;
+            --sec-col:   #1a4a7a;
+            --mehr-bg:   #ffffff;
+            --mehr-bd:   #d0d5de;
+            --mehr-col:  #555;
+            --mehr-hov:  #f4f7fc;
+            --sched-bg:  #d1fae5;
+            --sched-col: #065f46;
+            --load-col:  #1a4a7a;
+            --hint-col:  #aaa;
         }
-        .logo { width: 46px; height: 46px; border-radius: 50%; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; flex-shrink: 0; }
-        header h1 { font-size: 1.45rem; font-weight: 700; }
-        header p  { font-size: 0.83rem; opacity: 0.7; margin-top: 3px; }
-        .nav-link { margin-left: auto; padding: 7px 16px; background: rgba(255,255,255,0.15); color: white; text-decoration: none; border-radius: 6px; font-size: 0.83rem; white-space: nowrap; transition: background 0.15s; }
-        .nav-link:hover { background: rgba(255,255,255,0.25); }
+        [data-theme="dark"] {
+            --bg:        #1a1d23;
+            --header-bg: #111318;
+            --header-bd: #f5a623;
+            --card-bg:   #1e2130;
+            --card-bd:   #2a2d35;
+            --card-hov:  #252840;
+            --inner-bg:  #181b26;
+            --tb-bg:     #111318;
+            --tb-bd:     #2a2d35;
+            --input-bg:  #1e2130;
+            --input-bd:  #2e3240;
+            --input-fo:  #f5a623;
+            --input-col: #d0d8e8;
+            --input-ph:  #555;
+            --text:      #d0d8e8;
+            --text-sub:  #666;
+            --text-dim:  #444;
+            --accent:    #f5a623;
+            --accent2:   #ffc04a;
+            --fil-bg:    #1e2130;
+            --fil-bd:    #2e3240;
+            --fil-col:   #666;
+            --fil-act-bg:#f5a623;
+            --fil-act-c: #111111;
+            --icao-bg:   #f5a623;
+            --icao-col:  #111111;
+            --iata-bg:   #2a2d35;
+            --iata-col:  #f5a623;
+            --nav-bg:    #2a2d35;
+            --nav-hov:   #333647;
+            --nav-col:   #aaaaaa;
+            --ext-bg:    #f5a623;
+            --ext-col:   #111111;
+            --ext-hov:   #ffc04a;
+            --ext2-bg:   #2a2d35;
+            --ext2-col:  #aaaaaa;
+            --ext2-hov:  #333647;
+            --sv-bg:     #f5a623;
+            --sv-col:    #111111;
+            --sv-hov:    #ffc04a;
+            --tbl-hd:    #1a1d26;
+            --tbl-hd-c:  #666666;
+            --tbl-bd:    #22252f;
+            --tbl-col:   #bbbbbb;
+            --wx-bg:     #1a1d26;
+            --wx-bd:     #2a2d35;
+            --wx-raw:    #bbbbbb;
+            --taf-col:   #888888;
+            --notam-bg:  #1e1a0a;
+            --notam-bd:  #4a3a0a;
+            --notam-col: #c0a050;
+            --sonne-col: #f5a623;
+            --sec-col:   #f5a623;
+            --mehr-bg:   #1e2130;
+            --mehr-bd:   #2a2d35;
+            --mehr-col:  #555555;
+            --mehr-hov:  #252840;
+            --sched-bg:  #1a3a2a;
+            --sched-col: #4ade80;
+            --load-col:  #f5a623;
+            --hint-col:  #444444;
+        }
 
-        .toolbar { background: white; border-bottom: 1px solid #dde2ea; padding: 12px 28px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-        #suche { flex: 1; min-width: 200px; max-width: 380px; padding: 9px 14px; font-size: 0.95rem; border: 1px solid #c4ccd8; border-radius: 6px; outline: none; transition: border-color 0.2s; }
-        #suche:focus { border-color: #1a4a7a; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); transition: background 0.2s, color 0.2s; }
+
+        header { background: var(--header-bg); border-bottom: 2px solid var(--header-bd); color: white; padding: 20px 28px; display: flex; align-items: center; gap: 16px; }
+        .logo { width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
+        header h1 { font-size: 1.4rem; font-weight: 700; }
+        header p  { font-size: 0.82rem; opacity: 0.7; margin-top: 3px; }
+        .header-rechts { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+        .theme-btn { background: var(--nav-bg); border: none; color: var(--nav-col); padding: 7px 12px; border-radius: 6px; cursor: pointer; font-size: 1rem; transition: background 0.15s; }
+        .theme-btn:hover { background: var(--nav-hov); }
+
+        .toolbar { background: var(--tb-bg); border-bottom: 1px solid var(--tb-bd); padding: 11px 24px; display: flex; align-items: center; gap: 9px; flex-wrap: wrap; transition: background 0.2s; }
+        #suche { flex: 1; min-width: 200px; max-width: 380px; padding: 9px 14px; font-size: 0.95rem; border: 1px solid var(--input-bd); border-radius: 6px; outline: none; background: var(--input-bg); color: var(--input-col); transition: border-color 0.2s, background 0.2s; }
+        #suche:focus { border-color: var(--input-fo); }
+        #suche::placeholder { color: var(--input-ph); }
         .filter-gruppe { display: flex; gap: 5px; flex-wrap: wrap; }
-        .filter-btn { padding: 5px 11px; font-size: 0.76rem; border-radius: 20px; border: 1px solid #c4ccd8; background: white; cursor: pointer; color: #555; transition: all 0.15s; }
-        .filter-btn.aktiv { background: #1a4a7a; color: white; border-color: #1a4a7a; }
-        #zaehler { font-size: 0.82rem; color: #888; margin-left: auto; white-space: nowrap; }
+        .filter-btn { padding: 5px 11px; font-size: 0.76rem; border-radius: 20px; border: 1px solid var(--fil-bd); background: var(--fil-bg); cursor: pointer; color: var(--fil-col); transition: all 0.15s; }
+        .filter-btn.aktiv { background: var(--fil-act-bg); color: var(--fil-act-c); border-color: var(--fil-act-bg); font-weight: 600; }
+        #zaehler { font-size: 0.82rem; color: var(--text-sub); margin-left: auto; white-space: nowrap; }
 
-        .container { max-width: 1040px; margin: 22px auto; padding: 0 18px; }
-
-        #hinweis { text-align: center; padding: 60px 20px; color: #aaa; }
+        .container { max-width: 1040px; margin: 20px auto; padding: 0 18px; }
+        #hinweis { text-align: center; padding: 60px 20px; color: var(--hint-col); }
         #hinweis span { font-size: 2.5rem; display: block; margin-bottom: 12px; }
-        #laden { text-align: center; padding: 50px; color: #888; }
-        .lade-balken { width: 200px; height: 4px; background: #dde; border-radius: 2px; margin: 12px auto 0; overflow: hidden; }
-        .lade-balken::after { content: ''; display: block; width: 50%; height: 100%; background: #1a4a7a; animation: laden 1.2s infinite ease-in-out; }
+        #laden { text-align: center; padding: 50px; color: var(--text-sub); }
+        .lade-balken { width: 200px; height: 3px; background: var(--card-bd); border-radius: 2px; margin: 12px auto 0; overflow: hidden; }
+        .lade-balken::after { content: ''; display: block; width: 50%; height: 100%; background: var(--load-col); animation: laden 1.2s infinite ease-in-out; }
         @keyframes laden { 0% { margin-left: -50%; } 100% { margin-left: 150%; } }
 
-        .flughafen { background: white; border-radius: 10px; margin-bottom: 8px; box-shadow: 0 1px 6px rgba(0,0,0,0.07); overflow: hidden; border: 1px solid #e4e9f0; }
-        .fh-header { display: flex; align-items: center; gap: 12px; padding: 12px 18px; cursor: pointer; background: white; border: none; width: 100%; text-align: left; transition: background 0.15s; }
-        .fh-header:hover { background: #f4f7fc; }
+        .flughafen { background: var(--card-bg); border-radius: 10px; margin-bottom: 8px; border: 1px solid var(--card-bd); overflow: hidden; transition: background 0.2s; }
+        .fh-header { display: flex; align-items: center; gap: 11px; padding: 12px 18px; cursor: pointer; background: var(--card-bg); border: none; width: 100%; text-align: left; transition: background 0.15s; }
+        .fh-header:hover { background: var(--card-hov); }
 
-        .icao-badge { font-family: monospace; font-weight: 700; font-size: 0.95rem; background: #0a2540; color: white; padding: 4px 10px; border-radius: 6px; flex-shrink: 0; min-width: 54px; text-align: center; }
-        .iata-badge { font-family: monospace; font-size: 0.8rem; background: #e8f0fb; color: #1a4a7a; padding: 3px 8px; border-radius: 5px; flex-shrink: 0; }
-        .sched-badge { font-size: 0.72rem; background: #d1fae5; color: #065f46; padding: 2px 8px; border-radius: 12px; flex-shrink: 0; }
+        .icao-badge { font-family: monospace; font-weight: 700; font-size: 0.95rem; background: var(--icao-bg); color: var(--icao-col); padding: 4px 10px; border-radius: 6px; flex-shrink: 0; min-width: 54px; text-align: center; }
+        .iata-badge { font-family: monospace; font-size: 0.8rem; background: var(--iata-bg); color: var(--iata-col); padding: 3px 8px; border-radius: 5px; flex-shrink: 0; }
+        .sched-badge { font-size: 0.72rem; background: var(--sched-bg); color: var(--sched-col); padding: 2px 8px; border-radius: 12px; flex-shrink: 0; }
 
         .fh-info { flex: 1; min-width: 0; }
         .fh-name { font-weight: 600; font-size: 0.93rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .fh-meta { font-size: 0.78rem; color: #888; margin-top: 2px; }
+        .fh-meta { font-size: 0.78rem; color: var(--text-sub); margin-top: 2px; }
 
         .typ-badge { font-size: 0.72rem; padding: 2px 8px; border-radius: 12px; white-space: nowrap; flex-shrink: 0; }
         .typ-large_airport  { background: #dbeafe; color: #1e40af; }
@@ -55,56 +179,64 @@
         .typ-heliport       { background: #fce7f3; color: #9d174d; }
         .typ-seaplane_base  { background: #e0f2fe; color: #0c4a6e; }
         .typ-balloonport    { background: #f3e8ff; color: #6b21a8; }
+        [data-theme="dark"] .typ-large_airport  { background: #1a3a1a; color: #7ec850; }
+        [data-theme="dark"] .typ-medium_airport { background: #1a2a3a; color: #50a8ec; }
+        [data-theme="dark"] .typ-small_airport  { background: #2a2a1a; color: #ecca50; }
+        [data-theme="dark"] .typ-heliport       { background: #2a1a2a; color: #c850ec; }
+        [data-theme="dark"] .typ-seaplane_base  { background: #1a2a2a; color: #50ecec; }
+        [data-theme="dark"] .typ-balloonport    { background: #2a1a1a; color: #ec5050; }
 
-        .fh-chevron { color: #bbb; font-size: 0.75rem; flex-shrink: 0; transition: transform 0.2s; }
+        [data-theme="dark"] .cat-VFR  { background: #1a3a2a; color: #4ade80; }
+        [data-theme="dark"] .cat-MVFR { background: #1a2a3a; color: #60a5fa; }
+        [data-theme="dark"] .cat-IFR  { background: #3a1a1a; color: #f87171; }
+        [data-theme="dark"] .cat-LIFR { background: #2a1a3a; color: #c084fc; }
+
+        .fh-chevron { color: var(--text-dim); font-size: 0.75rem; flex-shrink: 0; transition: transform 0.2s; }
         .fh-header.offen .fh-chevron { transform: rotate(90deg); }
 
-        .fh-inhalt { display: none; border-top: 1px solid #edf0f6; padding: 16px 18px; background: #fafbfd; }
+        .fh-inhalt { display: none; border-top: 1px solid var(--card-bd); padding: 16px 18px; background: var(--inner-bg); }
         .fh-inhalt.offen { display: block; }
 
-        .detail-zeile { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 14px; }
-        .detail-item label { color: #888; display: block; font-size: 0.72rem; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.04em; }
-        .detail-item span  { font-weight: 600; color: #222; font-size: 0.85rem; }
+        .detail-zeile { display: flex; gap: 18px; flex-wrap: wrap; margin-bottom: 14px; }
+        .detail-item label { color: var(--text-sub); display: block; font-size: 0.72rem; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.04em; }
+        .detail-item span  { font-weight: 600; color: var(--text); font-size: 0.85rem; }
 
         .ext-links { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
-        .ext-link { display: inline-flex; align-items: center; gap: 5px; padding: 6px 13px; background: #1a4a7a; color: white; text-decoration: none; border-radius: 6px; font-size: 0.82rem; transition: background 0.15s; }
-        .ext-link:hover { background: #0a2540; }
-        .ext-link.grau { background: #e8edf5; color: #555; }
-        .ext-link.grau:hover { background: #d0d8ea; }
+        .sv-btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 16px; background: var(--sv-bg); color: var(--sv-col); text-decoration: none; border-radius: 6px; font-size: 0.85rem; font-weight: 700; transition: background 0.15s; }
+        .sv-btn:hover { background: var(--sv-hov); }
+        .ext-link { display: inline-flex; align-items: center; gap: 5px; padding: 6px 13px; background: var(--ext2-bg); color: var(--ext2-col); text-decoration: none; border-radius: 6px; font-size: 0.82rem; transition: background 0.15s; }
+        .ext-link:hover { background: var(--ext2-hov); color: var(--text); }
 
         .sektion { margin-top: 14px; }
-        .sektion-titel { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #1a4a7a; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+        .sektion-titel { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--sec-col); margin-bottom: 8px; }
 
-        table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin-bottom: 4px; }
-        th { text-align: left; padding: 6px 10px; background: #f0f2f5; color: #666; font-weight: 600; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; }
-        td { padding: 6px 10px; border-bottom: 1px solid #eee; color: #333; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+        th { text-align: left; padding: 6px 10px; background: var(--tbl-hd); color: var(--tbl-hd-c); font-weight: 600; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; }
+        td { padding: 6px 10px; border-bottom: 1px solid var(--tbl-bd); color: var(--tbl-col); }
         tr:last-child td { border-bottom: none; }
-        .rwy-closed td { color: #bbb; text-decoration: line-through; }
+        .rwy-closed td { color: var(--text-dim); text-decoration: line-through; }
 
-        .wetter-block { background: #f4f7fc; border-radius: 8px; padding: 12px 14px; margin-top: 4px; }
-        .metar-raw { font-family: monospace; font-size: 0.82rem; color: #333; word-break: break-all; margin-bottom: 10px; }
+        .wetter-block { background: var(--wx-bg); border: 1px solid var(--wx-bd); border-radius: 8px; padding: 12px 14px; margin-top: 4px; }
+        .metar-raw { font-family: monospace; font-size: 0.82rem; color: var(--wx-raw); word-break: break-all; margin-bottom: 10px; }
         .wx-grid { display: flex; gap: 16px; flex-wrap: wrap; }
-        .wx-item label { font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 0.04em; display: block; }
+        .wx-item label { font-size: 0.7rem; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.04em; display: block; }
         .wx-item span  { font-weight: 700; font-size: 0.9rem; }
         .fltcat { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 0.78rem; font-weight: 700; margin-left: 8px; }
         .cat-VFR  { background: #d1fae5; color: #065f46; }
         .cat-MVFR { background: #dbeafe; color: #1e40af; }
         .cat-IFR  { background: #fee2e2; color: #991b1b; }
         .cat-LIFR { background: #f3e8ff; color: #6b21a8; }
-
-        .taf-raw { font-family: monospace; font-size: 0.8rem; color: #444; white-space: pre-wrap; word-break: break-all; }
-
+        .taf-raw { font-family: monospace; font-size: 0.8rem; color: var(--taf-col); white-space: pre-wrap; word-break: break-all; }
         .notam-liste { display: flex; flex-direction: column; gap: 6px; }
-        .notam-item { background: #fffbeb; border: 1px solid #fde68a; border-radius: 6px; padding: 8px 12px; font-size: 0.8rem; font-family: monospace; white-space: pre-wrap; word-break: break-all; color: #555; }
-
-        .lade-klein { font-size: 0.8rem; color: #aaa; }
-        .fehler-klein { font-size: 0.8rem; color: #e55; }
+        .notam-item { background: var(--notam-bg); border: 1px solid var(--notam-bd); border-radius: 6px; padding: 8px 12px; font-size: 0.8rem; font-family: monospace; white-space: pre-wrap; word-break: break-all; color: var(--notam-col); }
+        .lade-klein  { font-size: 0.8rem; color: var(--text-dim); }
+        .fehler-klein{ font-size: 0.8rem; color: #e55; }
         .sonnen-zeile { display: flex; gap: 20px; flex-wrap: wrap; }
-        .sonnen-item label { font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 0.04em; display: block; }
-        .sonnen-item span  { font-weight: 700; font-size: 0.9rem; color: #f59e0b; }
+        .sonnen-item label { font-size: 0.7rem; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.04em; display: block; }
+        .sonnen-item span  { font-weight: 700; font-size: 0.9rem; color: var(--sonne-col); }
 
-        #mehr-btn { display: block; width: 100%; padding: 10px; text-align: center; background: white; border: 1px solid #d0d5de; border-radius: 8px; color: #555; cursor: pointer; font-size: 0.88rem; margin-top: 4px; transition: background 0.15s; }
-        #mehr-btn:hover { background: #f4f7fc; }
+        #mehr-btn { display: block; width: 100%; padding: 10px; text-align: center; background: var(--mehr-bg); border: 1px solid var(--mehr-bd); border-radius: 8px; color: var(--mehr-col); cursor: pointer; font-size: 0.88rem; margin-top: 4px; transition: background 0.15s; }
+        #mehr-btn:hover { background: var(--mehr-hov); }
     </style>
 </head>
 <body>
@@ -112,9 +244,11 @@
     <div class="logo">🌍</div>
     <div>
         <h1>Weltweiter Flughafen-Katalog</h1>
-        <p>~72.000 Flughäfen · Runways · Frequenzen · Nav-Aids · METAR/TAF · NOTAMs</p>
+        <p>~72.000 Flughäfen · Runways · Frequenzen · Nav-Aids · METAR/TAF · NOTAMs · SkyVector</p>
     </div>
-    <a class="nav-link" href="skyvector.html">✈ SkyVector-Ansicht →</a>
+    <div class="header-rechts">
+        <button class="theme-btn" onclick="toggleTheme()" id="theme-icon">🌙</button>
+    </div>
 </header>
 
 <div class="toolbar">
@@ -126,7 +260,7 @@
         <button class="filter-btn" data-typ="small_airport">Klein</button>
         <button class="filter-btn" data-typ="heliport">Heliport</button>
         <button class="filter-btn" data-typ="seaplane_base">Wasserflugzeug</button>
-        <button class="filter-btn" data-sched="yes">Linienflug</button>
+        <button class="filter-btn" data-sched="yes">✈ Linienflug</button>
     </div>
     <span id="zaehler"></span>
 </div>
@@ -154,6 +288,22 @@ const TYP_LABEL = {
 };
 const KONTINENT = { EU:'Europa', NA:'Nordamerika', SA:'Südamerika', AS:'Asien', AF:'Afrika', OC:'Ozeanien', AN:'Antarktis' };
 
+// Theme
+function toggleTheme() {
+    const html = document.documentElement;
+    const dark = html.dataset.theme === 'dark';
+    html.dataset.theme = dark ? 'light' : 'dark';
+    document.getElementById('theme-icon').textContent = dark ? '🌙' : '☀️';
+    localStorage.setItem('theme', html.dataset.theme);
+}
+(function() {
+    const saved = localStorage.getItem('theme') || 'light';
+    document.documentElement.dataset.theme = saved;
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('theme-icon').textContent = saved === 'dark' ? '☀️' : '🌙';
+    });
+})();
+
 fetch(JSON_URL)
     .then(r => r.json())
     .then(data => { katalog = data; document.getElementById('laden').style.display = 'none'; zeigeHinweis(); })
@@ -179,7 +329,7 @@ function suche() {
     const liste = document.getElementById('liste');
     liste.innerHTML = '';
     document.getElementById('zaehler').textContent = `${aktuelleEintraege.length.toLocaleString()} Ergebnisse`;
-    if (aktuelleEintraege.length === 0) { liste.innerHTML = '<p style="color:#aaa;padding:20px">Keine Ergebnisse.</p>'; return; }
+    if (aktuelleEintraege.length === 0) { liste.innerHTML = '<p style="color:var(--text-dim);padding:20px">Keine Ergebnisse.</p>'; return; }
     ladeNaechste(liste);
 }
 
@@ -198,11 +348,9 @@ function ladeNaechste(liste) {
     }
 }
 
-// Sonnenauf- und -untergang (UTC)
 function calcSonne(lat, lon) {
     const rad = Math.PI / 180;
-    const now = new Date();
-    const JD = now.getTime() / 86400000 + 2440587.5;
+    const JD = Date.now() / 86400000 + 2440587.5;
     const n = JD - 2451545.0;
     const L = (280.460 + 0.9856474 * n) % 360;
     const g = (357.528 + 0.9856003 * n) % 360;
@@ -215,7 +363,7 @@ function calcSonne(lat, lon) {
     const H = Math.acos(cosH) / rad;
     const RA = Math.atan2(Math.cos(eps * rad) * Math.sin(lambda * rad), Math.cos(lambda * rad)) / rad / 15;
     const noon = 12 - lon / 15 - (RA - L / 15);
-    const fmt = h => { const hh = Math.floor(((h % 24) + 24) % 24), mm = Math.round((h - Math.floor(h)) * 60); return `${String(hh).padStart(2,'0')}:${String(mm<60?mm:59).padStart(2,'0')} UTC`; };
+    const fmt = h => { const hh = Math.floor(((h%24)+24)%24), mm = Math.round((h-Math.floor(h))*60); return `${String(hh).padStart(2,'0')}:${String(mm<60?mm:59).padStart(2,'0')} UTC`; };
     return { auf: fmt(noon - H / 15), unter: fmt(noon + H / 15) };
 }
 
@@ -229,41 +377,40 @@ function baueKarte(icao, ap) {
     const typLabel = TYP_LABEL[ap.type] || ap.type || '';
     const typClass = 'typ-' + (ap.type || '');
     const elev = ap.elev !== undefined ? `${ap.elev} ft` : '–';
-    const coords = (ap.lat !== undefined && ap.lon !== undefined) ? `${ap.lat}, ${ap.lon}` : null;
+    const hasCoords = ap.lat !== undefined && ap.lon !== undefined;
+    const coords = hasCoords ? `${ap.lat}, ${ap.lon}` : null;
     const kontinent = KONTINENT[ap.continent] || ap.continent || '';
+    const svUrl = `https://skyvector.com/airport/${icao}`;
+    const mapsUrl = hasCoords ? `https://maps.google.com/?q=${ap.lat},${ap.lon}` : null;
 
     const rwyHTML = ap.runways && ap.runways.length
         ? `<div class="sektion"><p class="sektion-titel">🛬 Runways</p><table>
-           <tr><th>Kennung</th><th>Länge (ft)</th><th>Breite (ft)</th><th>Kurs LE/HE</th><th>Belag</th><th>Bel.</th></tr>
-           ${ap.runways.map(r => `<tr class="${r.closed ? 'rwy-closed' : ''}">
-             <td>${r.le||''}${r.he ? ' / '+r.he : ''}</td>
-             <td>${r.length !== undefined ? r.length.toLocaleString() : '–'}</td>
-             <td>${r.width !== undefined ? r.width : '–'}</td>
-             <td>${r.le_hdg !== undefined ? r.le_hdg+'°' : '–'} / ${r.he_hdg !== undefined ? r.he_hdg+'°' : '–'}</td>
-             <td>${r.surface || '–'}</td>
-             <td>${r.lighted ? '💡' : '–'}</td>
-           </tr>`).join('')}
-           </table></div>` : '';
+           <tr><th>Kennung</th><th>Länge (ft)</th><th>Breite (ft)</th><th>Kurs LE / HE</th><th>Belag</th><th>Bel.</th></tr>
+           ${ap.runways.map(r => `<tr class="${r.closed?'rwy-closed':''}">
+             <td>${r.le||''}${r.he?' / '+r.he:''}</td>
+             <td>${r.length!==undefined?r.length.toLocaleString():'–'}</td>
+             <td>${r.width!==undefined?r.width:'–'}</td>
+             <td>${r.le_hdg!==undefined?r.le_hdg+'°':'–'} / ${r.he_hdg!==undefined?r.he_hdg+'°':'–'}</td>
+             <td>${r.surface||'–'}</td><td>${r.lighted?'💡':'–'}</td>
+           </tr>`).join('')}</table></div>` : '';
 
     const frqHTML = ap.freqs && ap.freqs.length
         ? `<div class="sektion"><p class="sektion-titel">📻 Frequenzen</p><table>
            <tr><th>Typ</th><th>MHz</th><th>Bezeichnung</th></tr>
-           ${ap.freqs.map(f => `<tr><td>${f.type||'–'}</td><td>${f.freq||'–'}</td><td>${f.desc||'–'}</td></tr>`).join('')}
+           ${ap.freqs.map(f=>`<tr><td>${f.type||'–'}</td><td>${f.freq||'–'}</td><td>${f.desc||'–'}</td></tr>`).join('')}
            </table></div>` : '';
 
     const navHTML = ap.navaids && ap.navaids.length
         ? `<div class="sektion"><p class="sektion-titel">📡 Nav-Aids</p><table>
            <tr><th>Kennung</th><th>Name</th><th>Typ</th><th>Freq (kHz)</th><th>DME</th><th>Leistung</th><th>Nutzung</th></tr>
-           ${ap.navaids.map(n => `<tr>
+           ${ap.navaids.map(n=>`<tr>
              <td>${n.ident||'–'}</td><td>${n.name||'–'}</td><td>${n.type||'–'}</td><td>${n.freq||'–'}</td>
-             <td>${n.dme_ch ? n.dme_ch : '–'}</td><td>${n.power||'–'}</td><td>${n.usage||'–'}</td>
-           </tr>`).join('')}
-           </table></div>` : '';
+             <td>${n.dme_ch||'–'}</td><td>${n.power||'–'}</td><td>${n.usage||'–'}</td>
+           </tr>`).join('')}</table></div>` : '';
 
-    const sonneHTML = coords
+    const sonneHTML = hasCoords
         ? `<div class="sektion"><p class="sektion-titel">🌅 Sonnenauf-/-untergang (UTC, heute)</p>
-           <div class="sonnen-zeile" id="sonne-${icao}"><span class="lade-klein">wird berechnet…</span></div></div>`
-        : '';
+           <div class="sonnen-zeile" id="sonne-${icao}"><span class="lade-klein">wird berechnet…</span></div></div>` : '';
 
     const wetterHTML = `<div class="sektion"><p class="sektion-titel">🌤 Wetter (METAR / TAF)</p>
         <div id="wetter-${icao}"><span class="lade-klein">wird geladen…</span></div></div>`;
@@ -271,16 +418,14 @@ function baueKarte(icao, ap) {
     const notamHTML = `<div class="sektion"><p class="sektion-titel">⚠️ NOTAMs</p>
         <div id="notam-${icao}"><span class="lade-klein">wird geladen…</span></div></div>`;
 
-    const mapsUrl = coords ? `https://maps.google.com/?q=${ap.lat},${ap.lon}` : null;
-
     div.innerHTML = `
         <button class="fh-header" onclick="toggle(this,'${icao}',${ap.lat||'null'},${ap.lon||'null'})">
             <span class="icao-badge">${icao}</span>
-            ${ap.iata ? `<span class="iata-badge">${ap.iata}</span>` : ''}
-            ${ap.scheduled ? `<span class="sched-badge">✈ Linienflug</span>` : ''}
+            ${ap.iata?`<span class="iata-badge">${ap.iata}</span>`:''}
+            ${ap.scheduled?`<span class="sched-badge">✈ Linienflug</span>`:''}
             <div class="fh-info">
                 <div class="fh-name">${ap.name||'–'}</div>
-                <div class="fh-meta">${[ap.city, ap.country_name||ap.country, kontinent].filter(Boolean).join(' · ')}</div>
+                <div class="fh-meta">${[ap.city,ap.country_name||ap.country,kontinent].filter(Boolean).join(' · ')}</div>
             </div>
             <span class="typ-badge ${typClass}">${typLabel}</span>
             <span class="fh-chevron">▶</span>
@@ -288,19 +433,20 @@ function baueKarte(icao, ap) {
         <div class="fh-inhalt">
             <div class="detail-zeile">
                 <div class="detail-item"><label>ICAO</label><span>${icao}</span></div>
-                ${ap.iata   ? `<div class="detail-item"><label>IATA</label><span>${ap.iata}</span></div>` : ''}
-                ${ap.local  ? `<div class="detail-item"><label>Lokal</label><span>${ap.local}</span></div>` : ''}
+                ${ap.iata ?`<div class="detail-item"><label>IATA</label><span>${ap.iata}</span></div>`:''}
+                ${ap.local?`<div class="detail-item"><label>Lokal</label><span>${ap.local}</span></div>`:''}
                 <div class="detail-item"><label>Land</label><span>${ap.country_name||ap.country||'–'}</span></div>
                 <div class="detail-item"><label>Region</label><span>${ap.region||'–'}</span></div>
                 <div class="detail-item"><label>Stadt</label><span>${ap.city||'–'}</span></div>
                 <div class="detail-item"><label>Kontinent</label><span>${kontinent||'–'}</span></div>
                 <div class="detail-item"><label>Höhe</label><span>${elev}</span></div>
-                ${coords ? `<div class="detail-item"><label>Koordinaten</label><span>${coords}</span></div>` : ''}
+                ${coords?`<div class="detail-item"><label>Koordinaten</label><span>${coords}</span></div>`:''}
             </div>
             <div class="ext-links">
-                ${mapsUrl ? `<a class="ext-link" href="${mapsUrl}" target="_blank">🗺 Google Maps</a>` : ''}
-                ${ap.web  ? `<a class="ext-link grau" href="${ap.web}"  target="_blank">🌐 Website</a>` : ''}
-                ${ap.wiki ? `<a class="ext-link grau" href="${ap.wiki}" target="_blank">📖 Wikipedia</a>` : ''}
+                <a class="sv-btn" href="${svUrl}" target="_blank">✈ Auf SkyVector öffnen</a>
+                ${mapsUrl?`<a class="ext-link" href="${mapsUrl}" target="_blank">🗺 Google Maps</a>`:''}
+                ${ap.web ?`<a class="ext-link" href="${ap.web}"  target="_blank">🌐 Website</a>`:''}
+                ${ap.wiki?`<a class="ext-link" href="${ap.wiki}" target="_blank">📖 Wikipedia</a>`:''}
             </div>
             ${rwyHTML}${frqHTML}${navHTML}${sonneHTML}${wetterHTML}${notamHTML}
         </div>`;
@@ -323,8 +469,7 @@ function ladeErst(icao, lat, lon) {
     el.dataset.geladen = '1';
     const s = calcSonne(lat, lon);
     if (!s) { el.innerHTML = '<span class="lade-klein">Polartag/-nacht</span>'; return; }
-    el.innerHTML = `
-        <div class="sonnen-item"><label>Sonnenaufgang</label><span>${s.auf}</span></div>
+    el.innerHTML = `<div class="sonnen-item"><label>Sonnenaufgang</label><span>${s.auf}</span></div>
         <div class="sonnen-item"><label>Sonnenuntergang</label><span>${s.unter}</span></div>`;
 }
 
@@ -332,84 +477,64 @@ async function ladeWetter(icao) {
     const el = document.getElementById(`wetter-${icao}`);
     if (!el || el.dataset.geladen) return;
     el.dataset.geladen = '1';
-
     if (wettercache[icao]) { el.innerHTML = wettercache[icao]; return; }
-
     try {
         const proxy = 'https://corsproxy.io/?';
         const [mRes, tRes] = await Promise.all([
             fetch(proxy + `https://aviationweather.gov/api/data/metar?ids=${icao}&format=json&hours=2`).then(r => r.json()),
             fetch(proxy + `https://aviationweather.gov/api/data/taf?ids=${icao}&format=json`).then(r => r.json())
         ]);
-
         let html = '';
-
         if (mRes && mRes.length > 0) {
             const m = mRes[0];
             const cat = m.fltCat || '';
-            const wind = m.wdir !== undefined ? `${m.wdir}° / ${m.wspd} kt${m.wgst ? ' (Böen '+m.wgst+' kt)' : ''}` : '–';
+            const wind = m.wdir !== undefined ? `${m.wdir}° / ${m.wspd} kt${m.wgst?' (Böen '+m.wgst+' kt)':''}` : '–';
             const vis  = m.visib !== undefined ? `${m.visib} SM` : '–';
             const temp = m.temp  !== undefined ? `${m.temp} °C` : '–';
             const dew  = m.dewp  !== undefined ? `${m.dewp} °C` : '–';
             const qnh  = m.altim !== undefined ? `${m.altim} hPa` : '–';
-            const clouds = Array.isArray(m.clouds) ? m.clouds.map(c => `${c.cover} ${c.base}ft`).join(', ') : '–';
+            const clouds = Array.isArray(m.clouds) && m.clouds.length ? m.clouds.map(c=>`${c.cover} ${c.base}ft`).join(', ') : (m.cover || '–');
             html += `<div class="wetter-block">
-                <div class="metar-raw">${m.rawOb || ''} ${cat ? `<span class="fltcat ${fltcatClass(cat)}">${cat}</span>` : ''}</div>
+                <div class="metar-raw">${m.rawOb||''} ${cat?`<span class="fltcat ${fltcatClass(cat)}">${cat}</span>`:''}</div>
                 <div class="wx-grid">
                     <div class="wx-item"><label>Wind</label><span>${wind}</span></div>
                     <div class="wx-item"><label>Sicht</label><span>${vis}</span></div>
                     <div class="wx-item"><label>Temp / TP</label><span>${temp} / ${dew}</span></div>
                     <div class="wx-item"><label>QNH</label><span>${qnh}</span></div>
                     <div class="wx-item"><label>Wolken</label><span>${clouds}</span></div>
-                    ${m.wxString ? `<div class="wx-item"><label>Phänomene</label><span>${m.wxString}</span></div>` : ''}
-                </div>
-            </div>`;
-        } else {
-            html += '<span class="fehler-klein">Kein METAR verfügbar</span>';
-        }
-
-        if (tRes && tRes.length > 0) {
+                    ${m.wxString?`<div class="wx-item"><label>Phänomene</label><span>${m.wxString}</span></div>`:''}
+                </div></div>`;
+        } else { html += '<span class="fehler-klein">Kein METAR verfügbar</span>'; }
+        if (tRes && tRes.length > 0 && tRes[0].rawTAF) {
             html += `<div class="sektion"><p class="sektion-titel" style="margin-top:12px">TAF</p>
-                <div class="taf-raw">${(tRes[0].rawTAF || '').replace(/\n/g,'<br>')}</div></div>`;
+                <div class="taf-raw">${tRes[0].rawTAF.replace(/\n/g,'<br>')}</div></div>`;
         }
-
         wettercache[icao] = html;
         el.innerHTML = html;
-    } catch (e) {
-        el.innerHTML = '<span class="fehler-klein">Wetterdaten nicht verfügbar</span>';
-    }
+    } catch(e) { el.innerHTML = '<span class="fehler-klein">Wetterdaten nicht verfügbar</span>'; }
 }
 
 async function ladeNotams(icao) {
     const el = document.getElementById(`notam-${icao}`);
     if (!el || el.dataset.geladen) return;
     el.dataset.geladen = '1';
-
     if (notamcache[icao]) { el.innerHTML = notamcache[icao]; return; }
-
     try {
         const res = await fetch('https://corsproxy.io/?' + `https://aviationweather.gov/api/data/notam?format=json&location=${icao}`);
         const data = await res.json();
-        if (!data || data.length === 0) {
-            el.innerHTML = '<span class="lade-klein">Keine NOTAMs gefunden</span>';
-            notamcache[icao] = el.innerHTML;
-            return;
-        }
-        const html = `<div class="notam-liste">${data.slice(0, 10).map(n =>
-            `<div class="notam-item">${n.notamText || n.text || JSON.stringify(n)}</div>`
-        ).join('')}${data.length > 10 ? `<div class="lade-klein">… und ${data.length - 10} weitere</div>` : ''}</div>`;
+        if (!data || data.length === 0) { const h = '<span class="lade-klein">Keine NOTAMs gefunden</span>'; notamcache[icao]=h; el.innerHTML=h; return; }
+        const html = `<div class="notam-liste">${data.slice(0,10).map(n=>
+            `<div class="notam-item">${n.notamText||n.text||JSON.stringify(n)}</div>`
+        ).join('')}${data.length>10?`<div class="lade-klein">… und ${data.length-10} weitere</div>`:''}</div>`;
         notamcache[icao] = html;
         el.innerHTML = html;
-    } catch (e) {
-        el.innerHTML = '<span class="fehler-klein">NOTAMs nicht verfügbar</span>';
-    }
+    } catch(e) { el.innerHTML = '<span class="fehler-klein">NOTAMs nicht verfügbar</span>'; }
 }
 
 document.getElementById('suche').addEventListener('input', () => {
     clearTimeout(sucheTimeout);
     sucheTimeout = setTimeout(suche, 200);
 });
-
 document.getElementById('filter').addEventListener('click', e => {
     const btn = e.target.closest('.filter-btn');
     if (!btn) return;
