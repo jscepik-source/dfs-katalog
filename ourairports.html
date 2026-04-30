@@ -4,275 +4,665 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weltweiter Flughafen-Katalog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* ── Reset & Base ── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
         :root {
-            --bg:        #f0f2f5;
-            --header-bg: linear-gradient(135deg, #0a2540, #1a4a7a);
-            --header-bd: transparent;
-            --card-bg:   #ffffff;
-            --card-bd:   #e4e9f0;
-            --card-hov:  #f4f7fc;
-            --inner-bg:  #fafbfd;
-            --tb-bg:     #ffffff;
-            --tb-bd:     #dde2ea;
-            --input-bg:  #ffffff;
-            --input-bd:  #c4ccd8;
-            --input-fo:  #1a4a7a;
-            --input-col: #222;
-            --input-ph:  #aaa;
-            --text:      #222;
-            --text-sub:  #888;
-            --text-dim:  #aaa;
-            --accent:    #1a4a7a;
-            --accent2:   #0a2540;
-            --fil-bg:    #ffffff;
-            --fil-bd:    #c4ccd8;
-            --fil-col:   #555;
-            --fil-act-bg:#1a4a7a;
-            --fil-act-c: #ffffff;
-            --icao-bg:   #0a2540;
-            --icao-col:  #ffffff;
-            --iata-bg:   #e8f0fb;
-            --iata-col:  #1a4a7a;
-            --nav-bg:    rgba(255,255,255,0.15);
-            --nav-hov:   rgba(255,255,255,0.25);
-            --nav-col:   #ffffff;
-            --ext-bg:    #1a4a7a;
-            --ext-col:   #ffffff;
-            --ext-hov:   #0a2540;
-            --ext2-bg:   #e8edf5;
-            --ext2-col:  #555;
-            --ext2-hov:  #d0d8ea;
-            --sv-bg:     #1a4a7a;
-            --sv-col:    #ffffff;
-            --sv-hov:    #0a2540;
-            --tbl-hd:    #f0f2f5;
-            --tbl-hd-c:  #666;
-            --tbl-bd:    #eeeeee;
-            --tbl-col:   #333;
-            --wx-bg:     #f4f7fc;
-            --wx-bd:     transparent;
-            --wx-raw:    #333;
-            --taf-col:   #444;
-            --notam-bg:  #fffbeb;
-            --notam-bd:  #fde68a;
-            --notam-col: #555;
-            --sonne-col: #f59e0b;
-            --sec-col:   #1a4a7a;
-            --mehr-bg:   #ffffff;
-            --mehr-bd:   #d0d5de;
-            --mehr-col:  #555;
-            --mehr-hov:  #f4f7fc;
-            --sched-bg:  #d1fae5;
-            --sched-col: #065f46;
-            --load-col:  #1a4a7a;
-            --hint-col:  #aaa;
+            --font:        'Inter', system-ui, sans-serif;
+            --radius-sm:   6px;
+            --radius-md:   10px;
+            --radius-lg:   14px;
+            --radius-pill: 999px;
+            --shadow:      0 1px 4px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.05);
+            --shadow-sm:   0 1px 3px rgba(0,0,0,0.08);
+            --transition:  0.18s ease;
+            --space-xs:    6px;
+            --space-sm:    12px;
+            --space-md:    20px;
+            --space-lg:    32px;
+            --space-xl:    48px;
+
+            /* Light theme */
+            --color-bg:          #f8fafc;
+            --color-surface:     #ffffff;
+            --color-surface-2:   #f1f5f9;
+            --color-border:      #e2e8f0;
+            --color-text:        #1e293b;
+            --color-text-sub:    #64748b;
+            --color-text-dim:    #94a3b8;
+            --color-primary:     #2563eb;
+            --color-primary-hov: #1d4ed8;
+            --color-primary-bg:  #eff6ff;
+            --color-header-from: #0f172a;
+            --color-header-to:   #1e3a5f;
+            --color-header-bd:   transparent;
+            --color-accent:      #f59e0b;
+            --color-sv:          #2563eb;
+            --color-sv-hov:      #1d4ed8;
+            --color-sv-text:     #ffffff;
+            --color-icao-bg:     #0f172a;
+            --color-icao-text:   #ffffff;
+            --color-iata-bg:     #eff6ff;
+            --color-iata-text:   #2563eb;
+            --color-sched-bg:    #dcfce7;
+            --color-sched-text:  #166534;
+            --color-sun:         #f59e0b;
+            --color-metar-bg:    #f8fafc;
+            --color-metar-bd:    #e2e8f0;
+            --color-metar-text:  #334155;
+            --color-taf-text:    #475569;
+            --color-notam-bg:    #fffbeb;
+            --color-notam-bd:    #fde68a;
+            --color-notam-text:  #78350f;
+            --color-tbl-head:    #f1f5f9;
+            --color-tbl-head-t:  #64748b;
+            --color-tbl-bd:      #f1f5f9;
+            --color-chip-bg:     #ffffff;
+            --color-chip-bd:     #e2e8f0;
+            --color-chip-text:   #64748b;
+            --color-chip-act-bg: #2563eb;
+            --color-chip-act-t:  #ffffff;
+            --color-chip-act-bd: #2563eb;
+            --color-load:        #2563eb;
         }
+
         [data-theme="dark"] {
-            --bg:        #1a1d23;
-            --header-bg: #111318;
-            --header-bd: #f5a623;
-            --card-bg:   #1e2130;
-            --card-bd:   #2a2d35;
-            --card-hov:  #252840;
-            --inner-bg:  #181b26;
-            --tb-bg:     #111318;
-            --tb-bd:     #2a2d35;
-            --input-bg:  #1e2130;
-            --input-bd:  #2e3240;
-            --input-fo:  #f5a623;
-            --input-col: #d0d8e8;
-            --input-ph:  #555;
-            --text:      #d0d8e8;
-            --text-sub:  #666;
-            --text-dim:  #444;
-            --accent:    #f5a623;
-            --accent2:   #ffc04a;
-            --fil-bg:    #1e2130;
-            --fil-bd:    #2e3240;
-            --fil-col:   #666;
-            --fil-act-bg:#f5a623;
-            --fil-act-c: #111111;
-            --icao-bg:   #f5a623;
-            --icao-col:  #111111;
-            --iata-bg:   #2a2d35;
-            --iata-col:  #f5a623;
-            --nav-bg:    #2a2d35;
-            --nav-hov:   #333647;
-            --nav-col:   #aaaaaa;
-            --ext-bg:    #f5a623;
-            --ext-col:   #111111;
-            --ext-hov:   #ffc04a;
-            --ext2-bg:   #2a2d35;
-            --ext2-col:  #aaaaaa;
-            --ext2-hov:  #333647;
-            --sv-bg:     #f5a623;
-            --sv-col:    #111111;
-            --sv-hov:    #ffc04a;
-            --tbl-hd:    #1a1d26;
-            --tbl-hd-c:  #666666;
-            --tbl-bd:    #22252f;
-            --tbl-col:   #bbbbbb;
-            --wx-bg:     #1a1d26;
-            --wx-bd:     #2a2d35;
-            --wx-raw:    #bbbbbb;
-            --taf-col:   #888888;
-            --notam-bg:  #1e1a0a;
-            --notam-bd:  #4a3a0a;
-            --notam-col: #c0a050;
-            --sonne-col: #f5a623;
-            --sec-col:   #f5a623;
-            --mehr-bg:   #1e2130;
-            --mehr-bd:   #2a2d35;
-            --mehr-col:  #555555;
-            --mehr-hov:  #252840;
-            --sched-bg:  #1a3a2a;
-            --sched-col: #4ade80;
-            --load-col:  #f5a623;
-            --hint-col:  #444444;
+            --color-bg:          #0f172a;
+            --color-surface:     #1e293b;
+            --color-surface-2:   #162032;
+            --color-border:      #334155;
+            --color-text:        #e2e8f0;
+            --color-text-sub:    #94a3b8;
+            --color-text-dim:    #475569;
+            --color-primary:     #60a5fa;
+            --color-primary-hov: #93c5fd;
+            --color-primary-bg:  #172554;
+            --color-header-from: #020617;
+            --color-header-to:   #0f172a;
+            --color-header-bd:   #f59e0b;
+            --color-sv:          #f59e0b;
+            --color-sv-hov:      #fbbf24;
+            --color-sv-text:     #0f172a;
+            --color-icao-bg:     #f59e0b;
+            --color-icao-text:   #0f172a;
+            --color-iata-bg:     #1e3a5f;
+            --color-iata-text:   #93c5fd;
+            --color-sched-bg:    #14532d;
+            --color-sched-text:  #86efac;
+            --color-sun:         #fbbf24;
+            --color-metar-bg:    #162032;
+            --color-metar-bd:    #334155;
+            --color-metar-text:  #cbd5e1;
+            --color-taf-text:    #94a3b8;
+            --color-notam-bg:    #1c1408;
+            --color-notam-bd:    #78350f;
+            --color-notam-text:  #fcd34d;
+            --color-tbl-head:    #162032;
+            --color-tbl-head-t:  #64748b;
+            --color-tbl-bd:      #1e293b;
+            --color-chip-bg:     #1e293b;
+            --color-chip-bd:     #334155;
+            --color-chip-text:   #64748b;
+            --color-chip-act-bg: #f59e0b;
+            --color-chip-act-t:  #0f172a;
+            --color-chip-act-bd: #f59e0b;
+            --color-load:        #f59e0b;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); transition: background 0.2s, color 0.2s; }
+        /* ── Typography ── */
+        body {
+            font-family: var(--font);
+            font-size: 16px;
+            line-height: 1.5;
+            background: var(--color-bg);
+            color: var(--color-text);
+            transition: background var(--transition), color var(--transition);
+            -webkit-font-smoothing: antialiased;
+        }
 
-        header { background: var(--header-bg); border-bottom: 2px solid var(--header-bd); color: white; padding: 20px 28px; display: flex; align-items: center; gap: 16px; }
-        .logo { width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
-        header h1 { font-size: 1.4rem; font-weight: 700; }
-        header p  { font-size: 0.82rem; opacity: 0.7; margin-top: 3px; }
-        .header-rechts { margin-left: auto; display: flex; align-items: center; gap: 10px; }
-        .theme-btn { background: var(--nav-bg); border: none; color: var(--nav-col); padding: 7px 12px; border-radius: 6px; cursor: pointer; font-size: 1rem; transition: background 0.15s; }
-        .theme-btn:hover { background: var(--nav-hov); }
+        h1 { font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 700; line-height: 1.2; }
 
-        .toolbar { background: var(--tb-bg); border-bottom: 1px solid var(--tb-bd); padding: 11px 24px; display: flex; align-items: center; gap: 9px; flex-wrap: wrap; transition: background 0.2s; }
-        #suche { flex: 1; min-width: 200px; max-width: 380px; padding: 9px 14px; font-size: 0.95rem; border: 1px solid var(--input-bd); border-radius: 6px; outline: none; background: var(--input-bg); color: var(--input-col); transition: border-color 0.2s, background 0.2s; }
-        #suche:focus { border-color: var(--input-fo); }
-        #suche::placeholder { color: var(--input-ph); }
-        .filter-gruppe { display: flex; gap: 5px; flex-wrap: wrap; }
-        .filter-btn { padding: 5px 11px; font-size: 0.76rem; border-radius: 20px; border: 1px solid var(--fil-bd); background: var(--fil-bg); cursor: pointer; color: var(--fil-col); transition: all 0.15s; }
-        .filter-btn.aktiv { background: var(--fil-act-bg); color: var(--fil-act-c); border-color: var(--fil-act-bg); font-weight: 600; }
-        #zaehler { font-size: 0.82rem; color: var(--text-sub); margin-left: auto; white-space: nowrap; }
+        /* ── Screen-reader only ── */
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
 
-        .container { max-width: 1040px; margin: 20px auto; padding: 0 18px; }
-        #hinweis { text-align: center; padding: 60px 20px; color: var(--hint-col); }
-        #hinweis span { font-size: 2.5rem; display: block; margin-bottom: 12px; }
-        #laden { text-align: center; padding: 50px; color: var(--text-sub); }
-        .lade-balken { width: 200px; height: 3px; background: var(--card-bd); border-radius: 2px; margin: 12px auto 0; overflow: hidden; }
-        .lade-balken::after { content: ''; display: block; width: 50%; height: 100%; background: var(--load-col); animation: laden 1.2s infinite ease-in-out; }
-        @keyframes laden { 0% { margin-left: -50%; } 100% { margin-left: 150%; } }
+        /* ── Header ── */
+        header {
+            background: linear-gradient(135deg, var(--color-header-from), var(--color-header-to));
+            border-bottom: 2px solid var(--color-header-bd);
+            color: #fff;
+            padding: var(--space-md) var(--space-lg);
+        }
 
-        .flughafen { background: var(--card-bg); border-radius: 10px; margin-bottom: 8px; border: 1px solid var(--card-bd); overflow: hidden; transition: background 0.2s; }
-        .fh-header { display: flex; align-items: center; gap: 11px; padding: 12px 18px; cursor: pointer; background: var(--card-bg); border: none; width: 100%; text-align: left; transition: background 0.15s; }
-        .fh-header:hover { background: var(--card-hov); }
+        .header-inner {
+            max-width: 1080px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
 
-        .icao-badge { font-family: monospace; font-weight: 700; font-size: 0.95rem; background: var(--icao-bg); color: var(--icao-col); padding: 4px 10px; border-radius: 6px; flex-shrink: 0; min-width: 54px; text-align: center; }
-        .iata-badge { font-family: monospace; font-size: 0.8rem; background: var(--iata-bg); color: var(--iata-col); padding: 3px 8px; border-radius: 5px; flex-shrink: 0; }
-        .sched-badge { font-size: 0.72rem; background: var(--sched-bg); color: var(--sched-col); padding: 2px 8px; border-radius: 12px; flex-shrink: 0; }
+        .header-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            flex-shrink: 0;
+        }
 
-        .fh-info { flex: 1; min-width: 0; }
-        .fh-name { font-weight: 600; font-size: 0.93rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .fh-meta { font-size: 0.78rem; color: var(--text-sub); margin-top: 2px; }
+        .header-text { flex: 1; min-width: 0; }
+        .header-text h1 { color: #fff; }
+        .header-text p  { font-size: 0.8rem; color: rgba(255,255,255,0.65); margin-top: 4px; }
 
-        .typ-badge { font-size: 0.72rem; padding: 2px 8px; border-radius: 12px; white-space: nowrap; flex-shrink: 0; }
-        .typ-large_airport  { background: #dbeafe; color: #1e40af; }
-        .typ-medium_airport { background: #d1fae5; color: #065f46; }
-        .typ-small_airport  { background: #fef9c3; color: #92400e; }
-        .typ-heliport       { background: #fce7f3; color: #9d174d; }
-        .typ-seaplane_base  { background: #e0f2fe; color: #0c4a6e; }
-        .typ-balloonport    { background: #f3e8ff; color: #6b21a8; }
-        [data-theme="dark"] .typ-large_airport  { background: #1a3a1a; color: #7ec850; }
-        [data-theme="dark"] .typ-medium_airport { background: #1a2a3a; color: #50a8ec; }
-        [data-theme="dark"] .typ-small_airport  { background: #2a2a1a; color: #ecca50; }
-        [data-theme="dark"] .typ-heliport       { background: #2a1a2a; color: #c850ec; }
-        [data-theme="dark"] .typ-seaplane_base  { background: #1a2a2a; color: #50ecec; }
-        [data-theme="dark"] .typ-balloonport    { background: #2a1a1a; color: #ec5050; }
+        .btn-theme {
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background var(--transition);
+            flex-shrink: 0;
+        }
+        .btn-theme:hover { background: rgba(255,255,255,0.22); }
 
-        [data-theme="dark"] .cat-VFR  { background: #1a3a2a; color: #4ade80; }
-        [data-theme="dark"] .cat-MVFR { background: #1a2a3a; color: #60a5fa; }
-        [data-theme="dark"] .cat-IFR  { background: #3a1a1a; color: #f87171; }
-        [data-theme="dark"] .cat-LIFR { background: #2a1a3a; color: #c084fc; }
+        /* ── Toolbar / Nav ── */
+        nav.toolbar {
+            background: var(--color-surface);
+            border-bottom: 1px solid var(--color-border);
+            padding: var(--space-sm) var(--space-lg);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: background var(--transition);
+        }
 
-        .fh-chevron { color: var(--text-dim); font-size: 0.75rem; flex-shrink: 0; transition: transform 0.2s; }
-        .fh-header.offen .fh-chevron { transform: rotate(90deg); }
+        .toolbar-inner {
+            max-width: 1080px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            flex-wrap: wrap;
+        }
 
-        .fh-inhalt { display: none; border-top: 1px solid var(--card-bd); padding: 16px 18px; background: var(--inner-bg); }
-        .fh-inhalt.offen { display: block; }
+        .search-wrap { flex: 1; min-width: 200px; max-width: 400px; position: relative; }
 
-        .detail-zeile { display: flex; gap: 18px; flex-wrap: wrap; margin-bottom: 14px; }
-        .detail-item label { color: var(--text-sub); display: block; font-size: 0.72rem; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.04em; }
-        .detail-item span  { font-weight: 600; color: var(--text); font-size: 0.85rem; }
+        #suche {
+            width: 100%;
+            padding: 9px 14px 9px 38px;
+            font-family: var(--font);
+            font-size: 0.9rem;
+            border: 1.5px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            background: var(--color-surface);
+            color: var(--color-text);
+            outline: none;
+            transition: border-color var(--transition), background var(--transition);
+        }
+        #suche:focus { border-color: var(--color-primary); }
+        #suche::placeholder { color: var(--color-text-dim); }
 
-        .ext-links { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
-        .sv-btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 16px; background: var(--sv-bg); color: var(--sv-col); text-decoration: none; border-radius: 6px; font-size: 0.85rem; font-weight: 700; transition: background 0.15s; }
-        .sv-btn:hover { background: var(--sv-hov); }
-        .ext-link { display: inline-flex; align-items: center; gap: 5px; padding: 6px 13px; background: var(--ext2-bg); color: var(--ext2-col); text-decoration: none; border-radius: 6px; font-size: 0.82rem; transition: background 0.15s; }
-        .ext-link:hover { background: var(--ext2-hov); color: var(--text); }
+        .search-icon {
+            position: absolute;
+            left: 11px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-text-dim);
+            font-size: 0.95rem;
+            pointer-events: none;
+        }
 
-        .sektion { margin-top: 14px; }
-        .sektion-titel { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--sec-col); margin-bottom: 8px; }
+        .filter-group {
+            display: flex;
+            gap: var(--space-xs);
+            flex-wrap: wrap;
+        }
 
-        table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
-        th { text-align: left; padding: 6px 10px; background: var(--tbl-hd); color: var(--tbl-hd-c); font-weight: 600; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; }
-        td { padding: 6px 10px; border-bottom: 1px solid var(--tbl-bd); color: var(--tbl-col); }
-        tr:last-child td { border-bottom: none; }
-        .rwy-closed td { color: var(--text-dim); text-decoration: line-through; }
+        .chip {
+            padding: 5px 13px;
+            font-family: var(--font);
+            font-size: 0.75rem;
+            font-weight: 500;
+            border-radius: var(--radius-pill);
+            border: 1.5px solid var(--color-chip-bd);
+            background: var(--color-chip-bg);
+            color: var(--color-chip-text);
+            cursor: pointer;
+            transition: background var(--transition), color var(--transition), border-color var(--transition);
+        }
+        .chip:hover { border-color: var(--color-primary); color: var(--color-primary); }
+        .chip.active {
+            background: var(--color-chip-act-bg);
+            color: var(--color-chip-act-t);
+            border-color: var(--color-chip-act-bd);
+        }
 
-        .wetter-block { background: var(--wx-bg); border: 1px solid var(--wx-bd); border-radius: 8px; padding: 12px 14px; margin-top: 4px; }
-        .metar-raw { font-family: monospace; font-size: 0.82rem; color: var(--wx-raw); word-break: break-all; margin-bottom: 10px; }
-        .wx-grid { display: flex; gap: 16px; flex-wrap: wrap; }
-        .wx-item label { font-size: 0.7rem; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.04em; display: block; }
-        .wx-item span  { font-weight: 700; font-size: 0.9rem; }
-        .fltcat { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 0.78rem; font-weight: 700; margin-left: 8px; }
-        .cat-VFR  { background: #d1fae5; color: #065f46; }
+        #zaehler {
+            font-size: 0.78rem;
+            color: var(--color-text-dim);
+            margin-left: auto;
+            white-space: nowrap;
+        }
+
+        /* ── Main ── */
+        main.catalog {
+            max-width: 1080px;
+            margin: var(--space-lg) auto;
+            padding: 0 var(--space-md);
+        }
+
+        /* ── Hint / Loading ── */
+        .hint {
+            text-align: center;
+            padding: var(--space-xl) var(--space-md);
+            color: var(--color-text-dim);
+        }
+        .hint-icon { font-size: 2.8rem; display: block; margin-bottom: var(--space-sm); }
+        .hint p    { font-size: 1rem; }
+
+        .loading { text-align: center; padding: var(--space-xl); color: var(--color-text-sub); }
+        .loading-bar {
+            width: 180px;
+            height: 3px;
+            background: var(--color-border);
+            border-radius: var(--radius-pill);
+            margin: var(--space-sm) auto 0;
+            overflow: hidden;
+        }
+        .loading-bar::after {
+            content: '';
+            display: block;
+            width: 50%;
+            height: 100%;
+            background: var(--color-load);
+            animation: slide 1.2s infinite ease-in-out;
+        }
+        @keyframes slide { 0% { margin-left: -50%; } 100% { margin-left: 150%; } }
+
+        .no-results { color: var(--color-text-dim); padding: var(--space-md); font-size: 0.9rem; }
+
+        /* ── Airport Card ── */
+        article.airport-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-sm);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            transition: box-shadow var(--transition);
+        }
+        article.airport-card:hover { box-shadow: var(--shadow); }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-md) var(--space-md);
+            cursor: pointer;
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            transition: background var(--transition);
+        }
+        .card-header:hover { background: var(--color-surface-2); }
+
+        .badge-icao {
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+            font-size: 0.9rem;
+            background: var(--color-icao-bg);
+            color: var(--color-icao-text);
+            padding: 5px 11px;
+            border-radius: var(--radius-sm);
+            flex-shrink: 0;
+            min-width: 56px;
+            text-align: center;
+            letter-spacing: 0.04em;
+        }
+        .badge-iata {
+            font-family: 'Courier New', monospace;
+            font-size: 0.78rem;
+            font-weight: 600;
+            background: var(--color-iata-bg);
+            color: var(--color-iata-text);
+            padding: 4px 9px;
+            border-radius: var(--radius-sm);
+            flex-shrink: 0;
+        }
+        .badge-sched {
+            font-size: 0.7rem;
+            font-weight: 600;
+            background: var(--color-sched-bg);
+            color: var(--color-sched-text);
+            padding: 3px 9px;
+            border-radius: var(--radius-pill);
+            flex-shrink: 0;
+        }
+
+        .card-info { flex: 1; min-width: 0; }
+        .card-name { font-weight: 600; font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .card-meta { font-size: 0.78rem; color: var(--color-text-sub); margin-top: 3px; }
+
+        .badge-type {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 3px 9px;
+            border-radius: var(--radius-pill);
+            flex-shrink: 0;
+        }
+        .type-large_airport  { background: #dbeafe; color: #1e40af; }
+        .type-medium_airport { background: #dcfce7; color: #166534; }
+        .type-small_airport  { background: #fef9c3; color: #854d0e; }
+        .type-heliport       { background: #fce7f3; color: #9d174d; }
+        .type-seaplane_base  { background: #e0f2fe; color: #0c4a6e; }
+        .type-balloonport    { background: #f3e8ff; color: #6b21a8; }
+        [data-theme="dark"] .type-large_airport  { background: #1e3a5f; color: #93c5fd; }
+        [data-theme="dark"] .type-medium_airport { background: #14532d; color: #86efac; }
+        [data-theme="dark"] .type-small_airport  { background: #422006; color: #fcd34d; }
+        [data-theme="dark"] .type-heliport       { background: #500724; color: #f9a8d4; }
+        [data-theme="dark"] .type-seaplane_base  { background: #0c4a6e; color: #7dd3fc; }
+        [data-theme="dark"] .type-balloonport    { background: #3b0764; color: #d8b4fe; }
+
+        .card-chevron {
+            color: var(--color-text-dim);
+            font-size: 0.7rem;
+            flex-shrink: 0;
+            transition: transform var(--transition);
+        }
+        .card-header.open .card-chevron { transform: rotate(90deg); }
+
+        /* ── Card Body ── */
+        .card-body {
+            display: none;
+            border-top: 1px solid var(--color-border);
+            padding: var(--space-md);
+            background: var(--color-surface-2);
+        }
+        .card-body.open { display: block; }
+
+        /* ── Detail Grid ── */
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+        }
+        .detail-item { display: flex; flex-direction: column; gap: 3px; }
+        .detail-item dt {
+            font-size: 0.68rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--color-text-dim);
+        }
+        .detail-item dd { font-size: 0.88rem; font-weight: 600; color: var(--color-text); }
+
+        /* ── Action Buttons ── */
+        .action-links {
+            display: flex;
+            gap: var(--space-xs);
+            flex-wrap: wrap;
+            margin-bottom: var(--space-md);
+        }
+
+        .btn-sv {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 18px;
+            background: var(--color-sv);
+            color: var(--color-sv-text);
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            font-size: 0.83rem;
+            font-weight: 700;
+            transition: background var(--transition), transform var(--transition);
+        }
+        .btn-sv:hover { background: var(--color-sv-hov); transform: translateY(-1px); }
+
+        .btn-ext {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            background: var(--color-surface);
+            color: var(--color-text-sub);
+            text-decoration: none;
+            border: 1.5px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: background var(--transition), color var(--transition), border-color var(--transition);
+        }
+        .btn-ext:hover { border-color: var(--color-primary); color: var(--color-primary); background: var(--color-primary-bg); }
+
+        /* ── Sections inside card ── */
+        .card-section { margin-top: var(--space-md); }
+
+        .section-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--color-primary);
+            margin-bottom: var(--space-xs);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* ── Table ── */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+        .data-table th {
+            text-align: left;
+            padding: 8px 12px;
+            background: var(--color-tbl-head);
+            color: var(--color-tbl-head-t);
+            font-weight: 600;
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .data-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--color-tbl-bd);
+            color: var(--color-text-sub);
+        }
+        .data-table tr:last-child td { border-bottom: none; }
+        .data-table tr.rwy-closed td { color: var(--color-text-dim); text-decoration: line-through; }
+
+        /* ── Weather ── */
+        .metar-box {
+            background: var(--color-metar-bg);
+            border: 1px solid var(--color-metar-bd);
+            border-radius: var(--radius-md);
+            padding: var(--space-sm) var(--space-md);
+        }
+        .metar-raw {
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            color: var(--color-metar-text);
+            word-break: break-all;
+            margin-bottom: var(--space-sm);
+            line-height: 1.6;
+        }
+        .wx-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: var(--space-sm);
+        }
+        .wx-item dt { font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-dim); margin-bottom: 2px; }
+        .wx-item dd { font-size: 0.88rem; font-weight: 700; }
+
+        .badge-fltcat {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: var(--radius-pill);
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        .cat-VFR  { background: #dcfce7; color: #166534; }
         .cat-MVFR { background: #dbeafe; color: #1e40af; }
         .cat-IFR  { background: #fee2e2; color: #991b1b; }
         .cat-LIFR { background: #f3e8ff; color: #6b21a8; }
-        .taf-raw { font-family: monospace; font-size: 0.8rem; color: var(--taf-col); white-space: pre-wrap; word-break: break-all; }
-        .notam-liste { display: flex; flex-direction: column; gap: 6px; }
-        .notam-item { background: var(--notam-bg); border: 1px solid var(--notam-bd); border-radius: 6px; padding: 8px 12px; font-size: 0.8rem; font-family: monospace; white-space: pre-wrap; word-break: break-all; color: var(--notam-col); }
-        .lade-klein  { font-size: 0.8rem; color: var(--text-dim); }
-        .fehler-klein{ font-size: 0.8rem; color: #e55; }
-        .sonnen-zeile { display: flex; gap: 20px; flex-wrap: wrap; }
-        .sonnen-item label { font-size: 0.7rem; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.04em; display: block; }
-        .sonnen-item span  { font-weight: 700; font-size: 0.9rem; color: var(--sonne-col); }
+        [data-theme="dark"] .cat-VFR  { background: #14532d; color: #86efac; }
+        [data-theme="dark"] .cat-MVFR { background: #1e3a5f; color: #93c5fd; }
+        [data-theme="dark"] .cat-IFR  { background: #450a0a; color: #fca5a5; }
+        [data-theme="dark"] .cat-LIFR { background: #3b0764; color: #d8b4fe; }
 
-        #mehr-btn { display: block; width: 100%; padding: 10px; text-align: center; background: var(--mehr-bg); border: 1px solid var(--mehr-bd); border-radius: 8px; color: var(--mehr-col); cursor: pointer; font-size: 0.88rem; margin-top: 4px; transition: background 0.15s; }
-        #mehr-btn:hover { background: var(--mehr-hov); }
+        .taf-pre {
+            font-family: 'Courier New', monospace;
+            font-size: 0.78rem;
+            color: var(--color-taf-text);
+            white-space: pre-wrap;
+            word-break: break-all;
+            line-height: 1.7;
+        }
 
-        footer { text-align: center; padding: 24px 20px; font-size: 0.78rem; color: var(--text-sub); border-top: 1px solid var(--card-bd); margin-top: 16px; }
-        footer a { color: var(--accent); text-decoration: none; }
-        footer a:hover { text-decoration: underline; }
-        footer span { margin: 0 8px; opacity: 0.4; }
+        /* ── NOTAMs ── */
+        .notam-list { display: flex; flex-direction: column; gap: var(--space-xs); }
+        .notam-item {
+            background: var(--color-notam-bg);
+            border: 1px solid var(--color-notam-bd);
+            border-radius: var(--radius-sm);
+            padding: var(--space-xs) var(--space-sm);
+            font-family: 'Courier New', monospace;
+            font-size: 0.77rem;
+            color: var(--color-notam-text);
+            white-space: pre-wrap;
+            word-break: break-all;
+            line-height: 1.6;
+        }
+
+        /* ── Sunrise ── */
+        .sun-grid { display: flex; gap: var(--space-md); flex-wrap: wrap; }
+        .sun-item dt { font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-dim); margin-bottom: 2px; }
+        .sun-item dd { font-size: 0.95rem; font-weight: 700; color: var(--color-sun); }
+
+        /* ── Inline status ── */
+        .status-loading { font-size: 0.8rem; color: var(--color-text-dim); }
+        .status-error   { font-size: 0.8rem; color: #ef4444; }
+
+        /* ── Load More ── */
+        .btn-more {
+            display: block;
+            width: 100%;
+            padding: var(--space-sm);
+            margin-top: var(--space-xs);
+            background: var(--color-surface);
+            border: 1.5px solid var(--color-border);
+            border-radius: var(--radius-md);
+            color: var(--color-text-sub);
+            font-family: var(--font);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: background var(--transition), border-color var(--transition), color var(--transition);
+        }
+        .btn-more:hover { background: var(--color-surface-2); border-color: var(--color-primary); color: var(--color-primary); }
+
+        /* ── Footer ── */
+        footer {
+            border-top: 1px solid var(--color-border);
+            padding: var(--space-lg) var(--space-md);
+            text-align: center;
+        }
+        footer p { font-size: 0.78rem; color: var(--color-text-dim); line-height: 2; }
+        footer a { color: var(--color-primary); text-decoration: none; transition: color var(--transition); }
+        footer a:hover { color: var(--color-primary-hov); text-decoration: underline; }
+        footer .sep { margin: 0 var(--space-xs); opacity: 0.4; }
+
+        /* ── Responsive ── */
+        @media (max-width: 640px) {
+            header { padding: var(--space-sm) var(--space-md); }
+            .header-logo { width: 38px; height: 38px; font-size: 1.2rem; }
+            nav.toolbar { padding: var(--space-xs) var(--space-md); }
+            main.catalog { margin: var(--space-md) auto; padding: 0 var(--space-sm); }
+            .card-header { padding: var(--space-sm); gap: var(--space-xs); }
+            .card-body { padding: var(--space-sm); }
+            .detail-grid { grid-template-columns: repeat(2, 1fr); }
+            .badge-type { display: none; }
+        }
     </style>
 </head>
 <body>
+
+<!-- ── Header ── -->
 <header>
-    <div class="logo">🌍</div>
-    <div>
-        <h1>Weltweiter Flughafen-Katalog</h1>
-        <p>~72.000 Flughäfen · Runways · Frequenzen · Nav-Aids · METAR/TAF · NOTAMs · SkyVector</p>
-    </div>
-    <div class="header-rechts">
-        <button class="theme-btn" onclick="toggleTheme()" id="theme-icon">🌙</button>
+    <div class="header-inner">
+        <div class="header-logo" aria-hidden="true">🌍</div>
+        <div class="header-text">
+            <h1>Weltweiter Flughafen-Katalog</h1>
+            <p>~72.000 Flughäfen · Runways · Frequenzen · Nav-Aids · METAR/TAF · NOTAMs · SkyVector</p>
+        </div>
+        <button class="btn-theme" id="theme-btn" onclick="toggleTheme()" aria-label="Hell/Dunkel-Modus umschalten">🌙</button>
     </div>
 </header>
 
-<div class="toolbar">
-    <input type="text" id="suche" placeholder="ICAO, IATA, Name, Stadt, Land…" autocomplete="off">
-    <div class="filter-gruppe" id="filter">
-        <button class="filter-btn aktiv" data-typ="">Alle</button>
-        <button class="filter-btn" data-typ="large_airport">Groß</button>
-        <button class="filter-btn" data-typ="medium_airport">Regional</button>
-        <button class="filter-btn" data-typ="small_airport">Klein</button>
-        <button class="filter-btn" data-typ="heliport">Heliport</button>
-        <button class="filter-btn" data-typ="seaplane_base">Wasserflugzeug</button>
-        <button class="filter-btn" data-sched="yes">✈ Linienflug</button>
-    </div>
-    <span id="zaehler"></span>
-</div>
+<!-- ── Toolbar / Search ── -->
+<nav class="toolbar" aria-label="Suche und Filter">
+    <div class="toolbar-inner">
+        <div class="search-wrap">
+            <span class="search-icon" aria-hidden="true">🔍</span>
+            <label for="suche" class="sr-only">Flughafen suchen</label>
+            <input type="search" id="suche" placeholder="ICAO, IATA, Name, Stadt, Land…" autocomplete="off">
+        </div>
 
-<div class="container">
-    <div id="liste"><div id="laden">Daten werden geladen…<div class="lade-balken"></div></div></div>
-</div>
+        <div class="filter-group" role="group" aria-label="Nach Typ filtern" id="filter">
+            <button class="chip active" data-typ="">Alle</button>
+            <button class="chip" data-typ="large_airport">Groß</button>
+            <button class="chip" data-typ="medium_airport">Regional</button>
+            <button class="chip" data-typ="small_airport">Klein</button>
+            <button class="chip" data-typ="heliport">Heliport</button>
+            <button class="chip" data-typ="seaplane_base">Wasserflugzeug</button>
+            <button class="chip" data-sched="yes">✈ Linienflug</button>
+        </div>
+
+        <p id="zaehler" aria-live="polite" aria-atomic="true"></p>
+    </div>
+</nav>
+
+<!-- ── Main Content ── -->
+<main class="catalog" aria-label="Flughafenliste">
+    <div id="liste" aria-live="polite">
+        <div class="loading" id="laden">
+            Daten werden geladen…
+            <div class="loading-bar"></div>
+        </div>
+    </div>
+</main>
+
+<!-- ── Footer ── -->
+<footer>
+    <p>
+        Flughäfen, Runways, Frequenzen, Nav-Aids:
+        <a href="https://ourairports.com/data/" target="_blank" rel="noopener">OurAirports</a>
+        <span class="sep">|</span>
+        METAR, TAF, NOTAMs:
+        <a href="https://aviationweather.gov" target="_blank" rel="noopener">Aviation Weather Center (NOAA)</a>
+        <span class="sep">|</span>
+        Charts &amp; Flugplanung:
+        <a href="https://skyvector.com" target="_blank" rel="noopener">SkyVector</a>
+    </p>
+</footer>
 
 <script>
 const JSON_URL = 'https://raw.githubusercontent.com/jscepik-source/dfs-katalog/main/ourairports_export.json';
@@ -293,29 +683,33 @@ const TYP_LABEL = {
 };
 const KONTINENT = { EU:'Europa', NA:'Nordamerika', SA:'Südamerika', AS:'Asien', AF:'Afrika', OC:'Ozeanien', AN:'Antarktis' };
 
-// Theme
 function toggleTheme() {
     const html = document.documentElement;
     const dark = html.dataset.theme === 'dark';
     html.dataset.theme = dark ? 'light' : 'dark';
-    document.getElementById('theme-icon').textContent = dark ? '🌙' : '☀️';
+    document.getElementById('theme-btn').textContent = dark ? '🌙' : '☀️';
     localStorage.setItem('theme', html.dataset.theme);
 }
 (function() {
     const saved = localStorage.getItem('theme') || 'light';
     document.documentElement.dataset.theme = saved;
     document.addEventListener('DOMContentLoaded', () => {
-        document.getElementById('theme-icon').textContent = saved === 'dark' ? '☀️' : '🌙';
+        document.getElementById('theme-btn').textContent = saved === 'dark' ? '☀️' : '🌙';
     });
 })();
 
 fetch(JSON_URL)
     .then(r => r.json())
-    .then(data => { katalog = data; document.getElementById('laden').style.display = 'none'; zeigeHinweis(); })
-    .catch(() => { document.getElementById('laden').innerHTML = 'Fehler beim Laden.'; });
+    .then(data => {
+        katalog = data;
+        document.getElementById('laden').style.display = 'none';
+        zeigeHinweis();
+    })
+    .catch(() => { document.getElementById('laden').innerHTML = '<p class="status-error">Fehler beim Laden der Daten.</p>'; });
 
 function zeigeHinweis() {
-    document.getElementById('liste').innerHTML = '<div id="hinweis"><span>🔍</span>Suchbegriff eingeben um Flughäfen zu finden</div>';
+    document.getElementById('liste').innerHTML =
+        '<div class="hint"><span class="hint-icon">✈️</span><p>ICAO, IATA, Name, Stadt oder Land eingeben</p></div>';
     document.getElementById('zaehler').textContent = `${Object.keys(katalog).length.toLocaleString()} Flughäfen geladen`;
 }
 
@@ -334,7 +728,10 @@ function suche() {
     const liste = document.getElementById('liste');
     liste.innerHTML = '';
     document.getElementById('zaehler').textContent = `${aktuelleEintraege.length.toLocaleString()} Ergebnisse`;
-    if (aktuelleEintraege.length === 0) { liste.innerHTML = '<p style="color:var(--text-dim);padding:20px">Keine Ergebnisse.</p>'; return; }
+    if (aktuelleEintraege.length === 0) {
+        liste.innerHTML = '<p class="no-results">Keine Ergebnisse gefunden.</p>';
+        return;
+    }
     ladeNaechste(liste);
 }
 
@@ -347,7 +744,9 @@ function ladeNaechste(liste) {
     if (angezeigtBis < aktuelleEintraege.length) {
         const btn = document.createElement('button');
         btn.id = 'mehr-btn';
-        btn.textContent = `Weitere ${Math.min(SEITE, aktuelleEintraege.length - angezeigtBis).toLocaleString()} von ${(aktuelleEintraege.length - angezeigtBis).toLocaleString()} laden`;
+        btn.className = 'btn-more';
+        const rest = aktuelleEintraege.length - angezeigtBis;
+        btn.textContent = `Weitere ${Math.min(SEITE, rest).toLocaleString()} von ${rest.toLocaleString()} laden`;
         btn.onclick = () => ladeNaechste(liste);
         liste.appendChild(btn);
     }
@@ -368,7 +767,11 @@ function calcSonne(lat, lon) {
     const H = Math.acos(cosH) / rad;
     const RA = Math.atan2(Math.cos(eps * rad) * Math.sin(lambda * rad), Math.cos(lambda * rad)) / rad / 15;
     const noon = 12 - lon / 15 - (RA - L / 15);
-    const fmt = h => { const hh = Math.floor(((h%24)+24)%24), mm = Math.round((h-Math.floor(h))*60); return `${String(hh).padStart(2,'0')}:${String(mm<60?mm:59).padStart(2,'0')} UTC`; };
+    const fmt = h => {
+        const hh = Math.floor(((h % 24) + 24) % 24);
+        const mm = Math.round((h - Math.floor(h)) * 60);
+        return `${String(hh).padStart(2,'0')}:${String(mm < 60 ? mm : 59).padStart(2,'0')} UTC`;
+    };
     return { auf: fmt(noon - H / 15), unter: fmt(noon + H / 15) };
 }
 
@@ -377,10 +780,10 @@ function fltcatClass(cat) {
 }
 
 function baueKarte(icao, ap) {
-    const div = document.createElement('div');
-    div.className = 'flughafen';
+    const article = document.createElement('article');
+    article.className = 'airport-card';
     const typLabel = TYP_LABEL[ap.type] || ap.type || '';
-    const typClass = 'typ-' + (ap.type || '');
+    const typClass = 'type-' + (ap.type || '');
     const elev = ap.elev !== undefined ? `${ap.elev} ft` : '–';
     const hasCoords = ap.lat !== undefined && ap.lon !== undefined;
     const coords = hasCoords ? `${ap.lat}, ${ap.lon}` : null;
@@ -388,79 +791,108 @@ function baueKarte(icao, ap) {
     const svUrl = `https://skyvector.com/airport/${icao}`;
     const mapsUrl = hasCoords ? `https://maps.google.com/?q=${ap.lat},${ap.lon}` : null;
 
-    const rwyHTML = ap.runways && ap.runways.length
-        ? `<div class="sektion"><p class="sektion-titel">🛬 Runways</p><table>
-           <tr><th>Kennung</th><th>Länge (ft)</th><th>Breite (ft)</th><th>Kurs LE / HE</th><th>Belag</th><th>Bel.</th></tr>
-           ${ap.runways.map(r => `<tr class="${r.closed?'rwy-closed':''}">
-             <td>${r.le||''}${r.he?' / '+r.he:''}</td>
-             <td>${r.length!==undefined?r.length.toLocaleString():'–'}</td>
-             <td>${r.width!==undefined?r.width:'–'}</td>
-             <td>${r.le_hdg!==undefined?r.le_hdg+'°':'–'} / ${r.he_hdg!==undefined?r.he_hdg+'°':'–'}</td>
-             <td>${r.surface||'–'}</td><td>${r.lighted?'💡':'–'}</td>
-           </tr>`).join('')}</table></div>` : '';
+    const rwyRows = ap.runways && ap.runways.length
+        ? ap.runways.map(r => `<tr class="${r.closed ? 'rwy-closed' : ''}">
+            <td>${r.le||''}${r.he ? ' / '+r.he : ''}</td>
+            <td>${r.length !== undefined ? r.length.toLocaleString() : '–'}</td>
+            <td>${r.width !== undefined ? r.width : '–'}</td>
+            <td>${r.le_hdg !== undefined ? r.le_hdg+'°' : '–'} / ${r.he_hdg !== undefined ? r.he_hdg+'°' : '–'}</td>
+            <td>${r.surface || '–'}</td>
+            <td>${r.lighted ? '💡' : '–'}</td>
+          </tr>`).join('') : '';
 
-    const frqHTML = ap.freqs && ap.freqs.length
-        ? `<div class="sektion"><p class="sektion-titel">📻 Frequenzen</p><table>
-           <tr><th>Typ</th><th>MHz</th><th>Bezeichnung</th></tr>
-           ${ap.freqs.map(f=>`<tr><td>${f.type||'–'}</td><td>${f.freq||'–'}</td><td>${f.desc||'–'}</td></tr>`).join('')}
-           </table></div>` : '';
+    const frqRows = ap.freqs && ap.freqs.length
+        ? ap.freqs.map(f => `<tr><td>${f.type||'–'}</td><td>${f.freq||'–'}</td><td>${f.desc||'–'}</td></tr>`).join('') : '';
 
-    const navHTML = ap.navaids && ap.navaids.length
-        ? `<div class="sektion"><p class="sektion-titel">📡 Nav-Aids</p><table>
-           <tr><th>Kennung</th><th>Name</th><th>Typ</th><th>Freq (kHz)</th><th>DME</th><th>Leistung</th><th>Nutzung</th></tr>
-           ${ap.navaids.map(n=>`<tr>
-             <td>${n.ident||'–'}</td><td>${n.name||'–'}</td><td>${n.type||'–'}</td><td>${n.freq||'–'}</td>
-             <td>${n.dme_ch||'–'}</td><td>${n.power||'–'}</td><td>${n.usage||'–'}</td>
-           </tr>`).join('')}</table></div>` : '';
+    const navRows = ap.navaids && ap.navaids.length
+        ? ap.navaids.map(n => `<tr>
+            <td>${n.ident||'–'}</td><td>${n.name||'–'}</td><td>${n.type||'–'}</td>
+            <td>${n.freq||'–'}</td><td>${n.dme_ch||'–'}</td><td>${n.power||'–'}</td><td>${n.usage||'–'}</td>
+          </tr>`).join('') : '';
 
-    const sonneHTML = hasCoords
-        ? `<div class="sektion"><p class="sektion-titel">🌅 Sonnenauf-/-untergang (UTC, heute)</p>
-           <div class="sonnen-zeile" id="sonne-${icao}"><span class="lade-klein">wird berechnet…</span></div></div>` : '';
+    const meta = [ap.city, ap.country_name || ap.country, kontinent].filter(Boolean).join(' · ');
 
-    const wetterHTML = `<div class="sektion"><p class="sektion-titel">🌤 Wetter (METAR / TAF)</p>
-        <div id="wetter-${icao}"><span class="lade-klein">wird geladen…</span></div></div>`;
-
-    const notamHTML = `<div class="sektion"><p class="sektion-titel">⚠️ NOTAMs</p>
-        <div id="notam-${icao}"><span class="lade-klein">wird geladen…</span></div></div>`;
-
-    div.innerHTML = `
-        <button class="fh-header" onclick="toggle(this,'${icao}',${ap.lat||'null'},${ap.lon||'null'})">
-            <span class="icao-badge">${icao}</span>
-            ${ap.iata?`<span class="iata-badge">${ap.iata}</span>`:''}
-            ${ap.scheduled?`<span class="sched-badge">✈ Linienflug</span>`:''}
-            <div class="fh-info">
-                <div class="fh-name">${ap.name||'–'}</div>
-                <div class="fh-meta">${[ap.city,ap.country_name||ap.country,kontinent].filter(Boolean).join(' · ')}</div>
+    article.innerHTML = `
+        <button class="card-header" onclick="toggle(this,'${icao}',${ap.lat||'null'},${ap.lon||'null'})" aria-expanded="false">
+            <span class="badge-icao">${icao}</span>
+            ${ap.iata ? `<span class="badge-iata">${ap.iata}</span>` : ''}
+            ${ap.scheduled ? `<span class="badge-sched">✈ Linienflug</span>` : ''}
+            <div class="card-info">
+                <div class="card-name">${ap.name || '–'}</div>
+                <div class="card-meta">${meta}</div>
             </div>
-            <span class="typ-badge ${typClass}">${typLabel}</span>
-            <span class="fh-chevron">▶</span>
+            <span class="badge-type ${typClass}">${typLabel}</span>
+            <span class="card-chevron" aria-hidden="true">▶</span>
         </button>
-        <div class="fh-inhalt">
-            <div class="detail-zeile">
-                <div class="detail-item"><label>ICAO</label><span>${icao}</span></div>
-                ${ap.iata ?`<div class="detail-item"><label>IATA</label><span>${ap.iata}</span></div>`:''}
-                ${ap.local?`<div class="detail-item"><label>Lokal</label><span>${ap.local}</span></div>`:''}
-                <div class="detail-item"><label>Land</label><span>${ap.country_name||ap.country||'–'}</span></div>
-                <div class="detail-item"><label>Region</label><span>${ap.region||'–'}</span></div>
-                <div class="detail-item"><label>Stadt</label><span>${ap.city||'–'}</span></div>
-                <div class="detail-item"><label>Kontinent</label><span>${kontinent||'–'}</span></div>
-                <div class="detail-item"><label>Höhe</label><span>${elev}</span></div>
-                ${coords?`<div class="detail-item"><label>Koordinaten</label><span>${coords}</span></div>`:''}
+
+        <div class="card-body" role="region" aria-label="${ap.name || icao}">
+
+            <dl class="detail-grid">
+                <div class="detail-item"><dt>ICAO</dt><dd>${icao}</dd></div>
+                ${ap.iata  ? `<div class="detail-item"><dt>IATA</dt><dd>${ap.iata}</dd></div>` : ''}
+                ${ap.local ? `<div class="detail-item"><dt>Lokal</dt><dd>${ap.local}</dd></div>` : ''}
+                <div class="detail-item"><dt>Land</dt><dd>${ap.country_name || ap.country || '–'}</dd></div>
+                <div class="detail-item"><dt>Region</dt><dd>${ap.region || '–'}</dd></div>
+                <div class="detail-item"><dt>Stadt</dt><dd>${ap.city || '–'}</dd></div>
+                <div class="detail-item"><dt>Kontinent</dt><dd>${kontinent || '–'}</dd></div>
+                <div class="detail-item"><dt>Höhe</dt><dd>${elev}</dd></div>
+                ${coords ? `<div class="detail-item"><dt>Koordinaten</dt><dd>${coords}</dd></div>` : ''}
+            </dl>
+
+            <div class="action-links">
+                <a class="btn-sv" href="${svUrl}" target="_blank" rel="noopener">✈ Auf SkyVector öffnen</a>
+                ${mapsUrl ? `<a class="btn-ext" href="${mapsUrl}" target="_blank" rel="noopener">🗺 Google Maps</a>` : ''}
+                ${ap.web  ? `<a class="btn-ext" href="${ap.web}"  target="_blank" rel="noopener">🌐 Website</a>` : ''}
+                ${ap.wiki ? `<a class="btn-ext" href="${ap.wiki}" target="_blank" rel="noopener">📖 Wikipedia</a>` : ''}
             </div>
-            <div class="ext-links">
-                <a class="sv-btn" href="${svUrl}" target="_blank">✈ Auf SkyVector öffnen</a>
-                ${mapsUrl?`<a class="ext-link" href="${mapsUrl}" target="_blank">🗺 Google Maps</a>`:''}
-                ${ap.web ?`<a class="ext-link" href="${ap.web}"  target="_blank">🌐 Website</a>`:''}
-                ${ap.wiki?`<a class="ext-link" href="${ap.wiki}" target="_blank">📖 Wikipedia</a>`:''}
-            </div>
-            ${rwyHTML}${frqHTML}${navHTML}${sonneHTML}${wetterHTML}${notamHTML}
+
+            ${rwyRows ? `<section class="card-section">
+                <h3 class="section-title">🛬 Runways</h3>
+                <table class="data-table">
+                    <thead><tr><th>Kennung</th><th>Länge (ft)</th><th>Breite (ft)</th><th>Kurs LE / HE</th><th>Belag</th><th>Bel.</th></tr></thead>
+                    <tbody>${rwyRows}</tbody>
+                </table>
+            </section>` : ''}
+
+            ${frqRows ? `<section class="card-section">
+                <h3 class="section-title">📻 Frequenzen</h3>
+                <table class="data-table">
+                    <thead><tr><th>Typ</th><th>MHz</th><th>Bezeichnung</th></tr></thead>
+                    <tbody>${frqRows}</tbody>
+                </table>
+            </section>` : ''}
+
+            ${navRows ? `<section class="card-section">
+                <h3 class="section-title">📡 Nav-Aids</h3>
+                <table class="data-table">
+                    <thead><tr><th>Kennung</th><th>Name</th><th>Typ</th><th>Freq (kHz)</th><th>DME</th><th>Leistung</th><th>Nutzung</th></tr></thead>
+                    <tbody>${navRows}</tbody>
+                </table>
+            </section>` : ''}
+
+            ${hasCoords ? `<section class="card-section">
+                <h3 class="section-title">🌅 Sonnenauf-/-untergang (UTC, heute)</h3>
+                <dl class="sun-grid" id="sonne-${icao}"><span class="status-loading">wird berechnet…</span></dl>
+            </section>` : ''}
+
+            <section class="card-section">
+                <h3 class="section-title">🌤 Wetter — METAR / TAF</h3>
+                <div id="wetter-${icao}"><span class="status-loading">wird geladen…</span></div>
+            </section>
+
+            <section class="card-section">
+                <h3 class="section-title">⚠️ NOTAMs</h3>
+                <div id="notam-${icao}"><span class="status-loading">wird geladen…</span></div>
+            </section>
+
         </div>`;
-    return div;
+    return article;
 }
 
 function toggle(btn, icao, lat, lon) {
-    const offen = btn.classList.toggle('offen');
-    btn.nextElementSibling.classList.toggle('offen');
+    const offen = btn.classList.toggle('open');
+    btn.setAttribute('aria-expanded', offen);
+    btn.nextElementSibling.classList.toggle('open');
     if (offen) {
         if (lat && lon) ladeErst(icao, lat, lon);
         ladeWetter(icao);
@@ -473,9 +905,10 @@ function ladeErst(icao, lat, lon) {
     if (!el || el.dataset.geladen) return;
     el.dataset.geladen = '1';
     const s = calcSonne(lat, lon);
-    if (!s) { el.innerHTML = '<span class="lade-klein">Polartag/-nacht</span>'; return; }
-    el.innerHTML = `<div class="sonnen-item"><label>Sonnenaufgang</label><span>${s.auf}</span></div>
-        <div class="sonnen-item"><label>Sonnenuntergang</label><span>${s.unter}</span></div>`;
+    if (!s) { el.innerHTML = '<span class="status-loading">Polartag/-nacht</span>'; return; }
+    el.innerHTML = `
+        <div class="sun-item"><dt>Sonnenaufgang</dt><dd>${s.auf}</dd></div>
+        <div class="sun-item"><dt>Sonnenuntergang</dt><dd>${s.unter}</dd></div>`;
 }
 
 async function ladeWetter(icao) {
@@ -493,30 +926,39 @@ async function ladeWetter(icao) {
         if (mRes && mRes.length > 0) {
             const m = mRes[0];
             const cat = m.fltCat || '';
-            const wind = m.wdir !== undefined ? `${m.wdir}° / ${m.wspd} kt${m.wgst?' (Böen '+m.wgst+' kt)':''}` : '–';
-            const vis  = m.visib !== undefined ? `${m.visib} SM` : '–';
-            const temp = m.temp  !== undefined ? `${m.temp} °C` : '–';
-            const dew  = m.dewp  !== undefined ? `${m.dewp} °C` : '–';
-            const qnh  = m.altim !== undefined ? `${m.altim} hPa` : '–';
-            const clouds = Array.isArray(m.clouds) && m.clouds.length ? m.clouds.map(c=>`${c.cover} ${c.base}ft`).join(', ') : (m.cover || '–');
-            html += `<div class="wetter-block">
-                <div class="metar-raw">${m.rawOb||''} ${cat?`<span class="fltcat ${fltcatClass(cat)}">${cat}</span>`:''}</div>
-                <div class="wx-grid">
-                    <div class="wx-item"><label>Wind</label><span>${wind}</span></div>
-                    <div class="wx-item"><label>Sicht</label><span>${vis}</span></div>
-                    <div class="wx-item"><label>Temp / TP</label><span>${temp} / ${dew}</span></div>
-                    <div class="wx-item"><label>QNH</label><span>${qnh}</span></div>
-                    <div class="wx-item"><label>Wolken</label><span>${clouds}</span></div>
-                    ${m.wxString?`<div class="wx-item"><label>Phänomene</label><span>${m.wxString}</span></div>`:''}
-                </div></div>`;
-        } else { html += '<span class="fehler-klein">Kein METAR verfügbar</span>'; }
+            const wind = m.wdir !== undefined ? `${m.wdir}° / ${m.wspd} kt${m.wgst ? ' (Böen '+m.wgst+' kt)' : ''}` : '–';
+            const vis   = m.visib  !== undefined ? `${m.visib} SM` : '–';
+            const temp  = m.temp   !== undefined ? `${m.temp} °C` : '–';
+            const dew   = m.dewp   !== undefined ? `${m.dewp} °C` : '–';
+            const qnh   = m.altim  !== undefined ? `${m.altim} hPa` : '–';
+            const clouds = Array.isArray(m.clouds) && m.clouds.length
+                ? m.clouds.map(c => `${c.cover} ${c.base}ft`).join(', ')
+                : (m.cover || '–');
+            html += `<div class="metar-box">
+                <p class="metar-raw">${m.rawOb || ''} ${cat ? `<span class="badge-fltcat ${fltcatClass(cat)}">${cat}</span>` : ''}</p>
+                <dl class="wx-grid">
+                    <div class="wx-item"><dt>Wind</dt><dd>${wind}</dd></div>
+                    <div class="wx-item"><dt>Sicht</dt><dd>${vis}</dd></div>
+                    <div class="wx-item"><dt>Temp / TP</dt><dd>${temp} / ${dew}</dd></div>
+                    <div class="wx-item"><dt>QNH</dt><dd>${qnh}</dd></div>
+                    <div class="wx-item"><dt>Wolken</dt><dd>${clouds}</dd></div>
+                    ${m.wxString ? `<div class="wx-item"><dt>Phänomene</dt><dd>${m.wxString}</dd></div>` : ''}
+                </dl>
+            </div>`;
+        } else {
+            html += '<span class="status-error">Kein METAR verfügbar</span>';
+        }
         if (tRes && tRes.length > 0 && tRes[0].rawTAF) {
-            html += `<div class="sektion"><p class="sektion-titel" style="margin-top:12px">TAF</p>
-                <div class="taf-raw">${tRes[0].rawTAF.replace(/\n/g,'<br>')}</div></div>`;
+            html += `<section class="card-section">
+                <h3 class="section-title">TAF</h3>
+                <pre class="taf-pre">${tRes[0].rawTAF}</pre>
+            </section>`;
         }
         wettercache[icao] = html;
         el.innerHTML = html;
-    } catch(e) { el.innerHTML = '<span class="fehler-klein">Wetterdaten nicht verfügbar</span>'; }
+    } catch(e) {
+        el.innerHTML = '<span class="status-error">Wetterdaten nicht verfügbar</span>';
+    }
 }
 
 async function ladeNotams(icao) {
@@ -527,39 +969,38 @@ async function ladeNotams(icao) {
     try {
         const res = await fetch('https://corsproxy.io/?' + `https://aviationweather.gov/api/data/notam?format=json&location=${icao}`);
         const data = await res.json();
-        if (!data || data.length === 0) { const h = '<span class="lade-klein">Keine NOTAMs gefunden</span>'; notamcache[icao]=h; el.innerHTML=h; return; }
-        const html = `<div class="notam-liste">${data.slice(0,10).map(n=>
-            `<div class="notam-item">${n.notamText||n.text||JSON.stringify(n)}</div>`
-        ).join('')}${data.length>10?`<div class="lade-klein">… und ${data.length-10} weitere</div>`:''}</div>`;
+        if (!data || data.length === 0) {
+            const h = '<span class="status-loading">Keine NOTAMs gefunden</span>';
+            notamcache[icao] = h; el.innerHTML = h; return;
+        }
+        const html = `<div class="notam-list">${data.slice(0, 10).map(n =>
+            `<div class="notam-item">${n.notamText || n.text || JSON.stringify(n)}</div>`
+        ).join('')}${data.length > 10 ? `<p class="status-loading">… und ${data.length - 10} weitere</p>` : ''}</div>`;
         notamcache[icao] = html;
         el.innerHTML = html;
-    } catch(e) { el.innerHTML = '<span class="fehler-klein">NOTAMs nicht verfügbar</span>'; }
+    } catch(e) {
+        el.innerHTML = '<span class="status-error">NOTAMs nicht verfügbar</span>';
+    }
 }
 
 document.getElementById('suche').addEventListener('input', () => {
     clearTimeout(sucheTimeout);
     sucheTimeout = setTimeout(suche, 200);
 });
+
 document.getElementById('filter').addEventListener('click', e => {
-    const btn = e.target.closest('.filter-btn');
+    const btn = e.target.closest('.chip');
     if (!btn) return;
     if (btn.dataset.sched) {
-        btn.classList.toggle('aktiv');
-        aktivSched = btn.classList.contains('aktiv');
+        btn.classList.toggle('active');
+        aktivSched = btn.classList.contains('active');
     } else {
-        document.querySelectorAll('.filter-btn:not([data-sched])').forEach(b => b.classList.remove('aktiv'));
-        btn.classList.add('aktiv');
+        document.querySelectorAll('.chip:not([data-sched])').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
         aktiverTyp = btn.dataset.typ;
     }
     suche();
 });
 </script>
-<footer>
-    Flughäfen, Runways, Frequenzen, Nav-Aids: <a href="https://ourairports.com/data/" target="_blank">OurAirports</a>
-    <span>|</span>
-    METAR, TAF, NOTAMs: <a href="https://aviationweather.gov" target="_blank">Aviation Weather Center (NOAA)</a>
-    <span>|</span>
-    Charts &amp; Flugplanung: <a href="https://skyvector.com" target="_blank">SkyVector</a>
-</footer>
 </body>
 </html>
