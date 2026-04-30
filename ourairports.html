@@ -237,6 +237,11 @@
 
         #mehr-btn { display: block; width: 100%; padding: 10px; text-align: center; background: var(--mehr-bg); border: 1px solid var(--mehr-bd); border-radius: 8px; color: var(--mehr-col); cursor: pointer; font-size: 0.88rem; margin-top: 4px; transition: background 0.15s; }
         #mehr-btn:hover { background: var(--mehr-hov); }
+
+        footer { text-align: center; padding: 24px 20px; font-size: 0.78rem; color: var(--text-sub); border-top: 1px solid var(--card-bd); margin-top: 16px; }
+        footer a { color: var(--accent); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+        footer span { margin: 0 8px; opacity: 0.4; }
     </style>
 </head>
 <body>
@@ -549,5 +554,12 @@ document.getElementById('filter').addEventListener('click', e => {
     suche();
 });
 </script>
+<footer>
+    Flughäfen, Runways, Frequenzen, Nav-Aids: <a href="https://ourairports.com/data/" target="_blank">OurAirports</a>
+    <span>|</span>
+    METAR, TAF, NOTAMs: <a href="https://aviationweather.gov" target="_blank">Aviation Weather Center (NOAA)</a>
+    <span>|</span>
+    Charts &amp; Flugplanung: <a href="https://skyvector.com" target="_blank">SkyVector</a>
+</footer>
 </body>
 </html>
