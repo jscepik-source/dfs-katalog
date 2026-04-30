@@ -2,7 +2,7 @@ name: DFS Katalog aktualisieren
 
 on:
   schedule:
-    - cron: '0 3 * * *'   # Täglich um 3 Uhr UTC
+    - cron: '0 */6 * * *'  # Alle 6 Stunden
   workflow_dispatch:        # Auch manuell startbar
 
 jobs:
