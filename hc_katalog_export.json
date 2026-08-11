@@ -96,11 +96,5 @@
     "karten": {
       "Aerodrome Chart — ICAO": "https://aip.scaa.gov.so/graphics/eAIP/AD_CHART-HCMR.pdf"
     }
-  },
-  "HCMV": {
-    "_url": "https://aip.scaa.gov.so/eAIP/HC-AD-2.HCMV-en-GB.html",
-    "karten": {
-      "Aerodrome Chart — ICAO": "https://aip.scaa.gov.so/graphics/eAIP/HCMV_AD-CHART.pdf"
-    }
   }
 }
