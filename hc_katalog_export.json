@@ -80,7 +80,7 @@
       "Aerodrome Chart — ICAO": "https://aip.scaa.gov.so/graphics/eAIP/AD_CHART-HCMM.pdf",
       "Aerodrome Parking and Docking Chart": "https://aip.scaa.gov.so/graphics/eAIP/AD_HCMM-APDC.pdf",
       "SID RNAV (GNSS) RWY 23": "https://aip.scaa.gov.so/graphics/eAIP/HCMM-SID-RNAV-(GNSS)-RWY%2023.pdf",
-      "SID RNAV (GNSS) RWY 05": "https://aip.scaa.gov.so/graphics/eAIP/HCMM-STAR-RNAV-(GNSS)-RWY-05.pdf",
+      "STAR RNAV (GNSS) RWY 05": "https://aip.scaa.gov.so/graphics/eAIP/HCMM-STAR-RNAV-(GNSS)-RWY-05.pdf",
       "RNAV (GNSS) Y RWY 05": "https://aip.scaa.gov.so/graphics/eAIP/HCMM-RNAV-(GNSS)-Y-RWY-05.pdf",
       "RNAV (GNSS) Z RWY 05": "https://aip.scaa.gov.so/graphics/eAIP/HCMM-RNAV-(RNP)-Z-RWY-05.pdf"
     }
